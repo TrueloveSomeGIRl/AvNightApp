@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.cxw.avnight.base.BaseActivity
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.base.BaseVMFragment
+import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.mode.bean.ActorInfo
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.weight.GlideImageLoader
@@ -33,6 +34,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
         setActorInfo()
         back_iv.setOnClickListener { finish() }
+
     }
 
     private fun setActorInfo() {

@@ -11,6 +11,7 @@ abstract class BaseRetrofitClient {
     companion object {
         private const val TIME_OUT = 5
     }
+
     private val client: OkHttpClient
         get() {
             val builder = OkHttpClient.Builder()
@@ -21,8 +22,9 @@ abstract class BaseRetrofitClient {
                 logging.level = HttpLoggingInterceptor.Level.BASIC
             }
 
-            builder//.addInterceptor(logging)
-                .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+            builder
+                .addInterceptor(logging)    //拦截器
+                .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)  //超时时间
             handleBuilder(builder)
             return builder.build()
         }
@@ -33,8 +35,6 @@ abstract class BaseRetrofitClient {
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-//                .addCallAdapterFactory(CoroutineCallAdapterFactory.invoke())
             .baseUrl(baseUrl)
             .build().create(serviceClass)
     }

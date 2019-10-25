@@ -6,7 +6,9 @@ import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.cxw.avnight.base.BaseActivity
+import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.util.FragmentMangerWrapper
+import kotlinx.android.synthetic.main.activity_actor_introduce.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 
 class Main2Activity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
@@ -14,7 +16,7 @@ class Main2Activity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     private val fragmentList = arrayListOf<Fragment>()
     private val LouFengFragment by lazy { LouFengFragment() } // 楼凤
-    private val UploadFragment by lazy { UploadFragment() } // 上传 演员
+    private val UploadFragment by lazy { UploadActorFragment() } // 上传 演员
     override fun getLayoutResId(): Int = R.layout.activity_main2
 
     init {
@@ -27,6 +29,14 @@ class Main2Activity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         initFragment()
         // StatusBarUtil.setColor(this, R.color.appThemeColor)
         bottom_bar_rb.setOnCheckedChangeListener(this)
+        main_top_title.setOnClickListener {
+            AlertDialog.Builder(this@Main2Activity, R.style.dialog1)
+                .setContentView(R.layout.dialog_comments_layout)
+                .formBottom(true)
+                .setCancelable(true)
+                .fullWidth()
+                .show()
+        }
     }
 
     override fun initData() {
