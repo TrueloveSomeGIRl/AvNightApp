@@ -2,6 +2,7 @@ package com.cxw.avnight
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 
@@ -13,6 +14,10 @@ import kotlinx.android.synthetic.main.loufeng_in_fragment.*
 
 
 class LouFengInFragment : BaseVMFragment<LouFengInViewModel>() {
+    override fun onNetReload(v: View) {
+
+    }
+
     private val id by lazy { arguments?.getInt(index) }
     override fun providerVMClass(): Class<LouFengInViewModel>? = LouFengInViewModel::class.java
     private val louFengAdapter by lazy { LouFengAdapter() }
@@ -46,6 +51,10 @@ class LouFengInFragment : BaseVMFragment<LouFengInViewModel>() {
         mViewModel.getActorInfo(1, 20)
     }
 
+    override fun onError(e: Throwable) {
+        super.onError(e)
+        mBaseLoadService.showSuccess()
+    }
 
     companion object {
         private const val index = "INDEX"

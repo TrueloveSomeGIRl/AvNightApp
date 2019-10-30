@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION")
+
 package com.cxw.avnight.base
 
 import android.content.Intent
@@ -9,24 +10,32 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cxw.avnight.ActorIntroduceActivity
+import com.kingja.loadsir.callback.Callback
+import com.kingja.loadsir.core.LoadService
+import com.kingja.loadsir.core.LoadSir
 
 
 abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragment() {
 
     protected lateinit var mViewModel: VM
+    protected lateinit var mBaseLoadService: LoadService<*>
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(getLayoutResId(), container, false)
+        val inflate = View.inflate(activity, getLayoutResId(), null)
+        mBaseLoadService = LoadSir.getDefault().register(inflate) { v -> onNetReload(v) }
+        return mBaseLoadService.loadLayout
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initVM()
         initView()
         initData()
         startObserve()
-        super.onViewCreated(view, savedInstanceState)
     }
 
+    protected abstract fun onNetReload(v: View)
     open fun startObserve() {
         mViewModel.mException.observe(this, Observer { it?.let { onError(it) } })
     }
@@ -52,8 +61,6 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
         lifecycle.removeObserver(mViewModel)
         super.onDestroy()
     }
-
-
 
 
 }

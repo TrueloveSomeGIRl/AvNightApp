@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity">
-    <LinearLayout
+    <RelativeLayout
             android:layout_alignParentTop="true"
             android:orientation="vertical"
             android:gravity="center"
@@ -15,11 +15,10 @@
             android:layout_height="50dp">
         <TextView android:layout_width="wrap_content"
                   android:id="@+id/main_top_title"
-                  android:textSize="16sp"
-                  android:textColor="#FFF"
+                  android:textSize="18sp"
                   android:text="@string/lou_feng"
                   android:layout_height="wrap_content"/>
-    </LinearLayout>
+    </RelativeLayout>
     <FrameLayout
             android:layout_below="@id/man_top_layout"
             android:layout_above="@id/bottom_bar_rb"

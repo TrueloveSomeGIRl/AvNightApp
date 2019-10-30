@@ -132,14 +132,14 @@
                 android:textColorHint="#c3c3c3"
                 android:textSize="12sp"/>
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_above="@id/iv"
+                android:layout_above="@id/camera"
                 android:id="@+id/actor_info_rv"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"/>
         <ImageView
                 android:layout_alignParentBottom="true"
-                android:id="@+id/iv"
+                android:id="@+id/camera"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/carmera"/>

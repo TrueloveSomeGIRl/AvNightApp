@@ -7,10 +7,9 @@ import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import com.cxw.avnight.base.BaseActivity
+
 import com.cxw.avnight.base.BaseVMActivity
-import com.cxw.avnight.base.BaseVMFragment
-import com.cxw.avnight.dialog.AlertDialog
+
 import com.cxw.avnight.mode.bean.ActorInfo
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.weight.GlideImageLoader
@@ -38,7 +37,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     }
 
     private fun setActorInfo() {
-        val info = intent?.getParcelableExtra<ActorInfo>(KEY)
+        val info = intent.getParcelableExtra<ActorInfo>(KEY)
         info!!.actorImgs.forEach {
             imgUrlList.add(it.img_url)
         }
@@ -54,14 +53,14 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             setOnBannerListener { }
             start()
         }
-        actor_name_tv?.text = info.actor_name
-        actor_age_tv?.text = info.actor_age.toString()
-        actor_bust_tv?.text = info.actor_bust
-        actor_city_tv?.text = info.actor_city
-        actor_evaluation_tv?.text = info.actor_evaluate
-        actor_height_tv?.text = info.actor_height.toString()
-        actor_weight_tv?.text = info.actor_weight.toString()
-        actor_qq_tv.run {
+        actor_name_tv.text = info.actor_name
+        actor_age_tv.text = info.actor_age.toString()
+        actor_bust_tv.text = info.actor_bust
+        actor_city_tv.text = info.actor_city
+        actor_evaluation_tv.text = info.actor_evaluate
+        actor_height_tv.text = info.actor_height.toString()
+        actor_weight_tv.text = info.actor_weight.toString()
+        with(actor_qq_tv) {
             if (info.actor_wx.isEmpty()) qq_layout.visibility = View.GONE else qq_layout.visibility = View.VISIBLE
             setOnClickListener {
                 if (BaseTools.isApplicationAvilible(this@ActorIntroduceActivity, "com.tencent.mobileqq"))
@@ -74,11 +73,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             }
             text = info.actor_qq
         }
-        actor_wx_tv.run {
+        actor_wx_tv?.run {
             if (info.actor_wx.isEmpty()) wx_layout.visibility = View.GONE else wx_layout.visibility = View.VISIBLE
             text = info.actor_wx
         }
-        actor_phone_tv.run {
+        actor_phone_tv?.run {
             if (info.actor_wx.isEmpty()) phone_layout.visibility = View.GONE else phone_layout.visibility = View.VISIBLE
             text = info.actor_phone
         }
@@ -95,8 +94,8 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         super.startObserve()
         mViewModel.mComments.observe(this@ActorIntroduceActivity, Observer {
             click_see_all.text = "点击查看更多(${it.size})"
-            o_comment_content_tv.text = it[0].from_name + ":" + it[0].content
-            w_comment_content_tv.text = it[1].from_name + ":" + it[1].content
+            o_comment_content_tv.text = it[0].from_name.plus(":").plus(it[0].content)
+            w_comment_content_tv.text = it[1].from_name.plus(":").plus(it[1].content)
         })
     }
 

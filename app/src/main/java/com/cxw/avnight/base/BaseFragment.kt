@@ -1,4 +1,5 @@
 @file:Suppress("DEPRECATION")
+
 package com.cxw.avnight.base
 
 import android.os.Bundle
@@ -14,12 +15,10 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
-        super.onViewCreated(view, savedInstanceState)
     }
-
-
 
 
     abstract fun getLayoutResId(): Int
@@ -27,7 +26,6 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
     abstract fun initView()
 
     abstract fun initData()
-
 
 
 }

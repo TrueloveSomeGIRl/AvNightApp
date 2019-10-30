@@ -23,8 +23,6 @@ class LouFengFragment : BaseFragment() {
     }
 
     override fun getLayoutResId(): Int = R.layout.loufeng_fragment
-
-
     override fun initView() {
         initMagicIndicator()
         vp.adapter = InstructionPagerAdapter(childFragmentManager)

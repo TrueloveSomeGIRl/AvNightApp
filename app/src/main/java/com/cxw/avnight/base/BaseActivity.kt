@@ -18,12 +18,4 @@ abstract class BaseActivity : AppCompatActivity() {
     abstract fun initView()
     abstract fun initData()
 
-    protected fun startActivity(z: Class<*>) {
-        startActivity(Intent(this, z))
-    }
-
-    protected fun startActivity(z: Class<*>, name: String, value: Boolean) {
-        val intent = Intent(this, z).putExtra(name, value)
-        startActivity(intent)
-    }
 }
