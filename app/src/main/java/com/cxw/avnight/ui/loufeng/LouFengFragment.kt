@@ -1,9 +1,11 @@
-package com.cxw.avnight
+package com.cxw.avnight.ui.loufeng
 
 import android.content.Context
 import android.graphics.Color
+import com.cxw.avnight.R
 import com.cxw.avnight.adapter.InstructionPagerAdapter
 import com.cxw.avnight.base.BaseFragment
+import com.cxw.avnight.util.DisplayUtil
 import kotlinx.android.synthetic.main.loufeng_fragment.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -44,8 +46,8 @@ class LouFengFragment : BaseFragment() {
             override fun getTitleView(context: Context, index: Int): IPagerTitleView {
                 val badgePagerTitleView = BadgePagerTitleView(context)
                 val simplePagerTitleView = ColorTransitionPagerTitleView(context)
-                simplePagerTitleView.normalColor = Color.parseColor("#666666")
-                simplePagerTitleView.selectedColor = R.color.appThemeColor
+                simplePagerTitleView.normalColor = Color.parseColor("#c9c9c9")
+                simplePagerTitleView.selectedColor =  Color.parseColor("#000000")
                 simplePagerTitleView.text = indicatorTitleList[index]
                 simplePagerTitleView.setOnClickListener { vp.currentItem = index }
                 badgePagerTitleView.innerPagerTitleView = simplePagerTitleView
@@ -54,7 +56,11 @@ class LouFengFragment : BaseFragment() {
 
             override fun getIndicator(context: Context): IPagerIndicator {
                 val linePagerIndicator = LinePagerIndicator(context)
-                linePagerIndicator.setColors(R.color.appThemeColor)
+                linePagerIndicator.setColors(Color.parseColor("#000000"))
+                linePagerIndicator.mode = LinePagerIndicator.MODE_EXACTLY
+                linePagerIndicator.lineWidth = DisplayUtil.dip2px(context, 20.0f).toFloat()
+                linePagerIndicator.roundRadius = DisplayUtil.dip2px(context, 8.0f).toFloat()
+                linePagerIndicator.yOffset=DisplayUtil.dip2px(context, 8.0f).toFloat()
                 return linePagerIndicator
             }
         }

@@ -2,15 +2,12 @@
 
 package com.cxw.avnight.base
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.cxw.avnight.ActorIntroduceActivity
-import com.kingja.loadsir.callback.Callback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
@@ -19,7 +16,6 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
 
     protected lateinit var mViewModel: VM
     protected lateinit var mBaseLoadService: LoadService<*>
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val inflate = View.inflate(activity, getLayoutResId(), null)

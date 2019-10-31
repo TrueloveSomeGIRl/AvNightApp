@@ -15,5 +15,15 @@
     <string name="album">相册</string>
     <string name="cancel">取消</string>
     <string name="login">登录</string>
+    <string name="copy">复制成功</string>
+    <string name="actor_name">名字</string>
+    <string name="actor_phone">手机号</string>
+    <string name="actor_qq">QQ</string>
+    <string name="actor_wx">微信</string>
+    <string name="actor_address">地址</string>
+    <string name="class_content">上课内容</string>
+    <string name="evaluation">上课评价</string>
+    <string name="submit">提交</string>
+
 
 </resources>

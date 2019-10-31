@@ -1,14 +1,15 @@
-package com.cxw.avnight
+package com.cxw.avnight.ui.loufeng
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.cxw.avnight.viewmodel.LouFengInViewModel
+import com.cxw.avnight.R
 
 import com.cxw.avnight.adapter.LouFengAdapter
 import com.cxw.avnight.base.BaseVMFragment
-import com.cxw.avnight.mode.bean.ActorInfo
 
 import kotlinx.android.synthetic.main.loufeng_in_fragment.*
 
@@ -35,14 +36,14 @@ class LouFengInFragment : BaseVMFragment<LouFengInViewModel>() {
     }
 
     private fun initAdapter() {
-        louFengAdapter.run {
+        with(louFengAdapter) {
             setOnItemClickListener { _, _, position ->
                 val intent = Intent(context, ActorIntroduceActivity::class.java)
                 intent.putExtra(ActorIntroduceActivity.KEY, data[position])
                 context?.startActivity(intent)
                 println(data[position])
             }
-
+            //其它
         }
     }
 

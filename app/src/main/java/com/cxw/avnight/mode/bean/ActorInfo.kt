@@ -11,7 +11,7 @@ data class ActorInfo(
     val actor_age: Int,
     val actor_bust: String,
     val actor_city: String,
-    val actor_evaluate: String?,
+    val actor_evaluate: String,
     val actor_gender: String,
     val actor_height: Int,
     val actor_introduce: String,

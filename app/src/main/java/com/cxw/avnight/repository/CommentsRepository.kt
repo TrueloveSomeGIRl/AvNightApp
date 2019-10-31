@@ -1,4 +1,4 @@
-package com.cxw.avnight
+package com.cxw.avnight.repository
 
 import com.cxw.avnight.mode.Api.AvNightRetrofitClient
 

@@ -1,7 +1,8 @@
-package com.cxw.avnight
+package com.cxw.avnight.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.cxw.avnight.R
 
 class LoginActivity : AppCompatActivity() {
 

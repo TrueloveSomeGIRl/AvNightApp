@@ -1,12 +1,13 @@
-package com.cxw.avnight
+package com.cxw.avnight.ui.loufeng
 
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import com.cxw.avnight.viewmodel.CommentsModel
+import com.cxw.avnight.R
 
 import com.cxw.avnight.base.BaseVMActivity
 
@@ -20,6 +21,8 @@ import kotlinx.android.synthetic.main.activity_actor_introduce.*
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun providerVMClass(): Class<CommentsModel>? = CommentsModel::class.java
+    var startPage = 0
+    var pageSize = 10
 
     companion object {
         const val KEY = "key"
@@ -33,7 +36,6 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
         setActorInfo()
         back_iv.setOnClickListener { finish() }
-
     }
 
     private fun setActorInfo() {
@@ -42,7 +44,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             imgUrlList.add(it.img_url)
         }
 
-        mViewModel.getComments(info.id, 0, 0)
+        mViewModel.getComments(info.id, startPage, pageSize)
         banner.run {
             setImageLoader(GlideImageLoader())
             setImages(imgUrlList)
@@ -61,7 +63,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         actor_height_tv.text = info.actor_height.toString()
         actor_weight_tv.text = info.actor_weight.toString()
         with(actor_qq_tv) {
-            if (info.actor_wx.isEmpty()) qq_layout.visibility = View.GONE else qq_layout.visibility = View.VISIBLE
+            if (info.actor_qq.isEmpty()) qq_layout.visibility = View.GONE else qq_layout.visibility = View.VISIBLE
             setOnClickListener {
                 if (BaseTools.isApplicationAvilible(this@ActorIntroduceActivity, "com.tencent.mobileqq"))
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(QQURL + info.actor_qq))) else
@@ -73,27 +75,38 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             }
             text = info.actor_qq
         }
-        actor_wx_tv?.run {
+        with(actor_wx_tv) {
             if (info.actor_wx.isEmpty()) wx_layout.visibility = View.GONE else wx_layout.visibility = View.VISIBLE
             text = info.actor_wx
+            setOnClickListener {
+                BaseTools.copyTextContent(this@ActorIntroduceActivity, info.actor_wx)
+                Toast.makeText(
+                    this@ActorIntroduceActivity,
+                    context.getString(R.string.copy),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
-        actor_phone_tv?.run {
-            if (info.actor_wx.isEmpty()) phone_layout.visibility = View.GONE else phone_layout.visibility = View.VISIBLE
+        with(actor_phone_tv) {
+            if (info.actor_phone.isEmpty()) phone_layout.visibility = View.GONE else phone_layout.visibility =
+                View.VISIBLE
+            setOnClickListener {
+                BaseTools.callPhone(info.actor_phone, this@ActorIntroduceActivity)
+            }
             text = info.actor_phone
         }
-        actor_work_address_tv.run {
-            if (info.actor_wx.isEmpty()) setVisible(true) else setVisible(false)
+        with(actor_work_address_tv) {
+            if (info.actor_workaddress.isEmpty()) setVisible(true) else setVisible(false)
             text = info.actor_workaddress
         }
-
-        actor_introduction_tv?.text = "老师介绍:\n${info.actor_introduce}"
+        actor_introduction_tv.text = "老师介绍:\n${info.actor_introduce}"
     }
 
 
     override fun startObserve() {
         super.startObserve()
         mViewModel.mComments.observe(this@ActorIntroduceActivity, Observer {
-            click_see_all.text = "点击查看更多(${it.size})"
+            click_see_all.text = String.format("点击查看更多(%s)", it.size)// "点击查看更多(${it.size})"
             o_comment_content_tv.text = it[0].from_name.plus(":").plus(it[0].content)
             w_comment_content_tv.text = it[1].from_name.plus(":").plus(it[1].content)
         })

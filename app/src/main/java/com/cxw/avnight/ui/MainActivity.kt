@@ -1,27 +1,27 @@
-package com.cxw.avnight
+package com.cxw.avnight.ui
 
 
-import android.annotation.SuppressLint
 import android.widget.RadioGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import com.cxw.avnight.R
 import com.cxw.avnight.base.BaseActivity
-import com.cxw.avnight.dialog.AlertDialog
+import com.cxw.avnight.ui.loufeng.LouFengFragment
+import com.cxw.avnight.ui.upload.UploadActorFragment
 import com.cxw.avnight.util.FragmentMangerWrapper
-import kotlinx.android.synthetic.main.activity_actor_introduce.*
+import com.jaeger.library.StatusBarUtil
+
 import kotlinx.android.synthetic.main.app_bar_main.*
 
-class Main2Activity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
 
     private lateinit var mCurrentFragment: Fragment
 
     override fun getLayoutResId(): Int = R.layout.activity_main2
 
-    @SuppressLint("ResourceAsColor")
     override fun initView() {
+        StatusBarUtil.setLightMode(this)
         initFragment()
-        // StatusBarUtil.setColor(this, R.color.appThemeColor)
         bottom_bar_rb.setOnCheckedChangeListener(this)
     }
 

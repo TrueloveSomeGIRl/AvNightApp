@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+
+    <ImageView
+            android:id="@+id/iv"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_margin="5dp"
+            android:scaleType="centerInside"/>
+
+    <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|top"
+            android:background="@mipmap/upload_actor_img_iv_delete"/>
+</FrameLayout>

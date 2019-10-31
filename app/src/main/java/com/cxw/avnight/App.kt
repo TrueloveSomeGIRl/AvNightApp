@@ -8,6 +8,11 @@ import com.cxw.avnight.state.LoadingCallback
 import com.kingja.loadsir.core.LoadSir
 
 import kotlin.properties.Delegates
+import com.cxw.avnight.weight.MediaLoader
+import com.yanzhenjie.album.AlbumConfig
+import com.yanzhenjie.album.Album
+import java.util.*
+
 
 class App : Application() {
 
@@ -18,7 +23,12 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         CONTEXT = applicationContext
-
+        Album.initialize(
+            AlbumConfig.newBuilder(this)
+                .setAlbumLoader(MediaLoader())
+                .setLocale(Locale.getDefault())
+                .build()
+        )
         LoadSir.beginBuilder()
             .addCallback(ErrorCallback())
             .addCallback(EmptyCallback())

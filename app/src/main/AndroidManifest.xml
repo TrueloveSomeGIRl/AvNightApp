@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="com.cxw.avnight">
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
@@ -17,27 +17,19 @@
             tools:ignore="GoogleAppIndexingWarning">
 
 
-        <provider
-                android:name="androidx.core.content.FileProvider"
-                android:authorities="com.cxw.avnight.fileprovider"
-                android:exported="false"
-                android:grantUriPermissions="true">
-            <meta-data
-                    android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths_public" />
-        </provider>
-        <activity android:name=".LoginActivity">
+
+        <activity android:name=".ui.LoginActivity">
         </activity>
-        <activity android:name=".ActorIntroduceActivity">
+        <activity android:name=".ui.loufeng.ActorIntroduceActivity">
         </activity>
-        <activity android:name=".Main2Activity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.SplashActivity">
 
         </activity>
     </application>
