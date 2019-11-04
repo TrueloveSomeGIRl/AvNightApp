@@ -5,13 +5,15 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.cxw.avnight.mode.Exception.ApiException
+import com.cxw.avnight.mode.Exception.ExceptionEngine
 import kotlinx.coroutines.*
 import java.util.concurrent.CancellationException
 
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
-    val mException: MutableLiveData<Throwable> = MutableLiveData()
+    val mException: MutableLiveData<ApiException> = MutableLiveData()
 
 
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
@@ -31,18 +33,20 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     }
 
 
-    fun launchOnUITryCatch(tryBlock: suspend CoroutineScope.() -> Unit,
-                           catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
-                           finallyBlock: suspend CoroutineScope.() -> Unit,
-                           handleCancellationExceptionManually: Boolean
+    fun launchOnUITryCatch(
+        tryBlock: suspend CoroutineScope.() -> Unit,
+        catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
+        finallyBlock: suspend CoroutineScope.() -> Unit,
+        handleCancellationExceptionManually: Boolean
     ) {
         launchOnUI {
             tryCatch(tryBlock, catchBlock, finallyBlock, handleCancellationExceptionManually)
         }
     }
 
-    fun launchOnUITryCatch(tryBlock: suspend CoroutineScope.() -> Unit,
-                           handleCancellationExceptionManually: Boolean = false
+    fun launchOnUITryCatch(
+        tryBlock: suspend CoroutineScope.() -> Unit,
+        handleCancellationExceptionManually: Boolean = false
     ) {
         launchOnUI {
             tryCatch(tryBlock, {}, {}, handleCancellationExceptionManually)
@@ -54,14 +58,15 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         tryBlock: suspend CoroutineScope.() -> Unit,
         catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
         finallyBlock: suspend CoroutineScope.() -> Unit,
-        handleCancellationExceptionManually: Boolean = false) {
+        handleCancellationExceptionManually: Boolean = false
+    ) {
 
         coroutineScope {
             try {
                 tryBlock()
             } catch (e: Throwable) {
                 if (e !is CancellationException || handleCancellationExceptionManually) {
-                    mException.value = e
+                    mException.value = ExceptionEngine.handleException(e)
                     catchBlock(e)
                 } else {
                     throw e
@@ -72,3 +77,4 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 }
+//

@@ -8,8 +8,8 @@
     <string name="actor_weight">体重</string>
     <string name="actor_age">年龄</string>
     <string name="actor_bust">胸围</string>
-    <string name="contact">联系她</string>
-    <string name="click_copy">点击复制</string>
+    <string name="contact">&#8195;&#8195;联系她</string>
+    <string name="click_copy">&#8195;&#8195;点击复制</string>
     <string name="install_qq">请先安装QQ</string>
     <string name="camera">拍照</string>
     <string name="album">相册</string>
@@ -24,6 +24,13 @@
     <string name="class_content">上课内容</string>
     <string name="evaluation">上课评价</string>
     <string name="submit">提交</string>
+    <string name="up_to_six_pieces">不能超过6张哦</string>
+    <string name="gender">性别</string>
+    <string name="city">城市</string>
+    <string name="upload_img">别忘了上传照片</string>
+    <string name="load_more">正在加载中...</string>
+    <string name="load_fail">加载失败</string>
+    <string name="load_end">上课老师以全部加载完成了哦！😊</string>
 
 
 </resources>

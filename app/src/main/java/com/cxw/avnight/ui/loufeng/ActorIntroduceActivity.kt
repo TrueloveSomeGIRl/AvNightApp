@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_actor_introduce.*
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun providerVMClass(): Class<CommentsModel>? = CommentsModel::class.java
-    var startPage = 0
+    var startPage = 1
     var pageSize = 10
 
     companion object {
@@ -40,6 +40,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 
     private fun setActorInfo() {
         val info = intent.getParcelableExtra<ActorInfo>(KEY)
+
         info!!.actorImgs.forEach {
             imgUrlList.add(it.img_url)
         }
@@ -63,7 +64,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         actor_height_tv.text = info.actor_height.toString()
         actor_weight_tv.text = info.actor_weight.toString()
         with(actor_qq_tv) {
-            if (info.actor_qq.isEmpty()) qq_layout.visibility = View.GONE else qq_layout.visibility = View.VISIBLE
+            if (info.actor_qq.isEmpty()) View.GONE else View.VISIBLE
             setOnClickListener {
                 if (BaseTools.isApplicationAvilible(this@ActorIntroduceActivity, "com.tencent.mobileqq"))
                     startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(QQURL + info.actor_qq))) else
@@ -73,11 +74,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                         Toast.LENGTH_LONG
                     ).show()
             }
-            text = info.actor_qq
+            text = info.actor_qq.plus(getString(R.string.contact))
         }
         with(actor_wx_tv) {
-            if (info.actor_wx.isEmpty()) wx_layout.visibility = View.GONE else wx_layout.visibility = View.VISIBLE
-            text = info.actor_wx
+            if (info.actor_wx.isEmpty()) View.GONE else View.VISIBLE
+            text = info.actor_wx.plus(getString(R.string.copy))
             setOnClickListener {
                 BaseTools.copyTextContent(this@ActorIntroduceActivity, info.actor_wx)
                 Toast.makeText(
@@ -88,12 +89,12 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             }
         }
         with(actor_phone_tv) {
-            if (info.actor_phone.isEmpty()) phone_layout.visibility = View.GONE else phone_layout.visibility =
-                View.VISIBLE
+            if (info.actor_phone.isEmpty()) View.GONE else View.VISIBLE
+
             setOnClickListener {
                 BaseTools.callPhone(info.actor_phone, this@ActorIntroduceActivity)
             }
-            text = info.actor_phone
+            text = info.actor_phone.plus(getString(R.string.contact))
         }
         with(actor_work_address_tv) {
             if (info.actor_workaddress.isEmpty()) setVisible(true) else setVisible(false)
@@ -106,9 +107,9 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun startObserve() {
         super.startObserve()
         mViewModel.mComments.observe(this@ActorIntroduceActivity, Observer {
-            click_see_all.text = String.format("点击查看更多(%s)", it.size)// "点击查看更多(${it.size})"
-            o_comment_content_tv.text = it[0].from_name.plus(":").plus(it[0].content)
-            w_comment_content_tv.text = it[1].from_name.plus(":").plus(it[1].content)
+            click_see_all.text = "点击查看更多"//String.format("点击查看更多(%s)", it.size)// "点击查看更多(${it.size})"
+            o_comment_content_tv.text = it[0].from_name.plus(":${it[1].content}")
+            w_comment_content_tv.text = it[1].from_name.plus(":${it[1].content}")
         })
     }
 

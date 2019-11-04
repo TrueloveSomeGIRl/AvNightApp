@@ -11,7 +11,6 @@ import com.cxw.avnight.R
 class UploadActorImgAdapter(layoutResId: Int = R.layout.upload_actor_img_item_layout) :
     BaseQuickAdapter<String, BaseViewHolder>(layoutResId) {
     override fun convert(helper: BaseViewHolder, item: String) {
-        Log.d("cxx","$item")
         Glide.with(mContext).load(item).into(helper.getView(R.id.iv))
         helper.addOnClickListener(R.id.delete)
     }

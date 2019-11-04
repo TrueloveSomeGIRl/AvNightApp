@@ -3,6 +3,7 @@
 package com.cxw.avnight.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,11 @@ import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
 
-abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragment() {
-
-     lateinit var mViewModel: VM
+abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragment() {
+    private var isViewInitiated: Boolean = false
+    private var isVisibleToUser: Boolean = false
+    private var isDataInitiated: Boolean = false
+    protected lateinit var mViewModel: VM
     protected lateinit var mBaseLoadService: LoadService<*>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -27,13 +30,37 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
         super.onViewCreated(view, savedInstanceState)
         initVM()
         initView()
-        initData()
         startObserve()
+        isViewInitiated = true
+        prepareFetchData()
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        this.isVisibleToUser = isVisibleToUser
+        prepareFetchData()
+    }
+    /**
+     * 取来数据
+     */
+    abstract fun fetchData()
+
+    private fun prepareFetchData(): Boolean {
+        return prepareFetchData(false)
+    }
+
+    private fun prepareFetchData(forceUpdate: Boolean): Boolean {
+        if (isVisibleToUser && isViewInitiated && (!isDataInitiated || forceUpdate)) {
+            fetchData()
+            isDataInitiated = true
+            return true
+        }
+        return false
+    }
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
         mViewModel.mException.observe(this, Observer {
+            Log.d("cxx","$it")
             it?.let {
            // onError(it)
         } })
@@ -44,8 +71,6 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
     abstract fun getLayoutResId(): Int
 
     abstract fun initView()
-
-    abstract fun initData()
 
     private fun initVM() {
         providerVMClass()?.let {

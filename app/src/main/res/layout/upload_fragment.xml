@@ -26,7 +26,37 @@
                     android:padding="6dp"
                     android:textColorHint="#c3c3c3"
                     android:textSize="14sp"/>
+            <EditText
+                    android:id="@+id/gender_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/actor_info_et_shape"
+                    android:hint="@string/gender"
+                    android:padding="6dp"
+                    android:textColorHint="#c3c3c3"
+                    android:textSize="14sp"/>
 
+            <EditText
+                    android:id="@+id/city_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/actor_info_et_shape"
+                    android:hint="@string/city"
+                    android:padding="6dp"
+                    android:textColorHint="#c3c3c3"
+                    android:textSize="14sp"/>
+            <EditText
+                    android:id="@+id/qq_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/actor_info_et_shape"
+                    android:hint="@string/actor_qq"
+                    android:padding="6dp"
+                    android:textColorHint="#c3c3c3"
+                    android:textSize="14sp"/>
 
             <EditText
                     android:id="@+id/phone_tv"
@@ -42,16 +72,6 @@
                     android:textColorHint="#c3c3c3"
                     android:textSize="14sp"/>
 
-            <EditText
-                    android:id="@+id/qq_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/actor_info_et_shape"
-                    android:hint="@string/actor_qq"
-                    android:padding="6dp"
-                    android:textColorHint="#c3c3c3"
-                    android:textSize="14sp"/>
 
             <EditText
                     android:id="@+id/wx_tv"

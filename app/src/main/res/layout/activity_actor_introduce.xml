@@ -1,333 +1,319 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
-            android:background="#ecf1f0"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#ecf1f0"
             android:orientation="vertical">
+
         <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="400dp">
+
             <com.youth.banner.Banner
                     android:id="@+id/banner"
-                    app:indicator_width="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     app:indicator_height="5dp"
                     app:indicator_margin="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    app:indicator_width="5dp" />
+
             <RelativeLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/top_bar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:orientation="horizontal"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
+
                 <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
                         android:id="@+id/back_iv"
-                        android:layout_marginStart="15dp"
-                        android:background="@mipmap/dark_left_back"
-                        android:layout_alignParentStart="true"
-                        android:layout_gravity="start"/>
-                <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:background="@mipmap/question_mark"
+                        android:layout_alignParentStart="true"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="15dp"
+                        android:background="@mipmap/dark_left_back" />
+
+                <ImageView
                         android:id="@+id/feed_back_iv"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="15dp"/>
+                        android:layout_marginEnd="15dp"
+                        android:background="@mipmap/question_mark" />
             </RelativeLayout>
 
         </FrameLayout>
 
         <LinearLayout
-                android:background="@drawable/actor_introduce_shape"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:orientation="vertical"
-                android:layout_marginTop="8dp"
-                android:padding="8dp"
-                android:paddingBottom="8dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/actor_introduce_shape"
+                android:orientation="vertical"
+                android:padding="8dp"
+                android:paddingBottom="8dp">
+
             <TextView
                     android:id="@+id/actor_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="28sp"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:textSize="28sp" />
+
             <TextView
                     android:id="@+id/actor_city_tv"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#a8a8a8"/>
+                    android:textColor="#a8a8a8"
+                    android:textSize="14sp" />
+
             <TextView
                     android:id="@+id/actor_work_address_tv"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="5dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:textColor="#a8a8a8"/>
+                    android:textColor="#a8a8a8"
+                    android:textSize="14sp" />
         </LinearLayout>
 
 
         <LinearLayout
-                android:padding="8dp"
-                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
                 android:layout_marginRight="8dp"
-                android:layout_width="match_parent"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/actor_introduce_shape"
-                android:layout_height="wrap_content">
+                android:orientation="vertical"
+                android:padding="8dp">
+
             <LinearLayout
-                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal">
 
                 <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                     <TextView
-                            android:layout_gravity="center"
-                            android:text="@string/actor_height"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="center"
                             android:gravity="center"
-                            android:textSize="16sp"/>
+                            android:text="@string/actor_height"
+                            android:textSize="16sp" />
+
                     <TextView
                             android:id="@+id/actor_height_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                     <TextView
-                            android:text="@string/actor_weight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="16sp"/>
+                            android:text="@string/actor_weight"
+                            android:textSize="16sp" />
 
                     <TextView
                             android:id="@+id/actor_weight_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/actor_age"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                     <TextView
                             android:id="@+id/actor_age_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                 </LinearLayout>
 
 
                 <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="0dp"
-                        android:gravity="center"
-                        android:layout_gravity="center"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
+
                     <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="@string/actor_bust"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp" />
 
                     <TextView
                             android:id="@+id/actor_bust_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="12sp"/>
+                            android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                    android:id="@+id/phone_layout"
-                    android:layout_marginTop="8dp"
-                    android:layout_width="match_parent"
-                    android:gravity="center"
+
+            <TextView
+                    android:id="@+id/actor_phone_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                <TextView
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@mipmap/phone"
-                        android:id="@+id/actor_phone_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
-                <TextView
-                        android:id="@+id/contact_phone_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/contact"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:id="@+id/qq_layout"
+                    android:layout_gravity="center"
+                    android:drawableStart="@mipmap/phone"
+                    android:drawablePadding="5dp"
+                    android:textSize="14sp" />
+
+
+            <TextView
                     android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
+                    android:id="@+id/actor_qq_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                <TextView
-                        android:drawablePadding="5dp"
-                        android:drawableStart="@mipmap/qq"
-                        android:id="@+id/actor_qq_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
-                <TextView
-                        android:id="@+id/contact_qq_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/contact"/>
-            </LinearLayout>
-            <LinearLayout
-                    android:id="@+id/wx_layout"
+                    android:layout_gravity="center"
+                    android:drawableStart="@mipmap/qq"
+                    android:drawablePadding="5dp"
+                    android:textSize="14sp" />
+
+
+            <TextView
                     android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:layout_width="match_parent"
+                    android:id="@+id/actor_wx_tv"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                <TextView
-                        android:drawablePadding="5dp"
-                        android:id="@+id/actor_wx_tv"
-                        android:drawableStart="@mipmap/wx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"/>
-                <TextView
-                        android:id="@+id/contact_wx_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp"
-                        android:layout_marginStart="15dp"
-                        android:text="@string/click_copy"/>
-            </LinearLayout>
+                    android:layout_gravity="center"
+                    android:drawableStart="@mipmap/wx"
+                    android:drawablePadding="5dp"
+                    android:textSize="14sp" />
+
 
         </LinearLayout>
+
         <TextView
                 android:id="@+id/actor_introduction_tv"
-                android:padding="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/actor_introduce_shape"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="14sp"/>
+                android:padding="15dp"
+                android:textSize="14sp" />
 
         <TextView
                 android:id="@+id/actor_evaluation_tv"
-                android:padding="15dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/actor_introduce_shape"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"/>
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/actor_introduce_shape"
+                android:padding="15dp"
+                android:textSize="14sp" />
+
         <LinearLayout
-                android:padding="8dp"
-                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="15dp"
                 android:layout_marginRight="8dp"
-                android:layout_width="match_parent"
+                android:layout_marginBottom="15dp"
                 android:background="@drawable/actor_introduce_shape"
-                android:layout_height="wrap_content">
+                android:orientation="vertical"
+                android:padding="8dp">
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
-                    android:orientation="horizontal"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal">
+
                 <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="#Fbc"/>
+                        android:background="#Fbc" />
 
                 <TextView
-                        android:textSize="12sp"
-                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空"
-                        android:layout_width="wrap_content"
                         android:id="@+id/o_comment_content_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"/>
+                        android:layout_marginStart="4dp"
+                        android:textSize="12sp"
+                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空" />
 
 
             </LinearLayout>
+
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
                     android:layout_marginStart="8dp"
-                    android:orientation="horizontal"
-                    android:layout_marginEnd="8dp">
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal">
+
                 <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:background="#Fbc"/>
+                        android:background="#Fbc" />
 
                 <TextView
-                        android:textSize="12sp"
-                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空"
-                        android:layout_width="wrap_content"
                         android:id="@+id/w_comment_content_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"/>
+                        android:layout_marginStart="4dp"
+                        android:textSize="12sp"
+                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空" />
             </LinearLayout>
 
             <TextView
-                    android:text="1231321313"
-                    android:layout_marginStart="26dp"
+                    android:id="@+id/click_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/click_see_all"/>
+                    android:layout_marginStart="26dp"
+                    android:text="1231321313" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

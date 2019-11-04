@@ -32,8 +32,6 @@ object AvNightRetrofitClient : BaseRetrofitClient() {
                 }
                 val response = chain.proceed(request)
 
-
-
                 if (!NetWorkUtils.isNetworkAvailable(App.CONTEXT)) {
                     val maxAge = 60 * 60
                     response.newBuilder()

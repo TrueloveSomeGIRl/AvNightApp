@@ -8,6 +8,7 @@ import android.net.Uri
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context.CLIPBOARD_SERVICE
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -15,6 +16,7 @@ import java.io.File
 import java.util.ArrayList
 import android.graphics.Bitmap
 import android.os.Environment
+import android.util.Log
 import id.zelory.compressor.Compressor
 
 
@@ -53,14 +55,6 @@ object BaseTools {
         context.startActivity(intent)
     }
 
-    /**
-     *  复制文本
-     */
-    fun copyTextContent(context: Context, content: String) {
-        val cm = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val mClipData = ClipData.newPlainText("Label", content)
-        cm.primaryClip = mClipData
-    }
 
     /**
      *  文件上传 Retrofit
@@ -69,7 +63,7 @@ object BaseTools {
         val parts = ArrayList<MultipartBody.Part>(files.size)
         for (file in files) {
             val f = Compressor(context)
-                .setMaxWidth(720)
+                .setMaxWidth(1920)
                 .setMaxHeight(1080)
                 .setQuality(80)
                 .setCompressFormat(Bitmap.CompressFormat.JPEG)
@@ -79,6 +73,7 @@ object BaseTools {
                     ).absolutePath
                 )
                 .compressToFile(File(file))
+
             val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), f)
             val part = MultipartBody.Part.createFormData("f", f.name, requestBody)
             parts.add(part)
@@ -86,5 +81,18 @@ object BaseTools {
         return parts
     }
 
+    fun toRequestBody(value: String): RequestBody {
+        return RequestBody.create(MediaType.parse("text/plain"), value)
+    }
+
+    /**
+     *  复制文本
+     */
+    fun copyTextContent(context: Context, text: String) {
+        val clipboardManager = context.getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
+        val clipData = ClipData.newPlainText("label", text)
+        clipboardManager.setPrimaryClip(clipData)
+
+    }
 
 }

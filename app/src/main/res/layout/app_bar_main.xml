@@ -1,30 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.SplashActivity">
+
     <RelativeLayout
-            android:layout_alignParentTop="true"
-            android:orientation="vertical"
-            android:gravity="center"
             android:id="@+id/man_top_layout"
-            android:background="@color/appThemeColor"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
-        <TextView android:layout_width="wrap_content"
-                  android:id="@+id/main_top_title"
-                  android:textSize="18sp"
-                  android:text="@string/lou_feng"
-                  android:layout_height="wrap_content"/>
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:background="@color/appThemeColor">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp" />
+
+        <TextView
+                android:id="@+id/main_top_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:text="@string/lou_feng"
+                android:textSize="18sp" />
     </RelativeLayout>
+
     <FrameLayout
-            android:layout_below="@id/man_top_layout"
-            android:layout_above="@id/bottom_bar_rb"
             android:id="@+id/man_container_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_above="@id/bottom_bar_rb"
+            android:layout_below="@id/man_top_layout" />
 
     <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
     <!--android:layout_alignParentBottom="true"-->
@@ -41,10 +52,10 @@
 
 
         <RadioButton
-                android:layout_marginTop="5dp"
                 android:id="@+id/lf_rb"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
@@ -53,14 +64,14 @@
                 android:gravity="center"
                 android:text="@string/lou_feng"
                 android:textColor="@drawable/bottom_text_color_select"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
 
         <RadioButton
-                android:layout_marginTop="5dp"
                 android:id="@+id/upload_rb"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="#fff"
                 android:button="@null"
@@ -68,7 +79,7 @@
                 android:gravity="center"
                 android:text="@string/upload"
                 android:textColor="@drawable/bottom_text_color_select"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
     </RadioGroup>
 
