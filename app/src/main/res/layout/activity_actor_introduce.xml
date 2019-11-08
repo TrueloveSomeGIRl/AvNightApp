@@ -202,28 +202,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
                     android:drawableStart="@mipmap/phone"
                     android:drawablePadding="5dp"
                     android:textSize="14sp" />
 
 
             <TextView
-                    android:layout_marginTop="8dp"
                     android:id="@+id/actor_qq_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
                     android:drawableStart="@mipmap/qq"
                     android:drawablePadding="5dp"
                     android:textSize="14sp" />
 
 
             <TextView
-                    android:layout_marginTop="8dp"
                     android:id="@+id/actor_wx_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
                     android:drawableStart="@mipmap/wx"
                     android:drawablePadding="5dp"
                     android:textSize="14sp" />
@@ -270,50 +271,61 @@
                     android:layout_marginEnd="8dp"
                     android:orientation="horizontal">
 
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="#Fbc" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/comment_user_head_img_iv"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp" />
 
                 <TextView
-                        android:id="@+id/o_comment_content_tv"
+                        android:id="@+id/comment_user_name_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textSize="12sp"
-                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空" />
-
-
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:textColor="#c9c9c9"
+                        android:textSize="14sp"
+                        tools:text="你时代峰峻阿里斯顿就" />
             </LinearLayout>
 
-            <LinearLayout
+            <TextView
+                    android:id="@+id/comment_content_tv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="8dp" />
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="6dp"
                     android:orientation="horizontal">
 
-                <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="#Fbc" />
-
                 <TextView
-                        android:id="@+id/w_comment_content_tv"
+                        android:layout_alignParentStart="true"
+                        android:id="@+id/comment_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:textSize="12sp"
-                        tools:text="你时代峰峻阿里斯顿就发了啥顶级流量可视对讲福利卡时间到了发监考老师打几分卡洛斯杜绝浪费卡四大皆空" />
-            </LinearLayout>
+                        android:textSize="14sp" />
+
+                <TextView
+                        android:drawableStart="@mipmap/comment"
+                        android:text="@string/comment"
+                        android:drawablePadding="2dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/comment_actor"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp" />
+            </RelativeLayout>
 
             <TextView
                     android:id="@+id/click_see_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="26dp"
-                    android:text="1231321313" />
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/click_more_comment" />
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

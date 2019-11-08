@@ -10,6 +10,5 @@ data class ChildComment(
     val id: Int,
     val to_avatar: String,
     val to_id: Int,
-    val to_name: String,
-    val update_time: String
+    val to_name: String
 )

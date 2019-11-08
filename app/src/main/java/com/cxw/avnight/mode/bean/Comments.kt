@@ -1,7 +1,6 @@
 package com.cxw.avnight.mode.bean
 
-
-data class Comments (
+data class Comments(
     val childComments: List<ChildComment>,
     val content: String,
     val create_time: String,
@@ -11,7 +10,5 @@ data class Comments (
     val id: Int,
     val like_num: Int,
     val owner_id: Int,
-    val type: Int,
-    val update_time: String
+    val type: Int
 )
-

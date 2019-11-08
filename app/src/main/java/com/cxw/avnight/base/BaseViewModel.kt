@@ -1,6 +1,7 @@
 package com.cxw.avnight.base
 
 
+import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -77,4 +78,4 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 }
-//
+

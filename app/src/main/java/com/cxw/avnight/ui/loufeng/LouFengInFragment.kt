@@ -111,7 +111,6 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
                 mBaseLoadService.showSuccess()
                 louFengAdapter.loadMoreComplete()   //这里还有个条件没有判断  先放在这里面
                 louFengAdapter.addData(it.data)
-                Log.d("cxx","${it.data}")
                 currentPage = it.currentPage
                 pageTotal = it.pageTotal
                 if (it.total==0){

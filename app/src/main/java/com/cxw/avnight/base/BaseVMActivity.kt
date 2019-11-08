@@ -29,7 +29,10 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
 
 
     open fun startObserve() {
-        mViewModel.mException.observe(this, Observer { it?.let { onError(it) } })
+        mViewModel.mException.observe(this, Observer {
+            it?.let { onError(it) }
+        }
+        )
     }
 
     open fun onError(e: Throwable) {}

@@ -7,8 +7,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.cxw.avnight.state.EmptyCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
@@ -20,7 +22,11 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
     protected lateinit var mViewModel: VM
     protected lateinit var mBaseLoadService: LoadService<*>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val inflate = View.inflate(activity, getLayoutResId(), null)
         mBaseLoadService = LoadSir.getDefault().register(inflate) { v -> onNetReload(v) }
         return mBaseLoadService.loadLayout
@@ -40,6 +46,7 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
         this.isVisibleToUser = isVisibleToUser
         prepareFetchData()
     }
+
     /**
      * 取来数据
      */
@@ -57,13 +64,13 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
         }
         return false
     }
+
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
         mViewModel.mException.observe(this, Observer {
-            Log.d("cxx","$it")
-            it?.let {
-           // onError(it)
-        } })
+//            mBaseLoadService.showCallback(EmptyCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
+//            Toast.makeText(context, it.code, Toast.LENGTH_LONG).show()
+        })
     }
 
     //open fun onError(e: Throwable) {}
