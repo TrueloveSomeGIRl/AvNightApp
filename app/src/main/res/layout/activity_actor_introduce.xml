@@ -233,6 +233,7 @@
         </LinearLayout>
 
         <TextView
+
                 android:id="@+id/actor_introduction_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -243,6 +244,7 @@
                 android:textSize="14sp" />
 
         <TextView
+                android:layout_marginTop="8dp"
                 android:id="@+id/actor_evaluation_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -262,7 +264,10 @@
                 android:background="@drawable/actor_introduce_shape"
                 android:orientation="vertical"
                 android:padding="8dp">
-
+           <FrameLayout
+                   android:id="@+id/comment_layout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
             <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -318,7 +323,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp" />
             </RelativeLayout>
-
+           </FrameLayout>
             <TextView
                     android:id="@+id/click_see_all"
                     android:layout_width="wrap_content"

@@ -68,7 +68,6 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         multiTypeAdapter.register(actorCommentAdapter)
         multiTypeAdapter.register(childCommentAdapter)
 
-
         StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
         setActorInfo()
         back_iv.setOnClickListener { finish() }
@@ -140,9 +139,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             text = actorInfo.actor_wx.plus(getString(R.string.copy))
         }
         with(actor_phone_tv) {
-
             visibility = if (actorInfo.actor_phone.isEmpty()) View.GONE else View.VISIBLE
-
             setOnClickListener {
                 BaseTools.callPhone(actorInfo.actor_phone, this@ActorIntroduceActivity)
             }
@@ -152,7 +149,15 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             visibility = if (actorInfo.actor_workaddress.isEmpty()) View.GONE else View.VISIBLE
             text = actorInfo.actor_workaddress
         }
-        actor_introduction_tv.text = "老师介绍:\n\n${actorInfo.actor_introduce}"
+        with(actor_evaluation_tv){
+            visibility = if (actorInfo.actor_evaluate.isEmpty()) View.GONE else View.VISIBLE
+            actor_evaluation_tv.text = "上课评价:\n\n${actorInfo.actor_evaluate}"
+        }
+        with(actor_introduction_tv){
+            visibility = if (actorInfo.actor_introduce.isEmpty()) View.GONE else View.VISIBLE
+            actor_introduction_tv.text = "上课内容:\n\n${actorInfo.actor_introduce}"
+        }
+
     }
 
 
@@ -164,20 +169,23 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     }
 
     private fun initComments(it: Result<Comments>) {
-        Glide.with(this@ActorIntroduceActivity).load(it.data[0].from_avatar)
-            .into(comment_user_head_img_iv)
-        comment_user_name_tv.text = it.data[0].from_name
-        comment_content_tv.text = it.data[0].content
-        comment_time_tv.text = it.data[0].create_time
-        for (index in 0..it.data.size) {
-            items.add(ActorCommentEntity(it.data[index]))
-            if (it.data[index].childComments.isNotEmpty()) {
-                items.add(ChildCommentEntity(it.data[index].childComments[index]))
+        if (it.data.size < 0) {
+            comment_layout.visibility = View.GONE
+            click_see_all.text = getString(R.string.add_comment)
+        } else {
+            click_see_all.text = getString(R.string.click_more_comment)
+            Glide.with(this@ActorIntroduceActivity).load(it.data[0].from_avatar)
+                .into(comment_user_head_img_iv)
+            comment_user_name_tv.text = it.data[0].from_name
+            comment_content_tv.text = it.data[0].content
+            comment_time_tv.text = it.data[0].create_time
+            for (index in 0..it.data.size) {
+                items.add(ActorCommentEntity(it.data[index]))
+                if (it.data[index].childComments.isNotEmpty()) {
+                    items.add(ChildCommentEntity(it.data[index].childComments[index]))
+                }
             }
         }
-
-
-
     }
 
     override fun initData() {

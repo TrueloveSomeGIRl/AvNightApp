@@ -39,19 +39,20 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
 
     private fun initEt() {
         //这里该怎么搞 才好 这里 太复杂了
-        checkNull(name_tv)
-        checkNull(age_tv)
-        checkNull(gender_tv)
-        checkNull(phone_tv)
-        checkNull(wx_tv)
-        checkNull(qq_tv)
-        checkNull(address_tv)
-        checkNull(class_content_tv)
-        //    checkUnll(evaluation_tv)
-        checkNull(bust_tv)
-        checkNull(height_tv)
-        checkNull(city_tv)
-        checkNull(weight_tv)
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, age_tv.text.toString(), "年龄不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, gender_et.text.toString(), "性别不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
+
+
+
+
         if (imgPathList.size == 0) {
             Toast.makeText(context, getString(R.string.upload_img), Toast.LENGTH_LONG)
                 .show()
@@ -78,13 +79,6 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
 
     }
 
-    private fun checkNull(et: EditText) {
-        if (et.text.isEmpty()) {
-            Toast.makeText(context, et.hint.toString().plus("不能为空"), Toast.LENGTH_LONG)
-                .show()
-            return
-        }
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mBaseLoadService.showSuccess()  //这里方案怎么解决
@@ -153,7 +147,7 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
                             }
                             uploadActorImgAdapter.addData(imgPathList)
                             if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
-                            for (pos in uploadActorImgAdapter.itemCount until 6) {
+                            for (pos in uploadActorImgAdapter.itemCount until 6) {  //TODO
                                 uploadActorImgAdapter.remove(pos)
                             }
                         }

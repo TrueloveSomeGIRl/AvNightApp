@@ -85,7 +85,6 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
                 val intent = Intent(context, ActorIntroduceActivity::class.java)
                 intent.putExtra(ActorIntroduceActivity.KEY, data[position])
                 context?.startActivity(intent)
-                println(data[position])
             }
             //其它
         }

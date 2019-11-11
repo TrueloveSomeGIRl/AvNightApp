@@ -12,5 +12,6 @@ data class ActorImg(
     val img_info: String,
     val img_url: String,
     val img_w: Double,
-    val img_weight: Int
-) :  Parcelable
+    val img_weight: Int,
+    val img_pot_rgb: String
+) : Parcelable

@@ -10,8 +10,7 @@ import kotlinx.coroutines.coroutineScope
 suspend fun executeResponse(response: AvNightResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
                             errorBlock: suspend CoroutineScope.() -> Unit) {
     coroutineScope {
-        println(response.errCode)
-        if (response.errCode == "-5") errorBlock()
+        if (response.errCode == -5) errorBlock()
         else successBlock()
     }
 }

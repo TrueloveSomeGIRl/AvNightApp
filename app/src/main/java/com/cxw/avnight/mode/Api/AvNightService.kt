@@ -1,9 +1,6 @@
 package com.cxw.avnight.mode.Api
 
-import com.cxw.avnight.mode.bean.ActorInfo
-import com.cxw.avnight.mode.bean.Result
-import com.cxw.avnight.mode.bean.AvNightResponse
-import com.cxw.avnight.mode.bean.Comments
+import com.cxw.avnight.mode.bean.*
 
 
 import retrofit2.http.*
@@ -20,13 +17,21 @@ interface AvNightService {
     }
 
     @GET("findVerificationActor/{type}/{page}/{pageSize}")
-    suspend fun getActorInfo(@Path("type") type: Int,@Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<ActorInfo>>
+    suspend fun getActorInfo(@Path("type") type: Int, @Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<ActorInfo>>
 
     @GET("selectComments/{id}/{type}/{pageSize}")
     suspend fun getComments(@Path("id") id: Int, @Path("type") type: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<Comments>>
 
+    @GET("email/{email}")
+    suspend fun getEmailCode(@Path("email") email: String): AvNightResponse<EmailEntity>
+
+    @POST("login")
+    suspend fun login(@Body loginBody: RequestBody): AvNightResponse<LoginEntity>
+
+    @POST("registered")
+    suspend fun registered(@Body registeredBody: RequestBody): AvNightResponse<RegisteredEntity>
 
     @Multipart
     @POST("insertActorInfo")
-    suspend fun uploadActorInfo(@Part parts: List<MultipartBody.Part>, @Part("Info")  infoBody: RequestBody ): AvNightResponse<String>
+    suspend fun uploadActorInfo(@Part parts: List<MultipartBody.Part>, @Part("Info") infoBody: RequestBody): AvNightResponse<String>
 }

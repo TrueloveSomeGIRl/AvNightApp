@@ -49,4 +49,11 @@
         <item name="android:windowEnterAnimation">@anim/dialog_scale_anim_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_scale_anim_out</item>
     </style>
+
+    <style name="ActivityFullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryDark">@color/transparent</item>
+        <item name="windowNoTitle">true</item>
+
+    </style>
 </resources>

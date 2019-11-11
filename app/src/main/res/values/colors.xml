@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#FFFFFF</color>
     <color name="colorAccent">#c9c9c9</color>
 
+    <color name="transparent">#00000000</color>
     <color name="appThemeColor">#FFFFFF</color>
+
 </resources>

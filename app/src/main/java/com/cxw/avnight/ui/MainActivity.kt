@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     override fun initData() {
         with(civ){
-            Glide.with(this).load("http://47.100.91.50:9681/headImg/boy_01.jpg").into(this)
+           // Glide.with(this).load("http://47.100.91.50:9681/headImg/boy_01.jpg").into(this)
            setOnClickListener {
                if (!drawer_layout.isDrawerOpen(GravityCompat.START))
                drawer_layout.openDrawer(GravityCompat.START)
