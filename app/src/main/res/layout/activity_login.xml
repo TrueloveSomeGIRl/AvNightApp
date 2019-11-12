@@ -144,6 +144,7 @@
                     android:id="@+id/password_tv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textPassword"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:background="@null"
@@ -170,6 +171,7 @@
                     android:id="@+id/reply_password_tv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:inputType="textPassword"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="12dp"
                     android:background="@null"
@@ -193,7 +195,7 @@
 
         <RadioButton
 
-                android:id="@+id/rd_find"
+                android:id="@+id/boy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:button="@null"
@@ -206,7 +208,7 @@
 
 
         <RadioButton
-                android:id="@+id/rd_brush"
+                android:id="@+id/girl"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="12dp"

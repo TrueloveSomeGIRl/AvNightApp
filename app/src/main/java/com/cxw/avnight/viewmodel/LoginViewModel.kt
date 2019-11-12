@@ -19,6 +19,7 @@ class LoginViewModel : BaseViewModel() {
     private val repository by lazy { LoginRepository() }
     val loginViewModel: MutableLiveData<LoginEntity> = MutableLiveData()
     val registeredViewModel: MutableLiveData<RegisteredEntity> = MutableLiveData()
+    val updatePasswordViewModel: MutableLiveData<String> = MutableLiveData()
     val emailCodeViewModel: MutableLiveData<EmailEntity> = MutableLiveData()
     fun login(userBody: RequestBody) {
         launch {
@@ -44,6 +45,15 @@ class LoginViewModel : BaseViewModel() {
                 repository.getEmailCode(email)
             }
             executeResponse(result, { emailCodeViewModel.value = result.data }, {})
+        }
+    }
+
+    fun Updatepassword(passwordBody: RequestBody) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                repository.updatePassword(passwordBody)
+            }
+            executeResponse(result, { updatePasswordViewModel.value = result.data }, {})
         }
     }
 

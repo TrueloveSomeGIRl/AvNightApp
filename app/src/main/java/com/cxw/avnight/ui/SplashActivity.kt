@@ -11,6 +11,7 @@ import com.cxw.avnight.base.BaseActivity
 import com.cxw.avnight.util.SPUtil
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_login.*
+
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.*
 

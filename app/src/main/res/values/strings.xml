@@ -58,4 +58,7 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#03
     <string name="girl_head_img">女头像</string>
     <string name="boy_head_img">男头像</string>
     <string name="sure">确定</string>
+    <string name="two_passwords_are_inconsistent">两次密码不一致</string>
+    <string name="send_email_success">已发送邮箱</string>
+    <string name="register_success">注册成功,正在登录</string>
 </resources>

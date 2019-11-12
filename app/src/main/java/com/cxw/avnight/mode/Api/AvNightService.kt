@@ -31,6 +31,9 @@ interface AvNightService {
     @POST("registered")
     suspend fun registered(@Body registeredBody: RequestBody): AvNightResponse<RegisteredEntity>
 
+    @POST("updatePassword")
+    suspend fun updatePassword(@Body updatePasswordBody: RequestBody): AvNightResponse<String>
+
     @Multipart
     @POST("insertActorInfo")
     suspend fun uploadActorInfo(@Part parts: List<MultipartBody.Part>, @Part("Info") infoBody: RequestBody): AvNightResponse<String>
