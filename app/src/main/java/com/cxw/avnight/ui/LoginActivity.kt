@@ -1,8 +1,7 @@
 package com.cxw.avnight.ui
 
 import android.content.Intent
-import android.os.Bundle
-import android.util.Log
+
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
@@ -22,6 +21,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
     private val userInfo = HashMap<String, Any>()
     private var code = ""
     private var loginOrRegister = true
+    private var forgetPassword = false
     override fun initView() {
         StatusBarUtil.setTranslucentForImageView(this, 0, line_view)
         StatusBarUtil.setLightMode(this)
@@ -52,16 +52,15 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
                     return@setOnClickListener
                 }
                 userInfo["email"] = user_email_tv.text.toString().trim()
-                userInfo["password"] = "cxw9681"
+                userInfo["password"] = password_tv.text.toString()
                 mViewModel.login(
                     RequestBody.create(
                         okhttp3.MediaType.parse("application/json;charset=UTF-8"),
                         Gson().toJson(userInfo)
                     )
                 )
-                Log.d("cxx","${ Gson().toJson(userInfo)}")
 
-                playLottieAnim()
+                lv.visibility = View.VISIBLE
             } else {
                 userInfo.clear()
                 BaseTools.checkEtIsNotEmpty(
@@ -118,6 +117,19 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
 
         }
 
+        forget_password_tv.setOnClickListener {
+            if (forgetPassword) {
+                input_email_code_layout.visibility = View.GONE
+                reply_user_password_layout.visibility = View.GONE
+                forgetPassword = false
+                login.text = getString(R.string.login)
+            } else {
+                input_email_code_layout.visibility = View.VISIBLE
+                reply_user_password_layout.visibility = View.VISIBLE
+                forgetPassword = true
+                login.text = getString(R.string.sure)
+            }
+        }
         register_tv.setOnClickListener {
             if (loginOrRegister) {
                 loginXmlUI(
@@ -165,32 +177,48 @@ class LoginActivity : BaseVMActivity<LoginViewModel>() {
         rg.visibility = rgLayoutVisibility
     }
 
+    override fun RequestLoading(isLoading: Boolean) {
+        super.RequestLoading(isLoading)
+        playLottieAnim()
+    }
+
     override fun startObserve() {
         super.startObserve()
         mViewModel.run {
+            pauseLottieAnim()
             loginViewModel.observe(this@LoginActivity, Observer {
-                pauseLottieAnim()
+                lv.visibility = View.GONE
                 //后面改造用DB存
                 SPUtil.saveValue("token", it.token)
                 SPUtil.saveValue("isLogin", true)
                 SPUtil.saveValue("headImg", it.userHeadImg)
                 SPUtil.saveValue("userId", it.userId)
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+//                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+//                finish()
+
             })
             emailCodeViewModel.observe(this@LoginActivity, Observer {
-                pauseLottieAnim()
                 code = it.code
             })
         }
     }
 
+    override fun onError(e: Throwable) {
+        super.onError(e)
+        pauseLottieAnim()
+    }
+
     private fun playLottieAnim() {
+        lv.setAnimation("net_work_loading_lottie.json")
+        lv.repeatCount = 100
+        lv.playAnimation()
         lv.visibility = View.VISIBLE
-        lv.pauseAnimation()
     }
 
     private fun pauseLottieAnim() {
+        lv.setAnimation("net_work_loading_lottie.json")
+        lv.repeatCount = 100
         lv.visibility = View.GONE
-        lv.playAnimation()
+        lv.pauseAnimation()
     }
 }

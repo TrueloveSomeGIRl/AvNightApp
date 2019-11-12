@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="8dp"
-                    android:background="@mipmap/user_ic" />
+                    android:background="@mipmap/email_ic" />
 
             <EditText
                     android:id="@+id/user_email_tv"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="8dp"
-                    android:background="@mipmap/user_ic" />
+                    android:background="@mipmap/code_ic" />
 
             <EditText
                     android:id="@+id/input_email_code_tv"
@@ -258,6 +258,5 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:visibility="gone"
-            app:lottie_fileName="net_work_loading_lottie.json"
-            app:lottie_loop="true" />
+          />
 </RelativeLayout>

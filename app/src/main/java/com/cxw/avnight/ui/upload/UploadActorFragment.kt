@@ -21,7 +21,7 @@ import com.google.gson.Gson
 import kotlin.collections.HashMap
 
 class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
-    override fun providerVMClass(): Class<UploadViewModel>? = UploadViewModel::class.java
+    override fun providerVMClass(): Class<UploadViewModel> = UploadViewModel::class.java
     private val imgPathList = arrayListOf<String>()
     private val mActorInfo = HashMap<String, Any>()
     override fun getLayoutResId(): Int = R.layout.upload_fragment
@@ -88,6 +88,8 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
     override fun initView() {
         initRv()
         initCamera()
+
+
     }
 
     private fun initRv() {

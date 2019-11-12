@@ -15,7 +15,7 @@ import java.util.concurrent.CancellationException
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
     val mException: MutableLiveData<ApiException> = MutableLiveData()
-
+    val mLoading: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch { block() }
@@ -29,6 +29,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 
     fun launch(tryBlock: suspend CoroutineScope.() -> Unit) {
         launchOnUI {
+            mLoading.value = true
             tryCatch(tryBlock, {}, {}, true)
         }
     }

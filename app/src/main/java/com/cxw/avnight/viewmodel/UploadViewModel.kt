@@ -17,10 +17,10 @@ class UploadViewModel : BaseViewModel() {
 
     fun getUpload(parts: List<MultipartBody.Part>, info: RequestBody) {
         launch {
+
             val result = withContext(Dispatchers.IO) {
                 repository.getUpload(parts, info)
             }
-            Log.d("cxx","$result")
             executeResponse(result, { uploadActorInfo.value = result.data }, {})
         }
     }

@@ -29,14 +29,19 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
 
 
     open fun startObserve() {
-        mViewModel.mException.observe(this, Observer {
-            it?.let { onError(it) }
+        mViewModel.let {
+            it.mException.observe(this, Observer {
+                onError(it)
+            })
+            it.mLoading.observe(this, Observer {
+                RequestLoading(it)
+            })
         }
-        )
+
     }
 
     open fun onError(e: Throwable) {}
-
+    open fun RequestLoading(isLoading: Boolean) {}
     override fun onDestroy() {
         mViewModel.let {
             lifecycle.removeObserver(it)
