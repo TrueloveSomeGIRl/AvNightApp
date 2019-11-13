@@ -7,6 +7,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.cxw.avnight.R
+
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.SPUtil
@@ -14,11 +15,13 @@ import com.cxw.avnight.viewmodel.LoginViewModel
 import com.google.gson.Gson
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_login.*
+import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.jetbrains.anko.toast
 
 class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnCheckedChangeListener {
 
-    override fun providerVMClass(): Class<LoginViewModel>? = LoginViewModel::class.java
+    override fun providerVMClass(): Class<LoginViewModel> = LoginViewModel::class.java
     override fun getLayoutResId(): Int = R.layout.activity_login
     private val userInfo = HashMap<String, Any>()
     private var code = ""
@@ -34,30 +37,25 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         when (buttonView.id) {
             R.id.boy -> sex = "男"
             R.id.girl -> sex = "女"
-
         }
     }
 
+    override fun requestSuccess(requestSuccess: Boolean) {
+        super.requestSuccess(requestSuccess)
+        initLottieAnim(View.VISIBLE, true)
+    }
 
     override fun initData() {
         get_email_code.setOnClickListener {
             if (!user_email_tv.text.isNotBlank()) {
-                BaseTools.checkEtIsNotEmpty(
-                    this@LoginActivity,
-                    user_email_tv.text.toString(),
-                    getString(R.string.email_not_empty)
-                )
+                toast(getString(R.string.email_not_empty))
+                return@setOnClickListener
             } else {
                 if (!BaseTools.isEmail(user_email_tv.text.toString())) {
-                    Toast.makeText(
-                        this@LoginActivity,
-                        getString(R.string.email_format_error),
-                        Toast.LENGTH_LONG
-                    )
-                        .show()
+                    toast(getString(R.string.email_format_error))
+                    return@setOnClickListener
                 } else {
                     mViewModel.getEmailCode(user_email_tv.text.toString().trim())
-
                 }
             }
         }
@@ -65,78 +63,61 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
             when (login.text.toString()) {
                 getString(R.string.login) -> {
                     userInfo.clear()
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        password_tv.text.toString(),
-                        getString(R.string.password_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        user_email_tv.text.toString(),
-                        getString(R.string.email_not_empty)
-                    )
-
-                    if (!BaseTools.isEmail(user_email_tv.text.toString())) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            getString(R.string.email_format_error),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                    if (!user_email_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_not_empty))
                         return@setOnClickListener
                     }
+                    if (!BaseTools.isEmail(user_email_tv.text.toString())) {
+                        toast(getString(R.string.email_format_error))
+                        return@setOnClickListener
+                    }
+                    if (!password_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.password_not_empty))
+                        return@setOnClickListener
+                    }
+
                     userInfo["email"] = user_email_tv.text.toString().trim()
                     userInfo["password"] = password_tv.text.toString()
                     mViewModel.login(
                         RequestBody.create(
-                            okhttp3.MediaType.parse("application/json;charset=UTF-8"),
+                            MediaType.parse("application/json;charset=UTF-8"),
                             Gson().toJson(userInfo)
                         )
                     )
                 }
                 getString(R.string.register) -> {
                     userInfo.clear()
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        user_name_tv.text.toString(),
-                        getString(R.string.name_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        user_email_tv.text.toString(),
-                        getString(R.string.email_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        input_email_code_tv.text.toString(),
-                        getString(R.string.email_code_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        password_tv.text.toString(),
-                        getString(R.string.password_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        reply_password_tv.text.toString(),
-                        getString(R.string.two_password_not_empty)
-                    )
+                    if (!user_name_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.name_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!user_email_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!BaseTools.isEmail(user_email_tv.text.toString())) {
+                        toast(getString(R.string.email_format_error))
+                        return@setOnClickListener
+                    }
+                    if (!input_email_code_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_code_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!password_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.password_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!reply_password_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.two_password_not_empty))
+                        return@setOnClickListener
+                    }
                     if (password_tv.text.toString() != reply_password_tv.text.toString()) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            getString(R.string.two_passwords_are_inconsistent),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                        toast(getString(R.string.two_passwords_are_inconsistent))
                         return@setOnClickListener
                     }
                     if (code != input_email_code_tv.text.toString().trim()) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            getString(R.string.email_code_error),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                        toast(getString(R.string.email_code_error))
+                        return@setOnClickListener
                     }
                     userInfo["name"] = user_name_tv.text.toString()
                     userInfo["email"] = user_email_tv.text.toString().trim()
@@ -145,56 +126,48 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                     userInfo["sex"] = sex
                     mViewModel.registered(
                         RequestBody.create(
-                            okhttp3.MediaType.parse("application/json;charset=UTF-8"),
+                            MediaType.parse("application/json;charset=UTF-8"),
                             Gson().toJson(userInfo)
                         )
                     )
                 }
                 getString(R.string.sure) -> {
                     userInfo.clear()
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        user_email_tv.text.toString(),
-                        getString(R.string.email_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        input_email_code_tv.text.toString(),
-                        getString(R.string.email_code_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        password_tv.text.toString(),
-                        getString(R.string.password_not_empty)
-                    )
-                    BaseTools.checkEtIsNotEmpty(
-                        this@LoginActivity,
-                        reply_password_tv.text.toString(),
-                        getString(R.string.two_password_not_empty)
-                    )
-                    if (code != input_email_code_tv.text.toString().trim()) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            getString(R.string.email_code_error),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                    if (!user_email_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_not_empty))
+                        return@setOnClickListener
                     }
-                    if (code != input_email_code_tv.text.toString().trim()) {
-                        Toast.makeText(
-                            this@LoginActivity,
-                            getString(R.string.email_code_error),
-                            Toast.LENGTH_LONG
-                        )
-                            .show()
+                    if (!input_email_code_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_code_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!BaseTools.isEmail(user_email_tv.text.toString())) {
+                        toast(getString(R.string.email_format_error))
+                        return@setOnClickListener
+                    }
+                    if (!password_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.password_not_empty))
+                        return@setOnClickListener
+                    }
+                    if (!reply_password_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.two_password_not_empty))
+                        return@setOnClickListener
                     }
 
+                    if (code != input_email_code_tv.text.toString().trim()) {
+                        toast(getString(R.string.email_code_error))
+                        return@setOnClickListener
+                    }
+                    if (code != input_email_code_tv.text.toString().trim()) {
+                        toast(getString(R.string.email_code_error))
+                        return@setOnClickListener
+                    }
                     userInfo["email"] = user_email_tv.text.toString().trim()
                     userInfo["password"] = password_tv.text.toString()
                     userInfo["code"] = input_email_code_tv.text.toString().trim()
                     mViewModel.Updatepassword(
                         RequestBody.create(
-                            okhttp3.MediaType.parse("application/json;charset=UTF-8"),
+                            MediaType.parse("application/json;charset=UTF-8"),
                             Gson().toJson(userInfo)
                         )
                     )
@@ -209,11 +182,13 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 reply_user_password_layout.visibility = View.GONE
                 forgetPassword = false
                 login.text = getString(R.string.login)
+                forget_password_tv.text = getString(R.string.find_password)
             } else {
                 input_email_code_layout.visibility = View.VISIBLE
                 reply_user_password_layout.visibility = View.VISIBLE
                 forgetPassword = true
                 login.text = getString(R.string.sure)
+                forget_password_tv.text = getString(R.string.back_login)
             }
         }
         register_tv.setOnClickListener {
@@ -263,16 +238,14 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         rg.visibility = rgLayoutVisibility
     }
 
-    override fun RequestLoading(isLoading: Boolean) {
-        super.RequestLoading(isLoading)
-        playLottieAnim()
+    override fun requestLoading(isLoading: Boolean) {
+        super.requestLoading(isLoading)
+        initLottieAnim(View.VISIBLE, true)
     }
 
     override fun startObserve() {
         super.startObserve()
-        pauseLottieAnim()
         mViewModel.run {
-
             loginViewModel.observe(this@LoginActivity, Observer {
                 //后面改造用DB存
                 SPUtil.saveValue("token", it.token)
@@ -281,23 +254,18 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 SPUtil.saveValue("userId", it.userId)
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
-
             })
             emailCodeViewModel.observe(this@LoginActivity, Observer {
                 get_email_code.text = getString(R.string.send_email_success)
                 code = it.code
             })
             registeredViewModel.observe(this@LoginActivity, Observer {
-                Toast.makeText(
-                    this@LoginActivity,
-                    getString(R.string.register_success),
-                    Toast.LENGTH_LONG
-                ).show()
+                toast( getString(R.string.register_success))
                 userInfo["email"] = it.email
                 userInfo["password"] = it.password
                 mViewModel.login(
                     RequestBody.create(
-                        okhttp3.MediaType.parse("application/json;charset=UTF-8"),
+                        MediaType.parse("application/json;charset=UTF-8"),
                         Gson().toJson(userInfo)
                     )
                 )
@@ -307,21 +275,17 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun onError(e: Throwable) {
         super.onError(e)
-        pauseLottieAnim()
+        toast(e.message.toString())
+        initLottieAnim(View.GONE, false)
     }
 
-    private fun playLottieAnim() {
+
+    private fun initLottieAnim(visibility: Int, isPlay: Boolean) {
         lv.setAnimation("net_work_loading_lottie.json")
         lv.repeatCount = 100
-        lv.playAnimation()
-        lv.visibility = View.VISIBLE
+        if (isPlay) lv.playAnimation() else lv.pauseAnimation()
+        lv.visibility = visibility
     }
 
-    private fun pauseLottieAnim() {
-        lv.visibility = View.GONE
-        lv.setAnimation("net_work_loading_lottie.json")
-        lv.repeatCount = 100
-        lv.pauseAnimation()
 
-    }
 }

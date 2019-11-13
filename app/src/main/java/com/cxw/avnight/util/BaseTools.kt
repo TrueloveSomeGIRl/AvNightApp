@@ -18,6 +18,7 @@ import android.graphics.Bitmap
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import com.google.gson.Gson
 import id.zelory.compressor.Compressor
 import java.util.regex.Pattern
 
@@ -57,6 +58,15 @@ object BaseTools {
         context.startActivity(intent)
     }
 
+    /**
+     *  请求体
+     */
+    fun <T> requestBody(entity: T, contentType: String): RequestBody {
+        return RequestBody.create(
+            MediaType.parse(contentType),
+            Gson().toJson(entity)
+        )
+    }
 
     /**
      *  文件上传 Retrofit
@@ -98,7 +108,7 @@ object BaseTools {
     }
 
 
-     fun checkEtIsNotEmpty(context: Context,content: String, showTip: String) {
+    fun checkEtIsNotEmpty(context: Context, content: String, showTip: String) {
         if (!content.isNotBlank()) {
             Toast.makeText(context, showTip, Toast.LENGTH_LONG)
                 .show()
@@ -107,7 +117,8 @@ object BaseTools {
     }
 
     fun isEmail(email: String): Boolean {
-        val str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
+        val str =
+            "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
         val p = Pattern.compile(str)
         val m = p.matcher(email)
         return m.matches()

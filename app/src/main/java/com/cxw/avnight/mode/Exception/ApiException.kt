@@ -1,6 +1,6 @@
 package com.cxw.avnight.mode.Exception
 
-class ApiException : RuntimeException {
+class   ApiException : RuntimeException {
     // 异常处理，为速度，不必要设置getter和setter
     var code: Int = 0
     override var message: String? = null

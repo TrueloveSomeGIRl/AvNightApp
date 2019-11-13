@@ -26,7 +26,7 @@ class LoginViewModel : BaseViewModel() {
             val result = withContext(Dispatchers.IO) {
                 repository.login(userBody)
             }
-            executeResponse(result, { loginViewModel.value = result.data }, {})
+            executeResponse(result, { loginViewModel.value = result.data }, { })
         }
     }
 

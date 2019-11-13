@@ -1,7 +1,5 @@
 package com.cxw.avnight.adapter
 
-import android.net.Uri
-import android.util.Log
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -14,5 +12,4 @@ class UploadActorImgAdapter(layoutResId: Int = R.layout.upload_actor_img_item_la
         Glide.with(mContext).load(item).into(helper.getView(R.id.iv))
         helper.addOnClickListener(R.id.delete)
     }
-
 }

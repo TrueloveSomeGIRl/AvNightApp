@@ -22,7 +22,6 @@ object AvNightRetrofitClient : BaseRetrofitClient() {
             .addInterceptor { chain ->
                 //addInterceptor是添加在与服务器连接之前和之后
                 // addNetworkInterceptor是添加在与服务器建立连接和发起请求的之间
-
                 var request = chain.request()
                 if (SPUtil.getValue("token","").toString().isNotEmpty()){
                     request = request.newBuilder().header("token", SPUtil.getValue("token","").toString()).build()

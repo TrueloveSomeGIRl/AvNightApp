@@ -10,7 +10,6 @@ import com.cxw.avnight.R
 class CustomLoadMoreView : LoadMoreView() {
 
     override fun getLayoutId(): Int {
-
         return R.layout.view_load_more
 
     }

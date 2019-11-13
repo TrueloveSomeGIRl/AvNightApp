@@ -108,6 +108,7 @@
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="12dp"
+                    android:digits="1234567890"
                     android:layout_toEndOf="@id/email_iv"
                     android:background="@null"
                     android:hint="@string/input_code" />

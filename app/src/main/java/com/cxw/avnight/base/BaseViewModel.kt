@@ -1,7 +1,7 @@
 package com.cxw.avnight.base
 
 
-import android.util.Log
+
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,13 +9,12 @@ import androidx.lifecycle.viewModelScope
 import com.cxw.avnight.mode.Exception.ApiException
 import com.cxw.avnight.mode.Exception.ExceptionEngine
 import kotlinx.coroutines.*
-import java.util.concurrent.CancellationException
 
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
-
     val mException: MutableLiveData<ApiException> = MutableLiveData()
     val mLoading: MutableLiveData<Boolean> = MutableLiveData()
+    val mRequestSuccess: MutableLiveData<Boolean> = MutableLiveData()
 
     private fun launchOnUI(block: suspend CoroutineScope.() -> Unit) {
         viewModelScope.launch { block() }
@@ -36,10 +35,10 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 
 
     fun launchOnUITryCatch(
-        tryBlock: suspend CoroutineScope.() -> Unit,
-        catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
-        finallyBlock: suspend CoroutineScope.() -> Unit,
-        handleCancellationExceptionManually: Boolean
+            tryBlock: suspend CoroutineScope.() -> Unit,
+            catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
+            finallyBlock: suspend CoroutineScope.() -> Unit,
+            handleCancellationExceptionManually: Boolean
     ) {
         launchOnUI {
             tryCatch(tryBlock, catchBlock, finallyBlock, handleCancellationExceptionManually)
@@ -47,8 +46,8 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun launchOnUITryCatch(
-        tryBlock: suspend CoroutineScope.() -> Unit,
-        handleCancellationExceptionManually: Boolean = false
+            tryBlock: suspend CoroutineScope.() -> Unit,
+            handleCancellationExceptionManually: Boolean = false
     ) {
         launchOnUI {
             tryCatch(tryBlock, {}, {}, handleCancellationExceptionManually)
@@ -57,22 +56,25 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 
 
     private suspend fun tryCatch(
-        tryBlock: suspend CoroutineScope.() -> Unit,
-        catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
-        finallyBlock: suspend CoroutineScope.() -> Unit,
-        handleCancellationExceptionManually: Boolean = false
+            tryBlock: suspend CoroutineScope.() -> Unit,
+            catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
+            finallyBlock: suspend CoroutineScope.() -> Unit,
+            handleCancellationExceptionManually: Boolean = false
     ) {
 
         coroutineScope {
             try {
                 tryBlock()
-            } catch (e: Throwable) {
-                if (e !is CancellationException || handleCancellationExceptionManually) {
-                    mException.value = ExceptionEngine.handleException(e)
-                    catchBlock(e)
-                } else {
-                    throw e
-                }
+                mRequestSuccess.value = true
+            } catch (e: Throwable) {             //异常走这里  不区分直接给ExceptionEngine 他判断 抛什么错误
+//                if (e !is CancellationException || handleCancellationExceptionManually) {
+//                    mException.value = ExceptionEngine.handleException(e)
+//                    catchBlock(e)
+//                } else {
+//                    throw e
+//                }
+                mException.value = ExceptionEngine.handleException(e)
+                catchBlock(e)
             } finally {
                 finallyBlock()
             }

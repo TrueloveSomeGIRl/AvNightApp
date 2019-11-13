@@ -3,7 +3,6 @@ package com.cxw.avnight.ui.loufeng
 
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -14,19 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cxw.avnight.viewmodel.CommentsModel
 import com.cxw.avnight.R
-import com.cxw.avnight.adapter.ActorCommentAdapter
-import com.cxw.avnight.adapter.ChildCommentAdapter
-import com.cxw.avnight.adapter.LoadMoreAdapter
-import com.cxw.avnight.adapter.LouFengAdapter
+import com.cxw.avnight.adapter.CommentsAdapter
 
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.mode.bean.*
+import com.cxw.avnight.util.AppConfigs
 
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.DisplayUtil
 import com.cxw.avnight.weight.GlideImageLoader
-import com.drakeet.multitype.MultiTypeAdapter
 import com.jaeger.library.StatusBarUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
@@ -40,18 +36,20 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     companion object {
         const val KEY = "key"
     }
-
-    private val multiTypeAdapter by lazy { MultiTypeAdapter() }
-    private val items = mutableListOf<Any>()
-
-    private val loadMoreAdapter by lazy { LoadMoreAdapter() }
-    private val actorCommentAdapter by lazy { ActorCommentAdapter() }
-    private val childCommentAdapter by lazy { ChildCommentAdapter() }
+    private val commentsAdapter by lazy { CommentsAdapter() }
 
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     private val imgUrlList = arrayListOf<String>()
     override fun getLayoutResId(): Int = R.layout.activity_actor_introduce
 
+
+
+
+    override fun initView() {
+        StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
+        setActorInfo()
+        back_iv.setOnClickListener { finish() }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.report -> {
@@ -59,18 +57,6 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             }
         }
         return true
-
-    }
-
-    override fun initView() {
-
-        multiTypeAdapter.register(loadMoreAdapter)
-        multiTypeAdapter.register(actorCommentAdapter)
-        multiTypeAdapter.register(childCommentAdapter)
-
-        StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
-        setActorInfo()
-        back_iv.setOnClickListener { finish() }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,6 +64,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         menuInflater.inflate(R.menu.actor_detial_menu, menu)
         return true
     }
+
 
     private fun setActorInfo() {
         val actorInfo = intent.getParcelableExtra<ActorInfo>(KEY)
@@ -92,7 +79,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             setImages(imgUrlList)
             isAutoPlay(true)
             setBannerStyle(BannerConfig.CIRCLE_INDICATOR)
-            setDelayTime(2000)
+            setDelayTime(AppConfigs.DELAY_TIME)
             setIndicatorGravity(bottom)
             setOnBannerListener { }
             start()
@@ -179,12 +166,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             comment_user_name_tv.text = it.data[0].from_name
             comment_content_tv.text = it.data[0].content
             comment_time_tv.text = it.data[0].create_time
-            for (index in 0..it.data.size) {
-                items.add(ActorCommentEntity(it.data[index]))
-                if (it.data[index].childComments.isNotEmpty()) {
-                    items.add(ChildCommentEntity(it.data[index].childComments[index]))
-                }
-            }
+
         }
     }
 
@@ -199,19 +181,8 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                 .formBottom(true)
                 .show()
             val commentsRv = commentsDialog.getView<RecyclerView>(R.id.rv)
-
-            multiTypeAdapter.items = items
-            multiTypeAdapter.notifyDataSetChanged()
             commentsRv?.layoutManager = LinearLayoutManager(this)
-            commentsRv?.adapter = multiTypeAdapter
-
-            loadMoreAdapter.onLoadMoreInterface = object : LoadMoreAdapter.onLoadMore {
-                override fun onLoadMore(position: Int) {
-                    multiTypeAdapter.items = items
-                    multiTypeAdapter.notifyItemRangeInserted(position, 5)
-                }
-
-            }
+            commentsRv?.adapter = commentsAdapter
 
         }
     }

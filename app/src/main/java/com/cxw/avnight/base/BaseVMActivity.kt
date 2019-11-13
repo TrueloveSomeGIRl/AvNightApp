@@ -3,6 +3,7 @@
 package com.cxw.avnight.base
 
 import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -13,8 +14,8 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
     lateinit var mViewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        initVM()
         super.onCreate(savedInstanceState)
+        initVM()
         startObserve()
     }
 
@@ -31,17 +32,22 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
     open fun startObserve() {
         mViewModel.let {
             it.mException.observe(this, Observer {
-                onError(it)
+                //其实这里更具状态来判断那种错误
+               onError(it)
             })
             it.mLoading.observe(this, Observer {
-                RequestLoading(it)
+                requestLoading(it)
+            })
+            it.mRequestSuccess.observe(this, Observer {
+                requestSuccess(it)
             })
         }
 
     }
 
+    open fun requestSuccess(requestSuccess: Boolean) {}
     open fun onError(e: Throwable) {}
-    open fun RequestLoading(isLoading: Boolean) {}
+    open fun requestLoading(isLoading: Boolean) {}
     override fun onDestroy() {
         mViewModel.let {
             lifecycle.removeObserver(it)
