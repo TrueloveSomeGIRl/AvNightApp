@@ -14,8 +14,8 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
     lateinit var mViewModel: VM
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         initVM()
+        super.onCreate(savedInstanceState)
         startObserve()
     }
 

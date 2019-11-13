@@ -15,8 +15,8 @@ suspend fun executeResponse(
         errorBlock: suspend CoroutineScope.() -> Unit
 ) {
     coroutineScope {
-        if (response.errCode != 200)   // 这里强制一点  不是200 视为错误
-            throw ApiException(response.errCode, response.errMsg)
+        if (response.errCode == 20)   // 这里强制一点  不是200 视为错误
+          //  throw ApiException(response.errCode, response.errMsg)
         else
             successBlock()
     }

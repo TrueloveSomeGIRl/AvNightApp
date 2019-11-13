@@ -2,6 +2,7 @@ package com.cxw.avnight.ui
 
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 import android.widget.Toast
@@ -137,14 +138,15 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                         toast(getString(R.string.email_not_empty))
                         return@setOnClickListener
                     }
-                    if (!input_email_code_tv.text.toString().isNotBlank()) {
-                        toast(getString(R.string.email_code_not_empty))
-                        return@setOnClickListener
-                    }
                     if (!BaseTools.isEmail(user_email_tv.text.toString())) {
                         toast(getString(R.string.email_format_error))
                         return@setOnClickListener
                     }
+                    if (!input_email_code_tv.text.toString().isNotBlank()) {
+                        toast(getString(R.string.email_code_not_empty))
+                        return@setOnClickListener
+                    }
+
                     if (!password_tv.text.toString().isNotBlank()) {
                         toast(getString(R.string.password_not_empty))
                         return@setOnClickListener
@@ -153,19 +155,20 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                         toast(getString(R.string.two_password_not_empty))
                         return@setOnClickListener
                     }
+                    if (password_tv.text.toString() != reply_password_tv.text.toString()) {
+                        toast(getString(R.string.two_passwords_are_inconsistent))
+                        return@setOnClickListener
+                    }
 
                     if (code != input_email_code_tv.text.toString().trim()) {
                         toast(getString(R.string.email_code_error))
                         return@setOnClickListener
                     }
-                    if (code != input_email_code_tv.text.toString().trim()) {
-                        toast(getString(R.string.email_code_error))
-                        return@setOnClickListener
-                    }
+
                     userInfo["email"] = user_email_tv.text.toString().trim()
                     userInfo["password"] = password_tv.text.toString()
                     userInfo["code"] = input_email_code_tv.text.toString().trim()
-                    mViewModel.Updatepassword(
+                    mViewModel.updatePassword(
                         RequestBody.create(
                             MediaType.parse("application/json;charset=UTF-8"),
                             Gson().toJson(userInfo)
@@ -260,7 +263,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 code = it.code
             })
             registeredViewModel.observe(this@LoginActivity, Observer {
-                toast( getString(R.string.register_success))
+                toast(getString(R.string.register_success))
                 userInfo["email"] = it.email
                 userInfo["password"] = it.password
                 mViewModel.login(

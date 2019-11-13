@@ -244,17 +244,19 @@
                 android:textSize="14sp" />
 
         <TextView
-                android:layout_marginTop="8dp"
                 android:id="@+id/actor_evaluation_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/actor_introduce_shape"
                 android:padding="15dp"
                 android:textSize="14sp" />
 
         <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/comment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
@@ -264,66 +266,69 @@
                 android:background="@drawable/actor_introduce_shape"
                 android:orientation="vertical"
                 android:padding="8dp">
-           <FrameLayout
-                   android:id="@+id/comment_layout"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content">
-            <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/comment_user_head_img_iv"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp" />
+            <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:orientation="horizontal">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/comment_user_head_img_iv"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp" />
+
+                    <TextView
+                            android:id="@+id/comment_user_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="10dp"
+                            android:textColor="#c9c9c9"
+                            android:textSize="14sp"
+                            tools:text="你时代峰峻阿里斯顿就" />
+                </LinearLayout>
 
                 <TextView
-                        android:id="@+id/comment_user_name_tv"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/comment_content_tv"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginStart="8dp"
-                        android:textColor="#c9c9c9"
-                        android:textSize="14sp"
-                        tools:text="你时代峰峻阿里斯顿就" />
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="5dp" />
+
+                <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginTop="6dp">
+
+                    <TextView
+                            android:id="@+id/comment_time_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:textSize="14sp" />
+
+                    <TextView
+                            android:id="@+id/comment_actor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:drawableStart="@mipmap/comment"
+                            android:drawablePadding="2dp"
+                            android:text="@string/comment"
+                            android:textSize="14sp" />
+                </FrameLayout>
             </LinearLayout>
 
-            <TextView
-                    android:id="@+id/comment_content_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="8dp" />
-
-            <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginTop="6dp"
-                    android:orientation="horizontal">
-
-                <TextView
-                        android:layout_alignParentStart="true"
-                        android:id="@+id/comment_time_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp" />
-
-                <TextView
-                        android:drawableStart="@mipmap/comment"
-                        android:text="@string/comment"
-                        android:drawablePadding="2dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_width="wrap_content"
-                        android:id="@+id/comment_actor"
-                        android:layout_height="wrap_content"
-                        android:textSize="14sp" />
-            </RelativeLayout>
-           </FrameLayout>
             <TextView
                     android:id="@+id/click_see_all"
                     android:layout_width="wrap_content"

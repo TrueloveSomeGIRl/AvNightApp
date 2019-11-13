@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,8 +14,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/comment_user_head_img_iv"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="35dp"
+            android:layout_height="35dp" />
 
         <TextView
             android:id="@+id/comment_user_name_tv"
@@ -32,15 +31,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="50dp"
         android:textSize="12sp" />
 
     <LinearLayout
         android:id="@+id/reply_comment_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#F6F6F6"
@@ -73,8 +71,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="46dp"
-        android:layout_marginTop="4dp">
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="6dp">
 
         <TextView
             android:id="@+id/comment_time_tv"

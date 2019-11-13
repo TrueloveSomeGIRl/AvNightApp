@@ -10,6 +10,7 @@ import com.cxw.avnight.base.BaseActivity
 import com.cxw.avnight.ui.loufeng.LouFengFragment
 import com.cxw.avnight.ui.upload.UploadActorFragment
 import com.cxw.avnight.util.FragmentMangerWrapper
+import com.cxw.avnight.util.SPUtil
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,7 +24,6 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
-
         StatusBarUtil.setLightMode(this)
         initFragment()
         bottom_bar_rb.setOnCheckedChangeListener(this)
@@ -31,7 +31,7 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
     override fun initData() {
         with(civ){
-               // Glide.with(this).load("http://47.100.91.50:9681/headImg/boy_01.jpg").into(this)
+                Glide.with(this).load(SPUtil.getString("headImg")).into(this)
            setOnClickListener {
                if (!drawer_layout.isDrawerOpen(GravityCompat.START))
                drawer_layout.openDrawer(GravityCompat.START)

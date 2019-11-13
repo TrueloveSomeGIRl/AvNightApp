@@ -33,8 +33,8 @@ class LouFengAdapter(layoutResId: Int = R.layout.loufeng_item_actor_layout) :
             if (h > 950) DisplayUtil.dip2px(App.CONTEXT, 200.0f + (5..10).random() * 10) else h
         params.width = w / 2
         helper!!.itemView.actor_iv.layoutParams = params
-
-        Glide.with(mContext).load(item.actorImgs[0].img_url).apply(RequestOptions().placeholder(ColorDrawable(Color.parseColor(item.actorImgs[0].img_pot_rgb)))).into(helper.getView(R.id.actor_iv))
+//.apply(RequestOptions().placeholder(ColorDrawable(Color.parseColor(item.actorImgs[0].img_pot_rgb))))
+        Glide.with(mContext).load(item.actorImgs[0].img_url).into(helper.getView(R.id.actor_iv))
         helper.setText(R.id.actor_tv, item.actor_name)
     }
 }

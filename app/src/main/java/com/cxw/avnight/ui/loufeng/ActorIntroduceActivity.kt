@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_actor_introduce.*
 
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
-    override fun providerVMClass(): Class<CommentsModel>? = CommentsModel::class.java
+    override fun providerVMClass(): Class<CommentsModel> = CommentsModel::class.java
     private var startPage = 1
     private var pageSize = 10
 
@@ -49,6 +49,9 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         StatusBarUtil.setTranslucentForImageView(this, 0, top_bar_layout)
         setActorInfo()
         back_iv.setOnClickListener { finish() }
+        feed_back_iv.setOnClickListener {
+
+        }
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -72,8 +75,8 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             imgUrlList.add(it.img_url)
         }
 
-
         mViewModel.getComments(actorInfo.id, startPage, pageSize)
+
         banner.run {
             setImageLoader(GlideImageLoader())
             setImages(imgUrlList)
@@ -156,17 +159,15 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     }
 
     private fun initComments(it: Result<Comments>) {
-        if (it.data.size < 0) {
-            comment_layout.visibility = View.GONE
-            click_see_all.text = getString(R.string.add_comment)
-        } else {
+        if (it.data.isNotEmpty()) {
+            comment_layout.visibility = View.VISIBLE
             click_see_all.text = getString(R.string.click_more_comment)
             Glide.with(this@ActorIntroduceActivity).load(it.data[0].from_avatar)
                 .into(comment_user_head_img_iv)
             comment_user_name_tv.text = it.data[0].from_name
             comment_content_tv.text = it.data[0].content
             comment_time_tv.text = it.data[0].create_time
-
+            commentsAdapter.addData(it.data)
         }
     }
 

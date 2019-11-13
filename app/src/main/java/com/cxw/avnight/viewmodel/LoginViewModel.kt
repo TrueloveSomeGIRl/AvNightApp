@@ -48,7 +48,7 @@ class LoginViewModel : BaseViewModel() {
         }
     }
 
-    fun Updatepassword(passwordBody: RequestBody) {
+    fun updatePassword(passwordBody: RequestBody) {
         launch {
             val result = withContext(Dispatchers.IO) {
                 repository.updatePassword(passwordBody)
