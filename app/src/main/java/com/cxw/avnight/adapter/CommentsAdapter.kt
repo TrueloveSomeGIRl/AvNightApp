@@ -1,5 +1,6 @@
 package com.cxw.avnight.adapter
 
+import android.text.Html
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -14,12 +15,32 @@ class CommentsAdapter(layoutResId: Int = R.layout.item_comment_actor) :
         if (item.childComments.isNotEmpty()) {
             helper.setGone(R.id.reply_comment_layout, true)
             if (item.childComments.size > 1) {
-                helper.setText(R.id.reply_comment_content_tv, item.childComments[0].content)
-                    .setText(R.id.reply_tow_comment_content_tv, item.childComments[1].content)
+                helper.setText(
+                    R.id.reply_comment_content_tv,
+                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}</font>${item.childComments[0].content}")
+                )
+                    .setText(
+                        R.id.reply_tow_comment_content_tv,
+                        Html.fromHtml("<font color='#536DFE'>${item.childComments[1].from_name}:</font>${item.childComments[1].content}")
+                    )
+                if (item.childComments.size > 2) {
+                    helper.setGone(R.id.comment_iv, true)
+                    helper.setText(
+                        R.id.total_reply_comment_tv,
+                        Html.fromHtml("<font color='#536DFE'>共${item.childComments.size}条评论回复></font>")
+
+                    )
+
+                } else {
+                    helper.setGone(R.id.comment_iv, false)
+                }
             } else if (item.childComments.size == 1) {
                 helper.setGone(R.id.reply_tow_comment_content_tv, false)
                 helper.setGone(R.id.total_reply_comment_tv, false)
-                helper.setText(R.id.reply_comment_content_tv, item.childComments[0].content)
+                helper.setText(
+                    R.id.reply_comment_content_tv,
+                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}:</font>${item.childComments[0].content}")
+                )
             }
         } else {
             helper.setGone(R.id.reply_comment_layout, false)
@@ -29,8 +50,9 @@ class CommentsAdapter(layoutResId: Int = R.layout.item_comment_actor) :
 
         helper.setText(R.id.comment_user_name_tv, item.from_name)
             .setText(R.id.comment_content_tv, item.content)
-           .setText(R.id.comment_time_tv, item.create_time)
-            .setText(R.id.comment_iv, item.create_time)
+            .setText(R.id.comment_time_tv, item.create_time)
+            .addOnClickListener(R.id.comment_iv)
+            .addOnClickListener(R.id.total_reply_comment_tv)
 
     }
 }

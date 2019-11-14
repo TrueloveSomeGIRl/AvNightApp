@@ -3,10 +3,10 @@ package com.cxw.avnight.ui.loufeng
 
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +26,7 @@ import com.cxw.avnight.weight.GlideImageLoader
 import com.jaeger.library.StatusBarUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 
@@ -178,6 +179,16 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             val commentsRv = commentsDialog.getView<RecyclerView>(R.id.rv)
             commentsRv?.layoutManager = LinearLayoutManager(this)
             commentsRv?.adapter = commentsAdapter
+        }
+        commentsAdapter.setOnItemChildClickListener { adapter, view, position ->
+            when(view.id){
+                R.id.total_reply_comment_tv->{
+
+                }
+                R.id.comment_iv->{
+                   startActivity<ReplyCommentActivity>("replyCommentPosition" to position)
+                }
+            }
 
         }
     }

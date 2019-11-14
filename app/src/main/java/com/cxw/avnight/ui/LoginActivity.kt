@@ -18,6 +18,7 @@ import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnCheckedChangeListener {
@@ -256,7 +257,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 SPUtil.saveValue("headImg", it.userHeadImg)
                 SPUtil.saveValue("userId", it.userId)
                 SPUtil.saveValue("userName", it.userName)
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                startActivity<MainActivity>()
                 finish()
             })
             emailCodeViewModel.observe(this@LoginActivity, Observer {

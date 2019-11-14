@@ -22,7 +22,9 @@ import com.cxw.avnight.weight.CustomLoadMoreView
 
 import kotlinx.android.synthetic.main.loufeng_in_fragment.*
 
-
+/**
+ *   这里还没有完善 先写到这里  有些逻辑 没理清  以后在该
+ */
 class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
     override fun fetchData() {
@@ -31,7 +33,7 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
         mViewModel.getActorInfo(id!!, startPage, pageSize)
     }
 
-
+    private var isRefresh: Boolean = false
     private val id by lazy { arguments?.getInt(index) }
     override fun providerVMClass(): Class<LouFengInViewModel> = LouFengInViewModel::class.java
     private val louFengAdapter by lazy { LouFengAdapter() }
@@ -51,7 +53,10 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
             else
                 StatService.setListName(this, context.getString(R.string.teacher_rv))
 
-            layoutManager = StaggeredGridLayoutManager(AppConfigs.SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
+            layoutManager = StaggeredGridLayoutManager(
+                AppConfigs.SPAN_COUNT,
+                StaggeredGridLayoutManager.VERTICAL
+            )
             (layoutManager as StaggeredGridLayoutManager).gapStrategy =
                 StaggeredGridLayoutManager.GAP_HANDLING_NONE//防止item 交换位置
             (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
@@ -72,6 +77,8 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
         initAdapter()
 
         srl.setOnRefreshListener {
+            isRefresh = true
+            louFengAdapter.setEnableLoadMore(false)
             startPage = 1
             pageSize = 10
             mViewModel.getActorInfo(id!!, startPage, pageSize)
@@ -80,6 +87,7 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
 
 
     override fun onLoadMoreRequested() {
+        isRefresh = false
         if (currentPage < pageTotal) {
             startPage++
             id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
@@ -100,7 +108,7 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
                 intent.putExtra(ActorIntroduceActivity.KEY, data[position])
                 context?.startActivity(intent)
             }
-            //其它
+
         }
     }
 
@@ -124,12 +132,10 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
                 mBaseLoadService.showSuccess()
                 louFengAdapter.loadMoreComplete()
                 currentPage = it.currentPage
-                Log.d("cxx","$currentPage")
-                if (currentPage == pageTotal )
+                if (isRefresh)
                     louFengAdapter.setNewData(it.data)
                 else
                     louFengAdapter.addData(it.data)
-
                 pageTotal = it.pageTotal
                 if (it.total == 0) {
                     mBaseLoadService.showCallback(EmptyCallback::class.java)
