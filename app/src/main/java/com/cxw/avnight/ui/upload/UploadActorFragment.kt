@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cxw.avnight.R
@@ -18,6 +19,8 @@ import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.BaseTools.toRequestBody
 import com.cxw.avnight.viewmodel.UploadViewModel
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.toast
 import kotlin.collections.HashMap
 
 class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
@@ -31,52 +34,61 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
         submit_tv.setOnClickListener {
             initEt()
             mViewModel.getUpload(
-                BaseTools.filesToMultipartBodyParts(context!!, imgPathList),
-                toRequestBody(Gson().toJson(mActorInfo))
+                    BaseTools.filesToMultipartBodyParts(context!!, imgPathList),
+                    toRequestBody(Gson().toJson(mActorInfo))
             )
         }
     }
 
+    override fun requestLoading(isLoading: Boolean) {
+        super.requestLoading(isLoading)
+        BaseTools.initLottieAnim(lav, View.VISIBLE, true)
+    }
+
+    override fun requestSuccess(requestSuccess: Boolean) {
+        super.requestSuccess(requestSuccess)
+        BaseTools.initLottieAnim(lav, View.GONE, false)
+    }
+
     private fun initEt() {
-        //这里该怎么搞 才好 这里 太复杂了
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, age_tv.text.toString(), "年龄不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, gender_et.text.toString(), "性别不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-        BaseTools.checkEtIsNotEmpty(context!!, name_et.text.toString(), "名字不能为空")
-
-
-
-
-        if (imgPathList.size == 0) {
-            Toast.makeText(context, getString(R.string.upload_img), Toast.LENGTH_LONG)
-                .show()
+        if (!name_et.text.toString().isNotBlank()) {
+            context!!.toast(getString(R.string.name_not_empty))
             return
         }
-        mActorInfo["actor_name"] = name_tv.text.toString().trim()
-        mActorInfo["actor_age"] = age_tv.text.toString().trim()
-        mActorInfo["actor_gender"] = gender_tv.text.toString().trim()
-        mActorInfo["actor_phone"] = phone_tv.text.toString().trim()
-        mActorInfo["actor_wx"] = wx_tv.text.toString().trim()
-        mActorInfo["actor_qq"] = qq_tv.text.toString().trim()
-        mActorInfo["actor_workaddress"] = address_tv.text.toString().trim()
-        mActorInfo["actor_introduce"] = class_content_tv.text.toString().trim()
-        mActorInfo["actor_evaluate"] = evaluation_tv.text.toString().trim()
-        mActorInfo["actor_city"] = city_tv.text.toString().trim()
-        mActorInfo["actor_bust"] = bust_tv.text.toString().trim()
-        mActorInfo["actor_height"] = height_tv.text.toString().trim()
-        mActorInfo["actor_weight"] = weight_tv.text.toString().trim()
+        if (!gender_et.text.toString().isNotBlank()) {
+            context!!.toast(getString(R.string.gender_not_empty))
+            return
+        }
+        if (!city_et.text.toString().isNotBlank()) {
+            context!!.toast(getString(R.string.city_not_empty))
+            return
+        }
+
+        if (imgPathList.size == 0) {
+            context!!.toast(getString(R.string.upload_img))
+            return
+        }
+        mActorInfo["actor_name"] = name_et.text.toString().trim()
+        mActorInfo["actor_age"] = age_et.text.toString().trim()
+        mActorInfo["actor_gender"] = gender_et.text.toString().trim()
+        mActorInfo["actor_phone"] = phone_et.text.toString().trim()
+        mActorInfo["actor_wx"] = wx_et.text.toString().trim()
+        mActorInfo["actor_qq"] = qq_et.text.toString().trim()
+        mActorInfo["actor_workaddress"] = address_et.text.toString().trim()
+        mActorInfo["actor_introduce"] = class_content_et.text.toString().trim()
+        mActorInfo["actor_evaluate"] = evaluation_et.text.toString().trim()
+        mActorInfo["actor_city"] = city_et.text.toString().trim()
+        mActorInfo["actor_bust"] = bust_et.text.toString().trim()
+        mActorInfo["actor_height"] = height_et.text.toString().trim()
+        mActorInfo["actor_weight"] = weight_et.text.toString().trim()
         mActorInfo["actor_isinvalid"] = 0
         mActorInfo["actor_isverification"] = 0
     }
 
     override fun onNetReload(v: View) {
+        mViewModel.uploadActorInfo.observe(this, Observer {
 
+        })
     }
 
 
@@ -88,8 +100,6 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
     override fun initView() {
         initRv()
         initCamera()
-
-
     }
 
     private fun initRv() {
@@ -118,53 +128,51 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
     private fun initCamera() {
         camera.setOnClickListener {
             if (uploadActorImgAdapter.itemCount >= AppConfigs.SELECT_COUNT) {
-
-                Toast.makeText(context, getString(R.string.up_to_six_pieces), Toast.LENGTH_LONG)
-                    .show()
+                context!!.toast(getString(R.string.up_to_six_pieces))
                 return@setOnClickListener
             }
 
             cameraDialog = AlertDialog.Builder(context!!)
-                .setContentView(R.layout.dialog_change_layout)
-                .setOnClickListener(R.id.dialog_choose_one, View.OnClickListener {
-                    Album.camera(this)
-                        .image()
-                        .onResult {
-                            uploadActorImgAdapter.addData(it)
-                            imgPathList.add(it)
-                        }
-                        .start()
-                    cameraDialog.dismiss()
-                })
-                .setOnClickListener(R.id.dialog_choose_two, View.OnClickListener {
-                    Album.image(this)
-                        .multipleChoice()
-                        .camera(false)
-                        .columnCount(AppConfigs.COLUMN_COUNT)
-                        .selectCount(AppConfigs.SELECT_COUNT)
-                        .onResult {
-                            imgPathList.clear()
-                            it.forEach {
-                                imgPathList.add(it.path)
-                            }
-                            uploadActorImgAdapter.addData(imgPathList)
-                            if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
-                            for (pos in uploadActorImgAdapter.itemCount until 6) {  //TODO
-                                uploadActorImgAdapter.remove(pos)
-                            }
-                        }
-                        .onCancel {
-                        }
-                        .start()
-                    cameraDialog.dismiss()
+                    .setContentView(R.layout.dialog_change_layout)
+                    .setOnClickListener(R.id.dialog_choose_one, View.OnClickListener {
+                        Album.camera(this)
+                                .image()
+                                .onResult {
+                                    uploadActorImgAdapter.addData(it)
+                                    imgPathList.add(it)
+                                }
+                                .start()
+                        cameraDialog.dismiss()
+                    })
+                    .setOnClickListener(R.id.dialog_choose_two, View.OnClickListener {
+                        Album.image(this)
+                                .multipleChoice()
+                                .camera(false)
+                                .columnCount(AppConfigs.COLUMN_COUNT)
+                                .selectCount(AppConfigs.SELECT_COUNT)
+                                .onResult {
+                                    imgPathList.clear()
+                                    it.forEach {
+                                        imgPathList.add(it.path)
+                                    }
+                                    uploadActorImgAdapter.addData(imgPathList)
+                                    if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
+                                    for (pos in uploadActorImgAdapter.itemCount until 6) {  //TODO
+                                        uploadActorImgAdapter.remove(pos)
+                                    }
+                                }
+                                .onCancel {
+                                }
+                                .start()
+                        cameraDialog.dismiss()
 
-                })
-                .setOnClickListener(R.id.dialog_cancel, View.OnClickListener {
-                    cameraDialog.dismiss()
-                })
-                .fullWidth()
-                .formBottom(true)
-                .show()
+                    })
+                    .setOnClickListener(R.id.dialog_cancel, View.OnClickListener {
+                        cameraDialog.dismiss()
+                    })
+                    .fullWidth()
+                    .formBottom(true)
+                    .show()
         }
     }
 }

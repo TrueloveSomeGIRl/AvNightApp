@@ -53,8 +53,7 @@
     <string name="email_code_error">验证码错误</string>
     <string name="email_format_error">邮箱格式错误</string>
 
-    <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyz
-ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
+    <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
     <string name="girl_head_img">女头像</string>
     <string name="boy_head_img">男头像</string>
     <string name="sure">确定</string>
@@ -63,4 +62,14 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#03
     <string name="register_success">注册成功,正在登录</string>
     <string name="back_login">返回登录</string>
     <string name="comment">评论</string>
+    <string name="name_hint_format">格式:地方-名字</string>
+    <string name="gender_not_empty">性别不能为空</string>
+    <string name="city_not_empty">城市不能为空</string>
+    <string name="teacher_rv">靠谱老师列表</string>
+    <string name="reward">打赏作者</string>
+    <string name="statement">负责声明</string>
+    <string name="lw_vpn">老王PandaVPN下载</string>
+    <string name="potato">Potato下载</string>
+    <string name="panda_vpn">PandaVPN下载</string>
+    <string name="thunder_teacher_rv">排雷老师列表</string>
 </resources>

@@ -5,7 +5,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.SplashActivity">
 
-    <RelativeLayout
+    <FrameLayout
             android:id="@+id/man_top_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -16,19 +16,17 @@
                 android:id="@+id/civ"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="12dp" />
 
         <TextView
                 android:id="@+id/main_top_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_centerVertical="true"
+                android:layout_gravity="center"
                 android:text="@string/lou_feng"
                 android:textSize="18sp" />
-    </RelativeLayout>
+    </FrameLayout>
 
     <FrameLayout
             android:id="@+id/man_container_layout"

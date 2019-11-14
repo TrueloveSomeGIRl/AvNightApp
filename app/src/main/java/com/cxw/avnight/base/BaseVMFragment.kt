@@ -34,13 +34,23 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
 
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
-        mViewModel.mException.observe(this, Observer {
-            it?.let {
-           Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
-        } })
+        mViewModel.let {
+            it.mException.observe(this, Observer {
+                //其实这里更具状态来判断那种错误
+                onError(it)
+            })
+            it.mLoading.observe(this, Observer {
+                requestLoading(it)
+            })
+            it.mRequestSuccess.observe(this, Observer {
+                requestSuccess(it)
+            })
+        }
     }
 
-    //open fun onError(e: Throwable) {}
+    open fun requestSuccess(requestSuccess: Boolean) {}
+    open fun onError(e: Throwable) {}
+    open fun requestLoading(isLoading: Boolean) {}
 
     abstract fun getLayoutResId(): Int
 

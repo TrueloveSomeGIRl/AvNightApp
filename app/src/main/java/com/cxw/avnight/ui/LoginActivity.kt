@@ -43,7 +43,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestSuccess(requestSuccess: Boolean) {
         super.requestSuccess(requestSuccess)
-        initLottieAnim(View.VISIBLE, true)
+        BaseTools.initLottieAnim(lv,View.VISIBLE, true)
     }
 
     override fun initData() {
@@ -243,7 +243,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestLoading(isLoading: Boolean) {
         super.requestLoading(isLoading)
-        initLottieAnim(View.VISIBLE, true)
+       BaseTools. initLottieAnim(lv,View.VISIBLE, true)
     }
 
     override fun startObserve() {
@@ -255,6 +255,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 SPUtil.saveValue("isLogin", true)
                 SPUtil.saveValue("headImg", it.userHeadImg)
                 SPUtil.saveValue("userId", it.userId)
+                SPUtil.saveValue("userName", it.userName)
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             })
@@ -279,16 +280,11 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
     override fun onError(e: Throwable) {
         super.onError(e)
         toast(e.message.toString())
-        initLottieAnim(View.GONE, false)
+        BaseTools.initLottieAnim(lv,View.GONE, false)
     }
 
 
-    private fun initLottieAnim(visibility: Int, isPlay: Boolean) {
-        lv.setAnimation("net_work_loading_lottie.json")
-        lv.repeatCount = 100
-        if (isPlay) lv.playAnimation() else lv.pauseAnimation()
-        lv.visibility = visibility
-    }
+
 
 
 }

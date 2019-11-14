@@ -18,8 +18,10 @@ import android.graphics.Bitmap
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import com.airbnb.lottie.LottieAnimationView
 import com.google.gson.Gson
 import id.zelory.compressor.Compressor
+import kotlinx.android.synthetic.main.activity_login.*
 import java.util.regex.Pattern
 
 
@@ -124,4 +126,11 @@ object BaseTools {
         return m.matches()
     }
 
+
+     fun initLottieAnim(lv: LottieAnimationView, visibility: Int, isPlay: Boolean) {
+        lv.setAnimation("net_work_loading_lottie.json")
+        lv.repeatCount = 100
+        if (isPlay) lv.playAnimation() else lv.pauseAnimation()
+        lv.visibility = visibility
+    }
 }

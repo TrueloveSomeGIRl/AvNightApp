@@ -1,6 +1,7 @@
 package com.cxw.avnight.ui
 
 
+import android.graphics.Color
 import android.widget.RadioGroup
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -11,10 +12,15 @@ import com.cxw.avnight.ui.loufeng.LouFengFragment
 import com.cxw.avnight.ui.upload.UploadActorFragment
 import com.cxw.avnight.util.FragmentMangerWrapper
 import com.cxw.avnight.util.SPUtil
+import com.google.android.material.internal.NavigationMenuItemView
+import com.google.android.material.navigation.NavigationView
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
 
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.nav_header_main.view.*
+import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
 
@@ -24,21 +30,28 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
     override fun initView() {
+        StatusBarUtil.setTranslucentForImageView(this, 0, man_top_layout)
         StatusBarUtil.setLightMode(this)
         initFragment()
         bottom_bar_rb.setOnCheckedChangeListener(this)
     }
 
     override fun initData() {
-        with(civ){
-                Glide.with(this).load(SPUtil.getString("headImg")).into(this)
-           setOnClickListener {
-               if (!drawer_layout.isDrawerOpen(GravityCompat.START))
-               drawer_layout.openDrawer(GravityCompat.START)
-               else  drawer_layout.closeDrawer(GravityCompat.START)
-           }
+        with(civ) {
+            Glide.with(this).load(SPUtil.getString("headImg")).into(this)
+            setOnClickListener {
+                if (!drawer_layout.isDrawerOpen(GravityCompat.START))
+                    drawer_layout.openDrawer(GravityCompat.START)
+                else drawer_layout.closeDrawer(GravityCompat.START)
+            }
         }
-
+        nav_view.getHeaderView(0).nav_header_name_tv.text = SPUtil.getString("userName", getString(R.string.app_name))
+        nav_view.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_panda -> toast("fds")
+            }
+            false
+        }
     }
 
     override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
@@ -64,7 +77,8 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         if (fragment.isAdded) {
             supportFragmentManager.beginTransaction().hide(mCurrentFragment).show(fragment).commitAllowingStateLoss()
         } else {
-            supportFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.man_container_layout, fragment).commitAllowingStateLoss()
+            supportFragmentManager.beginTransaction().hide(mCurrentFragment).add(R.id.man_container_layout, fragment)
+                .commitAllowingStateLoss()
         }
         mCurrentFragment = fragment
     }

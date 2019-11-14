@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.baidu.mobstat.StatService
 
 
 abstract class BaseFragment : androidx.fragment.app.Fragment() {
@@ -26,6 +27,14 @@ abstract class BaseFragment : androidx.fragment.app.Fragment() {
     abstract fun initView()
 
     abstract fun initData()
+    override fun onPause() {
+        super.onPause()
+        StatService.onPageEnd(context, BaseFragment::javaClass.name)
+    }
 
+    override fun onStart() {
+        super.onStart()
+        StatService.onPageStart(context, BaseFragment::javaClass.name)
+    }
 
 }

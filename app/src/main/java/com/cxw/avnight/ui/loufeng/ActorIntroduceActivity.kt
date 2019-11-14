@@ -26,6 +26,7 @@ import com.cxw.avnight.weight.GlideImageLoader
 import com.jaeger.library.StatusBarUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
+import org.jetbrains.anko.toast
 
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
@@ -108,11 +109,8 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                             Uri.parse(QQURL + actorInfo.actor_qq)
                         )
                     ) else
-                    Toast.makeText(
-                        this@ActorIntroduceActivity,
-                        context.getString(R.string.install_qq),
-                        Toast.LENGTH_LONG
-                    ).show()
+
+                toast(getString(R.string.install_qq))
             }
             text = actorInfo.actor_qq.plus(getString(R.string.contact))
         }
@@ -120,11 +118,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             visibility = if (actorInfo.actor_wx.isEmpty()) View.GONE else View.VISIBLE
             setOnClickListener {
                 BaseTools.copyTextContent(this@ActorIntroduceActivity, actorInfo.actor_wx)
-                Toast.makeText(
-                    this@ActorIntroduceActivity,
-                    context.getString(R.string.copy),
-                    Toast.LENGTH_LONG
-                ).show()
+                toast(getString(R.string.copy))
             }
             text = actorInfo.actor_wx.plus(getString(R.string.copy))
         }

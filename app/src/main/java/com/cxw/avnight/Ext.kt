@@ -11,14 +11,15 @@ import kotlinx.coroutines.coroutineScope
 
 
 suspend fun executeResponse(
-        response: AvNightResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
-        errorBlock: suspend CoroutineScope.() -> Unit
+    response: AvNightResponse<Any>, successBlock: suspend CoroutineScope.() -> Unit,
+    errorBlock: suspend CoroutineScope.() -> Unit
 ) {
     coroutineScope {
-        if (response.errCode == 20)   // 这里强制一点  不是200 视为错误
-          //  throw ApiException(response.errCode, response.errMsg)
+        if (response.errCode != 200)   // 这里强制一点  不是200 视为错误  所提这里后台一定要商量好 什么时候返回200  不然会GG
+            throw ApiException(response.errCode, response.errMsg)
+   //     errorBlock()
         else
-            successBlock()
+        successBlock()
     }
 }
 

@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ecf1f0"
             android:orientation="vertical">
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -17,181 +22,176 @@
                 android:orientation="vertical"
                 android:padding="14dp">
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/name_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/actor_name"
+
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/name_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/actor_info_et_shape"
+                        android:hint="@string/name_hint_format"
                         android:padding="6dp"
+                        android:textColorHint="#c9c9c9"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/gender_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/gender"
                         android:textColorHint="#c3c3c3"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/gender_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/actor_info_et_shape"
                         android:padding="6dp"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/city_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/city"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/city_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/actor_info_et_shape"
                         android:padding="6dp"
                         android:textColorHint="#c3c3c3"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/qq_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/actor_qq"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/qq_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/actor_info_et_shape"
                         android:padding="6dp"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/phone_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/actor_phone"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/phone_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/actor_info_et_shape"
                         android:digits="1234567890"
                         android:inputType="phone"
                         android:maxLength="11"
                         android:padding="6dp"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/wx_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/actor_wx"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/wx_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
-
                         android:background="@drawable/actor_info_et_shape"
-
                         android:padding="6dp"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                <TextView
+                    <TextView
                         android:id="@+id/address_tv"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:padding="6dp"
                         android:text="@string/actor_address"
                         android:textSize="14sp" />
 
-                <EditText
+                    <EditText
                         android:id="@+id/address_et"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
                         android:background="@drawable/actor_info_et_shape"
                         android:padding="6dp"
                         android:textSize="14sp" />
-            </LinearLayout>
+                </LinearLayout>
 
-            <LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
-                <EditText
-                        android:id="@+id/age_tv"
+                    <EditText
+                        android:id="@+id/age_et"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -201,8 +201,8 @@
                         android:textColorHint="#c3c3c3"
                         android:textSize="14sp" />
 
-                <EditText
-                        android:id="@+id/bust_tv"
+                    <EditText
+                        android:id="@+id/bust_et"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -212,8 +212,8 @@
                         android:textColorHint="#c3c3c3"
                         android:textSize="14sp" />
 
-                <EditText
-                        android:id="@+id/height_tv"
+                    <EditText
+                        android:id="@+id/height_et"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -223,8 +223,8 @@
                         android:textColorHint="#c3c3c3"
                         android:textSize="14sp" />
 
-                <EditText
-                        android:id="@+id/weight_tv"
+                    <EditText
+                        android:id="@+id/weight_et"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"
@@ -233,10 +233,10 @@
                         android:padding="6dp"
                         android:textColorHint="#c3c3c3"
                         android:textSize="12sp" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
@@ -247,8 +247,8 @@
                 android:paddingEnd="8dp"
                 android:paddingBottom="2dp">
 
-            <EditText
-                    android:id="@+id/class_content_tv"
+                <EditText
+                    android:id="@+id/class_content_et"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:background="@null"
@@ -258,22 +258,22 @@
                     android:textColorHint="#c3c3c3"
                     android:textSize="14sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/actor_info_img_rv"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:layout_marginTop="8dp"
                     android:overScrollMode="never" />
 
-            <ImageView
+                <ImageView
                     android:id="@+id/camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@mipmap/camera" />
-        </LinearLayout>
+            </LinearLayout>
 
-        <EditText
-                android:id="@+id/evaluation_tv"
+            <EditText
+                android:id="@+id/evaluation_et"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_margin="4dp"
@@ -287,7 +287,7 @@
                 android:textColor="#c3c3c3"
                 android:textSize="14sp" />
 
-        <TextView
+            <TextView
                 android:id="@+id/submit_tv"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -300,5 +300,13 @@
                 android:paddingBottom="2dp"
                 android:text="@string/submit"
                 android:textSize="16sp" />
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lav"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_gravity="center"
+        android:visibility="gone" />
+</FrameLayout>

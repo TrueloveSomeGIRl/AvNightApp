@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.baidu.mobstat.StatService
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.cxw.avnight.viewmodel.LouFengInViewModel
 import com.cxw.avnight.R
@@ -26,13 +27,13 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
     override fun fetchData() {
         //  这里一直没 怎么研究透 这个空判断  只是懂这个意思  不让抛 npe 就用let 感觉多了点代码
-       id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
-        //  mViewModel.getActorInfo(id!!, startPage, pageSize)
+        // id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
+        mViewModel.getActorInfo(id!!, startPage, pageSize)
     }
 
 
     private val id by lazy { arguments?.getInt(index) }
-    override fun providerVMClass(): Class<LouFengInViewModel>? = LouFengInViewModel::class.java
+    override fun providerVMClass(): Class<LouFengInViewModel> = LouFengInViewModel::class.java
     private val louFengAdapter by lazy { LouFengAdapter() }
     private var startPage = 1
     private var pageSize = 10
@@ -42,7 +43,14 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     override fun getLayoutResId(): Int = R.layout.loufeng_in_fragment
 
     override fun initView() {
+        srl.setDistanceToTriggerSync(200)
+        StatService.enableListTrack(rv)
         rv.run {
+            if (id == 0)
+                StatService.setListName(this, context.getString(R.string.thunder_teacher_rv))
+            else
+                StatService.setListName(this, context.getString(R.string.teacher_rv))
+
             layoutManager = StaggeredGridLayoutManager(AppConfigs.SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
             (layoutManager as StaggeredGridLayoutManager).gapStrategy =
                 StaggeredGridLayoutManager.GAP_HANDLING_NONE//防止item 交换位置
@@ -62,6 +70,12 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
         }
 
         initAdapter()
+
+        srl.setOnRefreshListener {
+            startPage = 1
+            pageSize = 10
+            mViewModel.getActorInfo(id!!, startPage, pageSize)
+        }
     }
 
 
@@ -91,7 +105,6 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     }
 
 
-
     companion object {
         private const val index = "INDEX"
         fun newInstance(id: Int): LouFengInFragment {
@@ -107,12 +120,18 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
         super.startObserve()
         mViewModel.run {
             mActorInfo.observe(this@LouFengInFragment, Observer {
+                srl.isRefreshing = false
                 mBaseLoadService.showSuccess()
-                louFengAdapter.loadMoreComplete()   //这里还有个条件没有判断  先放在这里面
-                louFengAdapter.addData(it.data)
+                louFengAdapter.loadMoreComplete()
                 currentPage = it.currentPage
+                Log.d("cxx","$currentPage")
+                if (currentPage == pageTotal )
+                    louFengAdapter.setNewData(it.data)
+                else
+                    louFengAdapter.addData(it.data)
+
                 pageTotal = it.pageTotal
-                if (it.total==0){
+                if (it.total == 0) {
                     mBaseLoadService.showCallback(EmptyCallback::class.java)
                 }
             })

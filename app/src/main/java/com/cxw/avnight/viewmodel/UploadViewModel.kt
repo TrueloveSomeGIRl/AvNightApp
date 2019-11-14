@@ -13,7 +13,7 @@ import okhttp3.RequestBody
 
 class UploadViewModel : BaseViewModel() {
     private val repository by lazy { UploadRepository() }
-    private val uploadActorInfo: MutableLiveData<String> = MutableLiveData()
+     val uploadActorInfo: MutableLiveData<String> = MutableLiveData()
 
     fun getUpload(parts: List<MultipartBody.Part>, info: RequestBody) {
         launch {
