@@ -54,8 +54,20 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">true</item>
         <item name="android:windowFullscreen">true</item>
-
-
-
     </style>
+
+    <style name="inputDialog" parent="@android:style/Theme.Holo.Light.Dialog">
+
+                <item name="android:windowBackground">#ffffff</item>
+                <!--背景-->
+                <item name="android:windowFrame">@null</item>
+                <!--设置无边框-->
+                <item name="android:windowNoTitle">true</item>
+                <!-- 无标题 -->
+                <item name="android:backgroundDimEnabled">true</item>
+                <!-- 模糊 -->
+                <item name="android:windowSoftInputMode">stateAlwaysVisible</item>
+                <!--显示软件盘-->
+
+            </style>
 </resources>

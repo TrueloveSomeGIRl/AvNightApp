@@ -20,8 +20,8 @@ interface AvNightService {
     @GET("findVerificationActor/{type}/{page}/{pageSize}")
     suspend fun getActorInfo(@Path("type") type: Int, @Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<ActorInfo>>
 
-    @GET("selectComments/{id}/{type}/{pageSize}")
-    suspend fun getComments(@Path("id") id: Int, @Path("type") type: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<Comments>>
+    @GET("selectComments/{id}/{page}/{pageSize}")
+    suspend fun getComments(@Path("id") id: Int, @Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<Comments>>
 
     @GET("email/{email}")
     suspend fun getEmailCode(@Path("email") email: String): AvNightResponse<EmailEntity>
@@ -38,4 +38,10 @@ interface AvNightService {
     @Multipart
     @POST("insertActorInfo")
     suspend fun uploadActorInfo(@Part parts: List<MultipartBody.Part>, @Part("Info") infoBody: RequestBody): AvNightResponse<String>
+
+
+    @GET("selectByIdReply/{id}/{page}/{pageSize}")
+    suspend fun getSelectByIdReply(@Path("id") id: Int, @Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<ChildComment>>
+
+
 }

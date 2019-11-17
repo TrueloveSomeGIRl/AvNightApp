@@ -2,12 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFF"
         android:orientation="vertical">
 
-    <TextView
-            android:text="点击加载更多"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+    <include layout="@layout/item_reply_comments_include_layout" />
+
 </LinearLayout>

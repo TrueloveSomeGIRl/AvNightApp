@@ -28,6 +28,7 @@ import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+import java.util.ArrayList
 
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
@@ -38,13 +39,12 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     companion object {
         const val KEY = "key"
     }
-    private val commentsAdapter by lazy { CommentsAdapter() }
 
+    private val commentsAdapter by lazy { CommentsAdapter() }
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     private val imgUrlList = arrayListOf<String>()
+    private var list = ArrayList<Comments>()
     override fun getLayoutResId(): Int = R.layout.activity_actor_introduce
-
-
 
 
     override fun initView() {
@@ -55,6 +55,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 
         }
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.report -> {
@@ -111,7 +112,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                         )
                     ) else
 
-                toast(getString(R.string.install_qq))
+                    toast(getString(R.string.install_qq))
             }
             text = actorInfo.actor_qq.plus(getString(R.string.contact))
         }
@@ -134,11 +135,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             visibility = if (actorInfo.actor_workaddress.isEmpty()) View.GONE else View.VISIBLE
             text = actorInfo.actor_workaddress
         }
-        with(actor_evaluation_tv){
+        with(actor_evaluation_tv) {
             visibility = if (actorInfo.actor_evaluate.isEmpty()) View.GONE else View.VISIBLE
             actor_evaluation_tv.text = "上课评价:\n\n${actorInfo.actor_evaluate}"
         }
-        with(actor_introduction_tv){
+        with(actor_introduction_tv) {
             visibility = if (actorInfo.actor_introduce.isEmpty()) View.GONE else View.VISIBLE
             actor_introduction_tv.text = "上课内容:\n\n${actorInfo.actor_introduce}"
         }
@@ -181,12 +182,13 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             commentsRv?.adapter = commentsAdapter
         }
         commentsAdapter.setOnItemChildClickListener { adapter, view, position ->
-            when(view.id){
-                R.id.total_reply_comment_tv->{
-
+            when (view.id) {
+                R.id.total_reply_comment_tv -> {
+                    list = adapter.data as ArrayList<Comments>
+                    startActivity<ReplyCommentActivity>("replyCommentPosition" to list[position].id)
                 }
-                R.id.comment_iv->{
-                   startActivity<ReplyCommentActivity>("replyCommentPosition" to position)
+                R.id.comment_iv -> {
+
                 }
             }
 
