@@ -34,8 +34,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
         when (buttonView.id) {
-            R.id.boy -> sex = "男"
-            R.id.girl -> sex = "女"
+            R.id.boy -> sex = getString(R.string.boy)
+            R.id.girl -> sex = getString(R.string.girl)
         }
     }
 

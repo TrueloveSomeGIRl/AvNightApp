@@ -28,7 +28,7 @@ import kotlinx.android.synthetic.main.loufeng_in_fragment.*
 class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
     override fun fetchData() {
-        //  这里一直没 怎么研究透 这个空判断  只是懂这个意思  不让抛 npe 就用let 感觉多了点代码
+
         // id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
         mViewModel.getActorInfo(id!!, startPage, pageSize)
     }

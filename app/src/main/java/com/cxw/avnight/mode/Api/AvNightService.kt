@@ -43,5 +43,9 @@ interface AvNightService {
     @GET("selectByIdReply/{id}/{page}/{pageSize}")
     suspend fun getSelectByIdReply(@Path("id") id: Int, @Path("page") page: Int, @Path("pageSize") pageSize: Int): AvNightResponse<Result<ChildComment>>
 
+    @POST("saveReplyComment")
+    suspend fun saveReplyComment(@Body replyCommentsBody: RequestBody): AvNightResponse<ChildComment>
+
+
 
 }

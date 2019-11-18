@@ -1,13 +1,18 @@
 package com.cxw.avnight.ui.loufeng
 
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,24 +28,41 @@ import com.cxw.avnight.util.AppConfigs
 
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.DisplayUtil
+import com.cxw.avnight.util.SPUtil
 import com.cxw.avnight.weight.GlideImageLoader
+import com.google.gson.Gson
 import com.jaeger.library.StatusBarUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
+import kotlinx.android.synthetic.main.activity_login.*
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun providerVMClass(): Class<CommentsModel> = CommentsModel::class.java
     private var startPage = 1
     private var pageSize = 10
+    private val mReplyComments = HashMap<String, Any>()
 
     companion object {
         const val KEY = "key"
     }
 
+    override fun requestLoading(isLoading: Boolean) {
+        super.requestLoading(isLoading)
+        BaseTools. initLottieAnim(lv,View.VISIBLE, true)
+    }
+
+    override fun requestSuccess(requestSuccess: Boolean) {
+        super.requestSuccess(requestSuccess)
+
+    }
 
     private val commentsAdapter by lazy { CommentsAdapter() }
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
@@ -151,9 +173,16 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 
     override fun startObserve() {
         super.startObserve()
-        mViewModel.mComments.observe(this@ActorIntroduceActivity, Observer {
-            initComments(it)
-        })
+
+        mViewModel.let {
+            it.mComments.observe(this@ActorIntroduceActivity, Observer {
+                initComments(it)
+            })
+            it.mReplyComments.observe(this@ActorIntroduceActivity, Observer {
+                Log.d("cxx","cx")
+            })
+
+        }
     }
 
     private fun initComments(it: Result<Comments>) {
@@ -172,25 +201,26 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun initData() {
         val dialogHeight = DisplayUtil.getScreenHeight(this) * 0.7
         click_see_all.setOnClickListener {
-            val commentsDialog = AlertDialog.Builder(this@ActorIntroduceActivity, R.style.dialog1)
-                .setContentView(R.layout.dialog_comments_layout)
-                .setWidthAndHeight(
-                    DisplayUtil.getScreenWidth(this), dialogHeight.toInt()
-                )
-                .formBottom(true)
-                .show()
+            val commentsDialog =
+                AlertDialog.Builder(this@ActorIntroduceActivity, R.style.dialog1)
+                    .setContentView(R.layout.dialog_comments_layout)
+                    .setWidthAndHeight(
+                        DisplayUtil.getScreenWidth(this), dialogHeight.toInt()
+                    )
+                    .formBottom(true)
+                    .show()
             val commentsRv = commentsDialog.getView<RecyclerView>(R.id.rv)
             commentsRv?.layoutManager = LinearLayoutManager(this)
             commentsRv?.adapter = commentsAdapter
         }
         commentsAdapter.setOnItemChildClickListener { adapter, view, position ->
+            list = adapter.data as ArrayList<Comments>
             when (view.id) {
                 R.id.total_reply_comment_tv -> {
-                    list = adapter.data as ArrayList<Comments>
                     startActivity<ReplyCommentActivity>("replyCommentPosition" to list[position].id)
                 }
                 R.id.comment_iv -> {
-
+                    showCommentDialog(position)
                 }
             }
 
@@ -206,5 +236,65 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         super.onStop()
         banner.stopAutoPlay()
     }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun showCommentDialog(pos: Int) {
+        val commentsDialog =
+            AlertDialog.Builder(this@ActorIntroduceActivity, R.style.CommentsDialog)
+                .setContentView(R.layout.comment_dialog_layout)
+                .fullWidth()
+                .formBottom(true)
+                .show()
+
+        val commentEt = commentsDialog.getView<EditText>(R.id.dialog_comment_content_et)!!
+        val publishTv = commentsDialog.getView<TextView>(R.id.dialog_comment_publish_tv)!!
+        commentEt.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                if (s.isNotEmpty()) {
+                    publishTv.setBackgroundResource(R.drawable.corners_review_cansend)
+                } else {
+                    publishTv.setBackgroundResource(R.drawable.corners_review_send)
+                }
+
+            }
+        })
+        BaseTools.showSoftKeyboard(commentEt, this)
+
+
+        publishTv.setOnClickListener {
+            mReplyComments["comment_id"] = list[pos].id
+            mReplyComments["from_id"] = SPUtil.getInt("userId")
+            mReplyComments["from_name"] = SPUtil.getString("userName")
+            mReplyComments["from_avatar"] = SPUtil.getString("headImg")
+            mReplyComments["to_id"] = list[pos].from_id
+            mReplyComments["to_name"] = list[pos].from_name
+            mReplyComments["to_avatar"] = list[pos].from_avatar
+            mReplyComments["content"] = commentEt.text.toString()
+            mReplyComments["create_time"] =
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
+            Log.d("cxx", "${Gson().toJson(mReplyComments)}")
+            mViewModel.saveReplyComment(
+                RequestBody.create(
+                    MediaType.parse("application/json;charset=UTF-8"),
+                    Gson().toJson(mReplyComments)
+                )
+            )
+        }
+    }
+
+
 
 }

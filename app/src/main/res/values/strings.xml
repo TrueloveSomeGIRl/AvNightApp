@@ -72,4 +72,6 @@
     <string name="potato">Potato下载</string>
     <string name="panda_vpn">PandaVPN下载</string>
     <string name="thunder_teacher_rv">排雷老师列表</string>
+    <string name="boy">男</string>
+    <string name="girl">女</string>
 </resources>

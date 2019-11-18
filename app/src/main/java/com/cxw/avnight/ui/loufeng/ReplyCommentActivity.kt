@@ -17,6 +17,7 @@ class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>() {
     override fun getLayoutResId(): Int = R.layout.activity_reply_comment
     private var startPage = 1
     private var pageSize = 10
+
     private val replyByIdCommentAdapter by lazy { ReplyByIdCommentAdapter() }
     override fun initView() {
         reply_comment_rv.layoutManager = LinearLayoutManager(this)

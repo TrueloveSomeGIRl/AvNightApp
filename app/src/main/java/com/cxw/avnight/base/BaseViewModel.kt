@@ -2,6 +2,7 @@ package com.cxw.avnight.base
 
 
 
+import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -65,6 +66,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         coroutineScope {
             try {
                 tryBlock()
+                Log.d("cxx","}")
                 mRequestSuccess.value = true
             } catch (e: Throwable) {             //异常走这里  不区分直接给ExceptionEngine 他判断 抛什么错误
 //                if (e !is CancellationException || handleCancellationExceptionManually) {
@@ -73,6 +75,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 //                } else {
 //                    throw e
 //                }
+                Log.d("cxx","${e.message}")
                 mException.value = ExceptionEngine.handleException(e)
                 catchBlock(e)
             } finally {
