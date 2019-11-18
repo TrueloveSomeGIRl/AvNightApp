@@ -1,6 +1,7 @@
 package com.cxw.avnight.ui.loufeng
 
 
+import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -39,6 +40,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     companion object {
         const val KEY = "key"
     }
+
 
     private val commentsAdapter by lazy { CommentsAdapter() }
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="

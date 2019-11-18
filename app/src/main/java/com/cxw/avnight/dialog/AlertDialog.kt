@@ -133,7 +133,6 @@ class AlertDialog(context: Context, themeResId: Int) : Dialog(context, themeResI
          */
         fun formBottom(isAnimation: Boolean): Builder {
             if (isAnimation) {
-
                 P.mAnimations = R.style.dialog_from_bottom_anim
             }
             P.mGravity = Gravity.BOTTOM

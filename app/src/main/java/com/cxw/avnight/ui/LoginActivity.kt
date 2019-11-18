@@ -1,14 +1,11 @@
 package com.cxw.avnight.ui
 
 
-import android.content.Intent
-import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
-import android.widget.Toast
+
 import androidx.lifecycle.Observer
 import com.cxw.avnight.R
-
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.SPUtil
@@ -246,6 +243,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         super.requestLoading(isLoading)
        BaseTools. initLottieAnim(lv,View.VISIBLE, true)
     }
+
 
     override fun startObserve() {
         super.startObserve()

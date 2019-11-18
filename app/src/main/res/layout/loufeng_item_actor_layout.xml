@@ -18,8 +18,7 @@
                 android:id="@+id/actor_iv"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
-                android:scaleType="fitXY"
-        />
+                android:scaleType="fitXY"/>
         <TextView
                 android:id="@+id/actor_tv"
                 android:layout_width="match_parent"

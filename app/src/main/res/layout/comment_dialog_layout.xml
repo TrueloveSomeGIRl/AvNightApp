@@ -1,49 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f3f6f6"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/dialog_comment_content_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-        <View
-                android:layout_width="0dp"
-                android:layout_height="1px"
-                android:layout_weight="1" />
+            android:layout_margin="10dp"
+            android:background="@drawable/corners_review_layout"
+            android:gravity="top"
+            android:hint="请输入你的评论..."
+            android:maxLines="4"
+            android:minHeight="55dp"
+            android:padding="5dp"
+            android:textColorHint="#c7c7c7"
+            android:textSize="13sp" />
 
         <TextView
-                android:id="@+id/tv_commit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-
-                android:clickable="false"
-                android:text="发 表"
-
-                android:textSize="15dp" />
-
-    </LinearLayout>
-
-    <EditText
-            android:id="@+id/et_comment"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="left|top"
-            android:hint="请输入评论内容"
-            android:inputType="textMultiLine"
-            android:textColor="@android:color/black"
-
+            android:id="@+id/dialog_comment_publish_tv"
+            android:layout_width="56dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/corners_review_send"
+            android:gravity="center"
+            android:text="发表"
+            android:textColor="#ebebeb"
             android:textSize="14sp" />
 
-
+    </LinearLayout>
 </LinearLayout>
-
