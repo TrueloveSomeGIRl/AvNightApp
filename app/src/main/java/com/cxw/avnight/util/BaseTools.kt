@@ -2,6 +2,7 @@ package com.cxw.avnight.util
 
 import android.annotation.SuppressLint
 import android.app.ActionBar
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 
@@ -11,6 +12,7 @@ import android.net.Uri
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
+import android.content.Context.INPUT_METHOD_SERVICE
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,6 +26,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import com.airbnb.lottie.LottieAnimationView
 import com.cxw.avnight.R
 import com.google.gson.Gson
@@ -73,8 +76,8 @@ object BaseTools {
      */
     fun <T> requestBody(entity: T, contentType: String): RequestBody {
         return RequestBody.create(
-                MediaType.parse(contentType),
-                Gson().toJson(entity)
+            MediaType.parse(contentType),
+            Gson().toJson(entity)
         )
     }
 
@@ -85,16 +88,16 @@ object BaseTools {
         val parts = ArrayList<MultipartBody.Part>(files.size)
         for (file in files) {
             val f = Compressor(context)
-                    .setMaxWidth(1920)
-                    .setMaxHeight(1080)
-                    .setQuality(80)
-                    .setCompressFormat(Bitmap.CompressFormat.JPEG)
-                    .setDestinationDirectoryPath(
-                            Environment.getExternalStoragePublicDirectory(
-                                    Environment.DIRECTORY_PICTURES
-                            ).absolutePath
-                    )
-                    .compressToFile(File(file))
+                .setMaxWidth(1920)
+                .setMaxHeight(1080)
+                .setQuality(80)
+                .setCompressFormat(Bitmap.CompressFormat.JPEG)
+                .setDestinationDirectoryPath(
+                    Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES
+                    ).absolutePath
+                )
+                .compressToFile(File(file))
 
             val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), f)
             val part = MultipartBody.Part.createFormData("f", f.name, requestBody)
@@ -121,14 +124,14 @@ object BaseTools {
     fun checkEtIsNotEmpty(context: Context, content: String, showTip: String) {
         if (!content.isNotBlank()) {
             Toast.makeText(context, showTip, Toast.LENGTH_LONG)
-                    .show()
+                .show()
             return
         }
     }
 
     fun isEmail(email: String): Boolean {
         val str =
-                "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
+            "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$"
         val p = Pattern.compile(str)
         val m = p.matcher(email)
         return m.matches()
@@ -144,10 +147,14 @@ object BaseTools {
 
     fun showSoftKeyboard(view: View, mContext: Context) {
         if (view.requestFocus()) {
-            val imm = mContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val imm = mContext.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             imm.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
         }
     }
 
+    fun closeKeybord(activity: Activity) {
+        val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
+    }
 
 }

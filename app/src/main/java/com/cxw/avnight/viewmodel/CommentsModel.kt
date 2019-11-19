@@ -16,6 +16,7 @@ class CommentsModel : BaseViewModel() {
     private val repository by lazy { CommentsRepository() }
     val mComments: MutableLiveData<Result<Comments>> = MutableLiveData()
     val mReplyComments: MutableLiveData<ChildComment> = MutableLiveData()
+    val mAcotorComments: MutableLiveData<Comments> = MutableLiveData()
 
     fun getComments(id: Int, type: Int, pageSize: Int) {
         launch {
@@ -32,6 +33,15 @@ class CommentsModel : BaseViewModel() {
                 repository.saveReplyComment(replyCommentsBody)
             }
             executeResponse(result, { mReplyComments.value = result.data }, {})
+        }
+    }
+
+    fun addActorComment(addActorCommentBody: RequestBody) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                repository.addActorComment(addActorCommentBody)
+            }
+            executeResponse(result, { mAcotorComments.value = result.data }, {})
         }
     }
 }

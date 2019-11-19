@@ -18,4 +18,8 @@ class CommentsRepository {
     suspend fun saveReplyComment(replyCommentsBody: RequestBody): AvNightResponse<ChildComment> {
         return AvNightRetrofitClient.service.saveReplyComment(replyCommentsBody)
     }
+
+    suspend fun addActorComment(addActorCommentBody: RequestBody): AvNightResponse<Comments> {
+        return AvNightRetrofitClient.service.addActorComment(addActorCommentBody)
+    }
 }

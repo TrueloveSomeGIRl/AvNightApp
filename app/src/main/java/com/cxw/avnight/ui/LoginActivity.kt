@@ -41,7 +41,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestSuccess(requestSuccess: Boolean) {
         super.requestSuccess(requestSuccess)
-        BaseTools.initLottieAnim(lv,View.VISIBLE, true)
+        BaseTools.initLottieAnim(lv, View.VISIBLE, true)
     }
 
     override fun initData() {
@@ -241,7 +241,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestLoading(isLoading: Boolean) {
         super.requestLoading(isLoading)
-       BaseTools. initLottieAnim(lv,View.VISIBLE, true)
+        BaseTools.initLottieAnim(lv, View.VISIBLE, true)
     }
 
 
@@ -279,11 +279,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
     override fun onError(e: Throwable) {
         super.onError(e)
         toast(e.message.toString())
-        BaseTools.initLottieAnim(lv,View.GONE, false)
+        BaseTools.initLottieAnim(lv, View.GONE, false)
     }
-
-
-
 
 
 }

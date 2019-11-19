@@ -1,7 +1,6 @@
 package com.cxw.avnight.base
 
 
-
 import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.MutableLiveData
@@ -31,15 +30,16 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         launchOnUI {
             mLoading.value = true
             tryCatch(tryBlock, {}, {}, true)
+            mRequestSuccess.value = true  //放这里还是放下面  这里 好一点吧
         }
     }
 
 
     fun launchOnUITryCatch(
-            tryBlock: suspend CoroutineScope.() -> Unit,
-            catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
-            finallyBlock: suspend CoroutineScope.() -> Unit,
-            handleCancellationExceptionManually: Boolean
+        tryBlock: suspend CoroutineScope.() -> Unit,
+        catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
+        finallyBlock: suspend CoroutineScope.() -> Unit,
+        handleCancellationExceptionManually: Boolean
     ) {
         launchOnUI {
             tryCatch(tryBlock, catchBlock, finallyBlock, handleCancellationExceptionManually)
@@ -47,8 +47,8 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
     }
 
     fun launchOnUITryCatch(
-            tryBlock: suspend CoroutineScope.() -> Unit,
-            handleCancellationExceptionManually: Boolean = false
+        tryBlock: suspend CoroutineScope.() -> Unit,
+        handleCancellationExceptionManually: Boolean = false
     ) {
         launchOnUI {
             tryCatch(tryBlock, {}, {}, handleCancellationExceptionManually)
@@ -57,17 +57,15 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 
 
     private suspend fun tryCatch(
-            tryBlock: suspend CoroutineScope.() -> Unit,
-            catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
-            finallyBlock: suspend CoroutineScope.() -> Unit,
-            handleCancellationExceptionManually: Boolean = false
+        tryBlock: suspend CoroutineScope.() -> Unit,
+        catchBlock: suspend CoroutineScope.(Throwable) -> Unit,
+        finallyBlock: suspend CoroutineScope.() -> Unit,
+        handleCancellationExceptionManually: Boolean = false
     ) {
 
         coroutineScope {
             try {
                 tryBlock()
-                Log.d("cxx","}")
-                mRequestSuccess.value = true
             } catch (e: Throwable) {             //异常走这里  不区分直接给ExceptionEngine 他判断 抛什么错误
 //                if (e !is CancellationException || handleCancellationExceptionManually) {
 //                    mException.value = ExceptionEngine.handleException(e)
@@ -75,7 +73,6 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
 //                } else {
 //                    throw e
 //                }
-                Log.d("cxx","${e.message}")
                 mException.value = ExceptionEngine.handleException(e)
                 catchBlock(e)
             } finally {

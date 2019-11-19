@@ -255,7 +255,7 @@
                 android:textSize="14sp" />
 
         <LinearLayout
-                android:visibility="gone"
+
                 android:id="@+id/comment_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -268,7 +268,9 @@
                 android:padding="8dp">
 
             <LinearLayout
-
+                    android:layout_marginBottom="2dp"
+                    android:visibility="gone"
+                    android:id="@+id/first_comment_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -303,30 +305,15 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="50dp"
                         android:layout_marginTop="5dp" />
-
-                <FrameLayout
-                        android:layout_width="match_parent"
+                <TextView
+                        android:id="@+id/comment_time_tv"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="start"
                         android:layout_marginStart="50dp"
-                        android:layout_marginTop="6dp">
+                        android:layout_marginTop="4dp"
+                        android:textSize="14sp" />
 
-                    <TextView
-                            android:id="@+id/comment_time_tv"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:textSize="14sp" />
-
-                    <TextView
-                            android:id="@+id/comment_actor"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:drawableStart="@mipmap/comment"
-                            android:drawablePadding="2dp"
-                            android:text="@string/comment"
-                            android:textSize="14sp" />
-                </FrameLayout>
             </LinearLayout>
 
             <TextView

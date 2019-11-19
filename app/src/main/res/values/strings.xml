@@ -74,4 +74,5 @@
     <string name="thunder_teacher_rv">排雷老师列表</string>
     <string name="boy">男</string>
     <string name="girl">女</string>
+    <string name="click_comment">点击评论</string>
 </resources>

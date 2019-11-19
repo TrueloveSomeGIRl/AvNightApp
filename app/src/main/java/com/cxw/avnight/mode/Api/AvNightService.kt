@@ -46,6 +46,9 @@ interface AvNightService {
     @POST("saveReplyComment")
     suspend fun saveReplyComment(@Body replyCommentsBody: RequestBody): AvNightResponse<ChildComment>
 
+    @POST("addActorComment")
+    suspend fun addActorComment(@Body addActorCommentBody: RequestBody): AvNightResponse<Comments>
+
 
 
 }
