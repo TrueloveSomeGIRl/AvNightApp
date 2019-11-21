@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
+import org.jetbrains.anko.browse
 import org.jetbrains.anko.toast
 
 class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
@@ -48,7 +49,8 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         nav_view.getHeaderView(0).nav_header_name_tv.text = SPUtil.getString("userName", getString(R.string.app_name))
         nav_view.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_panda -> toast("fds")
+                R.id.nav_lw_vpn ->browse("https://www.lanzous.com/i7hibud")
+                R.id.nav_potato ->browse("https://www.lanzous.com/i7hmdze")
             }
             false
         }

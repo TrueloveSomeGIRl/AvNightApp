@@ -4,20 +4,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#EEEEEE"
         tools:context=".ui.loufeng.ReplyCommentActivity">
 
     <FrameLayout
+            android:id="@+id/bar"
+            android:background="#F9F9F9"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:id="@+id/back_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="12dp"
-                android:background="@mipmap/dark_left_back" />
+                android:background="@mipmap/light_back_iv" />
 
         <TextView
+                android:id="@+id/total_reply_comment_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -31,8 +36,15 @@
                 android:background="#c4c4c4" />
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/reply_comment_rv"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srl"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/reply_comment_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>

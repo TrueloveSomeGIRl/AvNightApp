@@ -12,36 +12,34 @@ class CommentsAdapter(layoutResId: Int = R.layout.item_comment_actor) :
     override fun convert(helper: BaseViewHolder, item: Comments) {
         Glide.with(mContext).load(item.from_avatar)
             .into(helper.getView(R.id.comment_user_head_img_iv))
-        if (item.childComments.isNotEmpty()) {
+        if (item.childComments.isNotEmpty()) {   //有评论回复
             helper.setGone(R.id.reply_comment_layout, true)
-            if (item.childComments.size > 1) {
+            if (item.childComments.size >= 2 || item.childComments.size == 1) {
+                helper.setGone(R.id.comment_iv, false)
+                helper.setGone(R.id.total_reply_comment_tv, true)
                 helper.setText(
                     R.id.reply_comment_content_tv,
-                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}</font>${item.childComments[0].content}")
+                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}: </font>${item.childComments[0].content}")
+                ).setText(
+                    R.id.total_reply_comment_tv,
+                    Html.fromHtml("<font color='#536DFE'>共${item.childComments.size}条评论回复></font>")
+
                 )
-                    .setText(
-                        R.id.reply_tow_comment_content_tv,
-                        Html.fromHtml("<font color='#536DFE'>${item.childComments[1].from_name}:</font>${item.childComments[1].content}")
-                    )
-                if (item.childComments.size > 2) {
-                    helper.setGone(R.id.comment_iv, true)
-                    helper.setText(
-                        R.id.total_reply_comment_tv,
-                        Html.fromHtml("<font color='#536DFE'>共${item.childComments.size}条评论回复></font>")
 
-                    )
+            } else {
 
-                } else {
-                    helper.setGone(R.id.comment_iv, false)
-                }
-            } else if (item.childComments.size == 1) {
-                helper.setGone(R.id.reply_tow_comment_content_tv, false)
-                helper.setGone(R.id.total_reply_comment_tv, false)
                 helper.setText(
                     R.id.reply_comment_content_tv,
-                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}:</font>${item.childComments[0].content}")
+                    Html.fromHtml("<font color='#536DFE'>${item.childComments[0].from_name}: </font>${item.childComments[0].content}")
+                ).setText(
+                    R.id.total_reply_comment_tv,
+                    Html.fromHtml("<font color='#536DFE'>共${item.childComments.size}条评论回复></font>")
+
                 )
+                helper.setGone(R.id.comment_iv, true)
+                helper.setGone(R.id.total_reply_comment_tv, true)
             }
+
         } else {
             helper.setGone(R.id.reply_comment_layout, false)
         }

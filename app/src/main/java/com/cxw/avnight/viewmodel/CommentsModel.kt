@@ -15,8 +15,8 @@ import okhttp3.RequestBody
 class CommentsModel : BaseViewModel() {
     private val repository by lazy { CommentsRepository() }
     val mComments: MutableLiveData<Result<Comments>> = MutableLiveData()
-    val mReplyComments: MutableLiveData<ChildComment> = MutableLiveData()
-    val mAcotorComments: MutableLiveData<Comments> = MutableLiveData()
+    val mSaveReplyComments: MutableLiveData<ChildComment> = MutableLiveData()
+    val mActorComments: MutableLiveData<Comments> = MutableLiveData()
 
     fun getComments(id: Int, type: Int, pageSize: Int) {
         launch {
@@ -32,7 +32,7 @@ class CommentsModel : BaseViewModel() {
             val result = withContext(Dispatchers.IO) {
                 repository.saveReplyComment(replyCommentsBody)
             }
-            executeResponse(result, { mReplyComments.value = result.data }, {})
+            executeResponse(result, { mSaveReplyComments.value = result.data }, {})
         }
     }
 
@@ -41,7 +41,7 @@ class CommentsModel : BaseViewModel() {
             val result = withContext(Dispatchers.IO) {
                 repository.addActorComment(addActorCommentBody)
             }
-            executeResponse(result, { mAcotorComments.value = result.data }, {})
+            executeResponse(result, { mActorComments.value = result.data }, {})
         }
     }
 }

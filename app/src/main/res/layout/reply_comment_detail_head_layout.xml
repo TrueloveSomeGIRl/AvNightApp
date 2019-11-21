@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+
+    <RelativeLayout
+            android:layout_marginStart="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/reply_comment_user_head_img_iv"
+                android:layout_width="45dp"
+                android:layout_centerVertical="true"
+                android:layout_height="45dp" />
+
+        <LinearLayout
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/reply_comment_user_head_img_iv"
+                android:orientation="vertical">
+
+            <TextView
+                    android:id="@+id/reply_comment_user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:padding="2dp"
+                    android:textSize="12sp"
+                    tools:text="大明小明" />
+
+            <TextView
+                    android:id="@+id/reply_comment_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:textSize="14sp"
+                    tools:text="2019-12-30" />
+        </LinearLayout>
+
+        <ImageView
+                android:id="@+id/comment_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:background="@mipmap/reply_comment" />
+
+    </RelativeLayout>
+
+
+    <TextView
+            android:id="@+id/reply_comment_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="15dp"
+            android:textSize="14sp" />
+</LinearLayout>

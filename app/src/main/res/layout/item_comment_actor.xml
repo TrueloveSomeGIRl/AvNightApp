@@ -52,19 +52,13 @@
                 android:text="fasdfasdf"
                 android:textSize="12sp" />
 
-        <TextView
-                android:id="@+id/reply_tow_comment_content_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="fasdfasdf"
-                android:textSize="12sp" />
+
 
         <TextView
                 android:id="@+id/total_reply_comment_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:text="总共6条数据"
                 android:textSize="12sp" />
     </LinearLayout>

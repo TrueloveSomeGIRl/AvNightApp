@@ -2,8 +2,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c4c4c4"
+        android:background="#F6F6F5"
+        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical">
 
-    <include layout="@layout/item_reply_comments_include_layout" />
+
+    <LinearLayout
+      android:layout_marginTop="8dp"
+            android:layout_marginStart="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/reply_comment_user_head_img_iv"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+
+        <LinearLayout
+                android:layout_marginStart="15dp"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                    tools:text="大明小明"
+                    android:padding="2dp"
+                    android:id="@+id/reply_comment_user_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="12sp" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+    <TextView
+            android:id="@+id/reply_comment_tv"
+            android:layout_width="match_parent"
+            android:layout_marginEnd="15dp"
+
+            android:layout_marginStart="70dp"
+            android:layout_height="wrap_content"
+            android:textSize="14sp" />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="6dp">
+
+        <TextView
+                android:id="@+id/comment_time_tv"
+                android:layout_width="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="11-12 23:54"
+                android:textColor="#c9c9c9"
+                android:textSize="12sp" />
+
+        <ImageView
+                android:id="@+id/comment_iv"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:background="@mipmap/reply_comment"
+                />
+    </RelativeLayout>
+    <View
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="70dp"
+            android:background="#c4c4c4"
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"/>
 </LinearLayout>

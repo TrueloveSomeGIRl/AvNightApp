@@ -60,6 +60,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     private var clickShowCommentDialog: Boolean =
         false   //点击是否显示评论(包含Recyclerview)dialog 还是评论dialog
     private var isSetNewData: Boolean = false  //是否设置新得数据
+    private var p: Int = 0
 
     companion object {
         const val KEY = "key"
@@ -182,26 +183,27 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         mViewModel.let {
             it.mComments.observe(this@ActorIntroduceActivity, Observer {
                 initComments(it)
-                isFirstRequestNetwork = true
             })
-            it.mReplyComments.observe(this@ActorIntroduceActivity, Observer {
-                commentsDialog.dismiss()
-                BaseTools.closeKeybord(this@ActorIntroduceActivity)
-                if (actorId != -1) {
-                    isSetNewData = true
-                    mViewModel.getComments(actorId, startPage, pageSize)
-                }
-            })
-            it.mAcotorComments.observe(this@ActorIntroduceActivity, Observer {
-                clickShowCommentDialog = false
-                commentsDialog.dismiss()
-                BaseTools.closeKeybord(this@ActorIntroduceActivity)
-                if (actorId != -1) {
-                    mViewModel.getComments(actorId, startPage, pageSize)
-                    isSetNewData = true
-                }
 
+
+            it.mSaveReplyComments.observe(this@ActorIntroduceActivity, Observer {
+                dismissAndRequestComments()
             })
+
+
+            it.mActorComments.observe(this@ActorIntroduceActivity, Observer {
+                clickShowCommentDialog = false
+                dismissAndRequestComments()
+            })
+        }
+    }
+
+    private fun dismissAndRequestComments() {
+        commentsDialog.dismiss()
+        BaseTools.closeKeybord(this@ActorIntroduceActivity)
+        if (actorId != -1) {
+            mViewModel.getComments(actorId, startPage, pageSize)
+            isSetNewData = true
         }
     }
 
@@ -214,10 +216,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             comment_user_name_tv.text = it.data[0].from_name
             comment_content_tv.text = it.data[0].content
             comment_time_tv.text = it.data[0].create_time
-            if (isSetNewData)
+            if (isSetNewData) {
                 commentsAdapter.setNewData(it.data)
-            else
+            } else {
                 commentsAdapter.addData(it.data)
+            }
         } else {
             clickShowCommentDialog = true
             click_see_all.text = getString(R.string.click_comment)
@@ -248,10 +251,21 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                 }
             }
             commentsAdapter.setOnItemChildClickListener { adapter, view, position ->
+                p = position
                 list = adapter.data as ArrayList<Comments>
                 when (view.id) {
                     R.id.total_reply_comment_tv -> {
-                        startActivity<ReplyCommentActivity>("replyCommentPosition" to list[position].id)
+                        startActivity<ReplyCommentActivity>(
+                            "replyCommentPosition" to list[position].id,
+                            "user_head_iv_url" to list[position].from_avatar,
+                            "user_name_tv" to list[position].from_name,
+                            "comment_content" to list[position].content,
+                            "create_time" to list[position].create_time,
+                            "id" to list[position].id,  //评论id
+                            "from_id" to list[position].from_id  //  别人评论他用的id
+                        )
+
+
                     }
                     R.id.comment_iv -> {
                         showCommentDialog(position, true)
@@ -259,7 +273,6 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                 }
 
             }
-
         }
     }
 
@@ -284,6 +297,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
                 .show()
         val commentEt = commentsDialog.getView<EditText>(R.id.dialog_comment_content_et)
         val publishTv = commentsDialog.getView<TextView>(R.id.dialog_comment_publish_tv)
+        publishTv!!.isEnabled = false
         commentEt!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -294,11 +308,12 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 
             override fun afterTextChanged(s: Editable) {
                 if (s.isNotEmpty()) {
-                    publishTv!!.setBackgroundResource(R.drawable.corners_review_cansend)
+                    publishTv.isEnabled = true
+                    publishTv.setBackgroundResource(R.drawable.corners_review_cansend)
                 } else {
-                    publishTv!!.setBackgroundResource(R.drawable.corners_review_send)
+                    publishTv.isEnabled = false
+                    publishTv.setBackgroundResource(R.drawable.corners_review_send)
                 }
-
             }
         })
         BaseTools.showSoftKeyboard(commentEt, this)
