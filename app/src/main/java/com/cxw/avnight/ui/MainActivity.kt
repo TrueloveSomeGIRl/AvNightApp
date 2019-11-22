@@ -1,31 +1,30 @@
 package com.cxw.avnight.ui
 
 
-import android.graphics.Color
 import android.widget.RadioGroup
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.cxw.avnight.R
 import com.cxw.avnight.base.BaseActivity
+import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.ui.loufeng.LouFengFragment
 import com.cxw.avnight.ui.upload.UploadActorFragment
+import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.FragmentMangerWrapper
 import com.cxw.avnight.util.SPUtil
-import com.google.android.material.internal.NavigationMenuItemView
-import com.google.android.material.navigation.NavigationView
+import com.cxw.avnight.viewmodel.LoginViewModel
+import com.cxw.avnight.viewmodel.MainViewModel
 import com.jaeger.library.StatusBarUtil
 import kotlinx.android.synthetic.main.activity_main.*
-
 import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import kotlinx.android.synthetic.main.nav_header_main.view.*
 import org.jetbrains.anko.browse
-import org.jetbrains.anko.toast
 
-class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
+class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChangeListener {
 
-
+    override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
     private lateinit var mCurrentFragment: Fragment
 
     override fun getLayoutResId(): Int = R.layout.activity_main
@@ -34,7 +33,12 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         StatusBarUtil.setTranslucentForImageView(this, 0, man_top_layout)
         StatusBarUtil.setLightMode(this)
         initFragment()
+        checkUpdateApp()
         bottom_bar_rb.setOnCheckedChangeListener(this)
+    }
+
+    private fun checkUpdateApp() {
+        mViewModel.checkUpdateApp()
     }
 
     override fun initData() {
@@ -49,8 +53,8 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
         nav_view.getHeaderView(0).nav_header_name_tv.text = SPUtil.getString("userName", getString(R.string.app_name))
         nav_view.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.nav_lw_vpn ->browse("https://www.lanzous.com/i7hibud")
-                R.id.nav_potato ->browse("https://www.lanzous.com/i7hmdze")
+                R.id.nav_lw_vpn -> browse("https://www.lanzous.com/i7hibud")
+                R.id.nav_potato -> browse("https://www.lanzous.com/i7hmdze")
             }
             false
         }
@@ -83,6 +87,15 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
                 .commitAllowingStateLoss()
         }
         mCurrentFragment = fragment
+    }
+
+    override fun startObserve() {
+        super.startObserve()
+        mViewModel.mUpdateApp.observe(this, Observer {
+            if (BaseTools.getVersionCode(this)<=it.newVersion){
+
+            }
+        })
     }
 
 }

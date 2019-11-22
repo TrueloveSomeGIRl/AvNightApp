@@ -1,11 +1,13 @@
 package com.cxw.avnight.mode.Api
 
 import com.cxw.avnight.mode.bean.*
+import okhttp3.Call
 
 
 import retrofit2.http.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.http.POST
 import retrofit2.http.Multipart
 
@@ -49,6 +51,8 @@ interface AvNightService {
     @POST("addActorComment")
     suspend fun addActorComment(@Body addActorCommentBody: RequestBody): AvNightResponse<Comments>
 
+    @GET("updateApp")
+    suspend fun checkUpdateApp(): AvNightResponse<UpdateApp>
 
 
 }

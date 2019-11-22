@@ -1,21 +1,16 @@
 package com.cxw.avnight.ui
 
 
-import android.content.Intent
-import android.os.Handler
+
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.cxw.avnight.R
 import com.cxw.avnight.base.BaseActivity
-import com.cxw.avnight.ui.loufeng.ReplyCommentActivity
-
 import com.cxw.avnight.util.SPUtil
-import com.jaeger.library.StatusBarUtil
-import kotlinx.android.synthetic.main.activity_login.*
 
 import kotlinx.android.synthetic.main.activity_splash.*
 import org.jetbrains.anko.startActivity
-import java.util.*
+
 
 
 class SplashActivity : BaseActivity() {
@@ -43,7 +38,6 @@ class SplashActivity : BaseActivity() {
                     startActivity<LoginActivity>()
                 }
                 finish()
-
             }
 
         })

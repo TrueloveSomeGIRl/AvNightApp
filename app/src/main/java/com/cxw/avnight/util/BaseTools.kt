@@ -13,6 +13,8 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context.CLIPBOARD_SERVICE
 import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -28,6 +30,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import com.airbnb.lottie.LottieAnimationView
+import com.baidu.mobstat.ab.e
 import com.cxw.avnight.R
 import com.google.gson.Gson
 import id.zelory.compressor.Compressor
@@ -156,5 +159,18 @@ object BaseTools {
         val imm = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(activity.window.decorView.windowToken, 0)
     }
+
+
+    fun getVersionCode(context: Context): Int {
+        var versionCode = 0
+        try {
+            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            versionCode = packageInfo.versionCode
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+        return versionCode
+    }
+
 
 }
