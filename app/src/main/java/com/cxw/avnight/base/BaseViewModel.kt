@@ -30,7 +30,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         launchOnUI {
             mLoading.value = true
             tryCatch(tryBlock, {}, {}, true)
-            mRequestSuccess.value = true  //放这里还是放下面  这里 好一点吧
+
         }
     }
 
@@ -66,6 +66,7 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         coroutineScope {
             try {
                 tryBlock()
+                mRequestSuccess.value = true  //放这里还是放下面  这里 好一点吧
             } catch (e: Throwable) {             //异常走这里  不区分直接给ExceptionEngine 他判断 抛什么错误
 //                if (e !is CancellationException || handleCancellationExceptionManually) {
 //                    mException.value = ExceptionEngine.handleException(e)

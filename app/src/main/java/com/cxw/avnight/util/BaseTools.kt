@@ -20,6 +20,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Environment
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -29,8 +30,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.FileProvider
 import com.airbnb.lottie.LottieAnimationView
 import com.baidu.mobstat.ab.e
+import com.cxw.avnight.App
 import com.cxw.avnight.R
 import com.google.gson.Gson
 import id.zelory.compressor.Compressor
@@ -170,6 +173,43 @@ object BaseTools {
             e.printStackTrace()
         }
         return versionCode
+    }
+
+     fun installApk(filePath: String) {
+        try {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            val apkUri: Uri
+            apkUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                FileProvider.getUriForFile(
+                    App.CONTEXT,
+                    "com.cxw.avnight.fileprovider",
+                    File(filePath)
+                )
+            } else {
+                Uri.fromFile(File(filePath))
+            }
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+            // 查询所有符合 intent 跳转目标应用类型的应用，注意此方法必须放置在 setDataAndType 方法之后
+            val resolveLists = App.CONTEXT.packageManager.queryIntentActivities(
+                intent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
+            // 然后全部授权
+            for (resolveInfo in resolveLists) {
+                val packageName = resolveInfo.activityInfo.packageName
+                App.CONTEXT.grantUriPermission(
+                    packageName,
+                    apkUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                )
+            }
+            App.CONTEXT.startActivity(intent)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 

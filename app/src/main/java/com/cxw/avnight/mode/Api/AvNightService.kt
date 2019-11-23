@@ -15,8 +15,8 @@ import retrofit2.http.Multipart
 interface AvNightService {
 
     companion object {
-        //const val BASE_URL = "http://47.100.91.50:1996/avNight/v1/api/"
-           const val BASE_URL = "http://192.168.1.7:8099/avNight/v1/api/"
+          //const val BASE_URL = "http://47.100.91.50:1996/avNight/v1/api/"
+           const val BASE_URL = "http://192.168.1.7:1997/avNight/v1/api/"
     }
 
     @GET("findVerificationActor/{type}/{page}/{pageSize}")
@@ -51,8 +51,10 @@ interface AvNightService {
     @POST("addActorComment")
     suspend fun addActorComment(@Body addActorCommentBody: RequestBody): AvNightResponse<Comments>
 
-    @GET("updateApp")
+    @GET("checkUpdateApp")
     suspend fun checkUpdateApp(): AvNightResponse<UpdateApp>
 
+    @GET("logout/{token}")
+    suspend fun logout(@Path("token") token: String): AvNightResponse<String>
 
 }

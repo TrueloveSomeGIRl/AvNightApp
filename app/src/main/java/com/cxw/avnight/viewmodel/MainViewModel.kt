@@ -16,12 +16,22 @@ class MainViewModel : BaseViewModel() {
     private val repository by lazy { MainRepository() }
 
     val mUpdateApp: MutableLiveData<UpdateApp> = MutableLiveData()
+    val loginOut: MutableLiveData<String> = MutableLiveData()
     fun checkUpdateApp() {
         launch {
             val result = withContext(Dispatchers.IO) {
                 repository.checkUpdateApp()
             }
             executeResponse(result, { mUpdateApp.value = result.data }, {})
+        }
+    }
+
+    fun loginOut(token:String) {
+        launch {
+            val result = withContext(Dispatchers.IO) {
+                repository.logout(token)
+            }
+            executeResponse(result, { loginOut.value = result.data }, {})
         }
     }
 }

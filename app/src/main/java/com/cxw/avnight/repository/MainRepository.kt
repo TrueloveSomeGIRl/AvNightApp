@@ -10,4 +10,8 @@ class MainRepository {
     suspend fun checkUpdateApp(): AvNightResponse<UpdateApp> {
         return AvNightRetrofitClient.service.checkUpdateApp()
     }
+
+    suspend fun logout(token:String): AvNightResponse<String> {
+        return AvNightRetrofitClient.service.logout(token)
+    }
 }

@@ -1,6 +1,7 @@
 package com.cxw.avnight.ui
 
 
+import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
 
@@ -41,7 +42,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestSuccess(requestSuccess: Boolean) {
         super.requestSuccess(requestSuccess)
-        BaseTools.initLottieAnim(lv, View.VISIBLE, true)
+        BaseTools.initLottieAnim(lv, View.GONE, true)
     }
 
     override fun initData() {
@@ -278,8 +279,9 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun onError(e: Throwable) {
         super.onError(e)
-        toast(e.message.toString())
         BaseTools.initLottieAnim(lv, View.GONE, false)
+        toast(e.message.toString())
+
     }
 
 

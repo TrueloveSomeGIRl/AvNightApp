@@ -12,7 +12,7 @@ class FragmentMangerWrapper {
 
     fun createFragment(clazz: Class<*>): Fragment {
         val className = clazz.name
-        if (mHasMap.containsKey(className)) {  //判断HasMap Key中是否有clazz.getName这个 Key
+        if (mHasMap.containsKey(className)) {
             fragment = mHasMap[className]!!
         } else {
             try {

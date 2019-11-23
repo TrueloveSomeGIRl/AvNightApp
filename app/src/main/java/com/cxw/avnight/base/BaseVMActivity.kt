@@ -39,7 +39,6 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
                 requestLoading(it)
             })
             it.mRequestSuccess.observe(this, Observer {
-
                 requestSuccess(it)
             })
         }

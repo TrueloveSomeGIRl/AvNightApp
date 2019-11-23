@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/dialog_shape"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/new_version_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="@string/new_version"
+                android:textSize="14sp" />
+
+        <TextView
+                android:id="@+id/update_content_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="30dp"
+                android:textSize="14sp" />
+
+        <ProgressBar
+                android:visibility="gone"
+                android:id="@+id/update_progress_pb"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="30dp" />
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:background="#c4c4c4" />
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/canael_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/cancel"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+
+            <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+
+                    android:background="#c4c4c4" />
+
+
+            <TextView
+                    android:id="@+id/update_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/update"
+                    android:textColor="#333333"
+                    android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

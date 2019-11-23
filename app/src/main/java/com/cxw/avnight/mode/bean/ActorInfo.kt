@@ -18,6 +18,7 @@ data class ActorInfo(
     val actor_isinvalid: Int,
     val actor_isverification: Int,
     val actor_name: String,
+    val actor_potato: String,
     val actor_phone: String,
     val actor_qq: String,
     val actor_weight: Int,

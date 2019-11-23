@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.loufeng_item_actor_layout.view.*
 class LouFengAdapter(layoutResId: Int = R.layout.loufeng_item_actor_layout) :
     BaseQuickAdapter<ActorInfo, BaseViewHolder>(layoutResId) {
     override fun convert(helper: BaseViewHolder, item: ActorInfo) {
-
+        if (item.actorImgs.isEmpty()) return
         val w: Int = DisplayUtil.getScreenWidth(App.CONTEXT)
         val h: Int = item.actorImgs[0].img_h.toInt()
         val params = LinearLayout.LayoutParams(
@@ -35,7 +35,7 @@ class LouFengAdapter(layoutResId: Int = R.layout.loufeng_item_actor_layout) :
         params.width = w / 2
         helper.itemView.actor_iv.layoutParams = params
         Glide.with(mContext).load(item.actorImgs[0].img_url)
-            //.apply(RequestOptions().placeholder(ColorDrawable(Color.parseColor(item.actorImgs[0].img_pot_rgb))))
+            .apply(RequestOptions().placeholder(ColorDrawable(Color.parseColor(item.actorImgs[0].img_pot_rgb))))
             .into(helper.getView(R.id.actor_iv))
         helper.setText(R.id.actor_tv, item.actor_name)
     }

@@ -1,6 +1,7 @@
 package com.cxw.avnight.util
 
 import android.os.Environment
+import android.util.Log
 import androidx.annotation.NonNull
 import okhttp3.*
 
@@ -11,17 +12,16 @@ import java.io.InputStream
 
 class OkDownload private constructor() {
     private val okHttpClient: OkHttpClient = OkHttpClient()
+    private val appPath = Environment.getExternalStorageDirectory().toString() + File.separator
 
     /**
      * @param url      下载连接
-     * @param saveDir  储存下载文件的SDCard目录
      * @param listener 下载监听
      */
-    fun download(url: String, saveDir: String, listener: OnDownloadListener) {
+    fun download(url: String,  listener: OnDownloadListener) {
         val request = Request.Builder().url(url).build()
         okHttpClient.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                // 下载失败
                 listener.onDownloadFailed()
             }
 
@@ -33,10 +33,9 @@ class OkDownload private constructor() {
                 var fos: FileOutputStream? = null
                 // 储存下载文件的目录
                 var sum: Long = 0
-                val savePath = isExistDir(saveDir)
-                val file = File(savePath, getNameFromUrl(url))
+
                 try {
-                    fos = FileOutputStream(file)
+                    fos = FileOutputStream(File(appPath, "zml.apk"))
                     while (inputStream.read(buf).apply { len = this } > 0) {
                         fos.write(buf, 0, len)
                         sum += len.toLong()
@@ -44,9 +43,10 @@ class OkDownload private constructor() {
                         // 下载中
                         listener.onDownloading(progress)
                     }
-                    fos.flush()
+
                     // 下载完成
                     listener.onDownloadSuccess()
+                    fos.flush()
                 } catch (e: Exception) {
                     listener.onDownloadFailed()
                 } finally {
@@ -64,29 +64,7 @@ class OkDownload private constructor() {
         })
     }
 
-    /**
-     * @param saveDir
-     * @return
-     * @throws IOException 判断下载目录是否存在
-     */
 
-    private fun isExistDir(saveDir: String): String {
-        // 下载位置
-        val downloadFile = File(Environment.getExternalStorageDirectory(), saveDir)
-        if (!downloadFile.mkdirs()) {
-            downloadFile.createNewFile()
-        }
-        return downloadFile.absolutePath
-    }
-
-    /**
-     * @param url
-     * @return 从下载连接中解析出文件名
-     */
-    @NonNull
-    private fun getNameFromUrl(url: String): String {
-        return url.substring(url.lastIndexOf("/") + 1)
-    }
 
     interface OnDownloadListener {
         /**

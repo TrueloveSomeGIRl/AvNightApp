@@ -75,4 +75,9 @@
     <string name="boy">男</string>
     <string name="girl">女</string>
     <string name="click_comment">点击评论</string>
+    <string name="login_out">退出登录</string>
+    <string name="new_version">检查到有新版本</string>
+    <string name="update">更新</string>
+    <string name="download_failed">下载失败</string>
+
 </resources>

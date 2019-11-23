@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.cxw.avnight.state.EmptyCallback
+import com.cxw.avnight.state.ErrorCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 
@@ -68,12 +69,12 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
         mViewModel.mException.observe(this, Observer {
-//            mBaseLoadService.showCallback(EmptyCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
-//            Toast.makeText(context, it.code, Toast.LENGTH_LONG).show()
+            mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
+            Toast.makeText(context, it.code, Toast.LENGTH_LONG).show()
         })
     }
 
-    //open fun onError(e: Throwable) {}
+ //   open fun onError(e: Throwable) {}
 
     abstract fun getLayoutResId(): Int
 
