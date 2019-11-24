@@ -7,11 +7,11 @@ import kotlinx.android.parcel.Parcelize
 data class ActorImg(
     val img_actorid: Int,
     val img_creattime: String,
-    val img_h: Double,
+    val img_h: Int,
     val img_id: Int,
     val img_info: String,
     val img_url: String,
-    val img_w: Double,
+    val img_w: Int,
     val img_weight: Int,
     val img_pot_rgb: String
 ) : Parcelable

@@ -175,6 +175,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             actor_introduction_tv.text = "上课内容:\n\n${actorInfo.actor_introduce}"
         }
 
+        with(actor_potato_tv) {
+            visibility = if (actorInfo.actor_potato.isEmpty()) View.GONE else View.VISIBLE
+            actor_potato_tv.text = actorInfo.actor_potato
+        }
+
     }
 
 

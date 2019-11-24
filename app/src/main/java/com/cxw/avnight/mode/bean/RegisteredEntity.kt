@@ -5,7 +5,6 @@ data class RegisteredEntity(
     val code: String,
     val email: String,
     val head_portrait: String,
-    val idd: Int,
     val name: String,
     val password: String,
     val sex: String

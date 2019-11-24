@@ -65,6 +65,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
                 R.id.nav_lw_vpn -> browse("https://www.lanzous.com/i7hibud")
                 R.id.nav_potato -> browse("https://www.lanzous.com/i7hmdze")
                 R.id.nav_login_out -> mViewModel.loginOut(SPUtil.getString("token"))
+                R.id.nav_reward->  startActivity<RewardActivity>()
             }
             false
         }

@@ -16,7 +16,7 @@ class LoginRepository {
     suspend fun getEmailCode(email:String): AvNightResponse<EmailEntity> {
         return AvNightRetrofitClient.service.getEmailCode(email)
     }
-    suspend fun updatePassword(body:RequestBody): AvNightResponse<String> {
+    suspend fun updatePassword(body:RequestBody): AvNightResponse<updatePassword> {
         return AvNightRetrofitClient.service.updatePassword(body)
     }
 }

@@ -79,5 +79,6 @@
     <string name="new_version">检查到有新版本</string>
     <string name="update">更新</string>
     <string name="download_failed">下载失败</string>
+    <string name="updata_password_success_back_login">修改密码成功,正在登录。。。</string>
 
 </resources>

@@ -28,6 +28,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="n">
+        <activity android:name=".ui.RewardActivity"></activity>
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -38,14 +39,13 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/file_paths_public" />
         </provider>
+
         <activity android:name=".ui.loufeng.ReplyCommentActivity" />
         <activity android:name=".ui.LoginActivity" />
         <activity
                 android:name=".ui.loufeng.ActorIntroduceActivity"
                 android:launchMode="singleTop" />
-        <activity
-                android:name=".ui.MainActivity"
-                />
+        <activity android:name=".ui.MainActivity" />
         <activity
                 android:name=".ui.SplashActivity"
                 android:theme="@style/ActivityFullscreenTheme">

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.RewardActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+        <FrameLayout
+                android:id="@+id/top_bar_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <ImageView
+                    android:id="@+id/back_finish_iv"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="start"
+                    android:layout_margin="8dp"
+                    android:background="@mipmap/light_back_iv" />
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/reward"
+                    android:textSize="14sp" />
+        </FrameLayout>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.5"
+                android:text="如果你在使用的途中，等待图片加载太久。是因为服务器太差的原因，没有云存储，没有CDN，等等一系列没有。扫描下方二维码支持下服务器共同维护。如果你在使用途中方便到你上课，就是我做这APP的宗旨"
+                android:textSize="16sp" />
+
+        <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/wx_pay"
+                android:scaleType="fitXY" />
+
+        <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@mipmap/al_pay"
+                android:scaleType="fitXY" />
+    </LinearLayout>
+</ScrollView>

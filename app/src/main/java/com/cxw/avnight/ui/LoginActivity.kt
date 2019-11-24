@@ -265,6 +265,20 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
             })
             registeredViewModel.observe(this@LoginActivity, Observer {
                 toast(getString(R.string.register_success))
+                userInfo.clear()
+                userInfo["email"] = it.email
+                userInfo["password"] = it.password
+                mViewModel.login(
+                    RequestBody.create(
+                        MediaType.parse("application/json;charset=UTF-8"),
+                        Gson().toJson(userInfo)
+                    )
+                )
+            })
+            updatePasswordViewModel.observe(this@LoginActivity, Observer {
+                toast(getString(R.string.updata_password_success_back_login))
+                userInfo.clear()
+                Thread.sleep(1500)
                 userInfo["email"] = it.email
                 userInfo["password"] = it.password
                 mViewModel.login(

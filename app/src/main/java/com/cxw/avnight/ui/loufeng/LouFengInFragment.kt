@@ -45,7 +45,6 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     override fun getLayoutResId(): Int = R.layout.loufeng_in_fragment
 
 
-
     override fun initView() {
         srl.setDistanceToTriggerSync(200)
         StatService.enableListTrack(rv)

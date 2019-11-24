@@ -229,7 +229,15 @@
                     android:drawablePadding="5dp"
                     android:textSize="14sp" />
 
-
+            <TextView
+                    android:id="@+id/actor_potato_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@mipmap/potato"
+                    android:drawablePadding="5dp"
+                    android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
