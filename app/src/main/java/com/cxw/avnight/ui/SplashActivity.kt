@@ -1,16 +1,18 @@
 package com.cxw.avnight.ui
 
 
-
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import com.cxw.avnight.R
+import android.widget.TextView
+
 import com.cxw.avnight.base.BaseActivity
-import com.cxw.avnight.util.SPUtil
 
 import kotlinx.android.synthetic.main.activity_splash.*
+import com.cxw.avnight.R
+import com.cxw.avnight.dialog.AlertDialog
+import com.cxw.avnight.util.SPUtil
 import org.jetbrains.anko.startActivity
-
 
 
 class SplashActivity : BaseActivity() {
@@ -32,18 +34,23 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                if (SPUtil.getBoolean("isLogin", false)) {
-                    startActivity<MainActivity>()
-                } else {
-                    startActivity<LoginActivity>()
+                val alertDialog = AlertDialog.Builder(this@SplashActivity)
+                        .setContentView(R.layout.zfl_tip_layout)
+                        .fullWidth()
+                        .setCancelable(false)
+                        .show()
+                val sureTv = alertDialog.getView<TextView>(R.id.sure_tv)
+                sureTv!!.setOnClickListener {
+                    if (SPUtil.getBoolean("isLogin", false)) {
+                        startActivity<MainActivity>()
+                    } else {
+                        startActivity<LoginActivity>()
+                    }
+                    finish()
                 }
-                finish()
             }
-
         })
-
     }
-
 }
 
 

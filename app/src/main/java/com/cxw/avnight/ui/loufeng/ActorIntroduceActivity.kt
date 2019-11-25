@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.cxw.avnight.viewmodel.CommentsModel
 import com.cxw.avnight.R
 import com.cxw.avnight.adapter.CommentsAdapter
@@ -47,8 +48,14 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
+/**
+ * 感觉这里 刷新加载写的忒TM  SB
+ */
+class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter.RequestLoadMoreListener {
 
-class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
+
+    private var currentPage: Int = 0
+    private var pageTotal: Int = 0
     override fun providerVMClass(): Class<CommentsModel> = CommentsModel::class.java
     private var startPage = 1
     private var pageSize = 10
@@ -56,9 +63,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     private val mReplyComments = HashMap<String, Any>()
     private lateinit var commentsDialog: AlertDialog
     private lateinit var lv: LottieAnimationView
-    private var isFirstRequestNetwork: Boolean = false   //是否第一次网络请求
-    private var clickShowCommentDialog: Boolean =
-        false   //点击是否显示评论(包含Recyclerview)dialog 还是评论dialog
+    private var clickShowCommentDialog: Boolean = false   //点击是否显示评论(包含Recyclerview)dialog 还是评论dialog
     private var isSetNewData: Boolean = false  //是否设置新得数据
     private var p: Int = 0
 
@@ -85,7 +90,6 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 //
 //        }
 
-
     }
 
     private val commentsAdapter by lazy { CommentsAdapter() }
@@ -101,6 +105,14 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
 
     }
 
+    override fun onLoadMoreRequested() {
+        if (currentPage < pageTotal) {
+            startPage++
+            mViewModel.getComments(actorId, startPage, pageSize)
+        } else if (currentPage == pageTotal) {
+            commentsAdapter.loadMoreEnd()
+        }
+    }
 
     private fun setActorInfo() {
         val actorInfo = intent.getParcelableExtra<ActorInfo>(KEY)
@@ -108,9 +120,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         actorInfo!!.actorImgs.forEach {
             imgUrlList.add(it.img_url)
         }
-
         mViewModel.getComments(actorInfo.id, startPage, pageSize)
-
         banner.run {
             setImageLoader(GlideImageLoader())
             setImages(imgUrlList)
@@ -151,7 +161,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             visibility = if (actorInfo.actor_wx.isEmpty()) View.GONE else View.VISIBLE
             setOnClickListener {
                 BaseTools.copyTextContent(this@ActorIntroduceActivity, actorInfo.actor_wx)
-                toast(getString(R.string.copy))
+                toast(getString(R.string.copy_success))
             }
             text = actorInfo.actor_wx.plus(getString(R.string.copy))
         }
@@ -168,16 +178,21 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
         }
         with(actor_evaluation_tv) {
             visibility = if (actorInfo.actor_evaluate.isEmpty()) View.GONE else View.VISIBLE
-            actor_evaluation_tv.text = "上课评价:\n\n${actorInfo.actor_evaluate}"
+            actor_evaluation_tv.text = getString(R.string.class_evaluation_).plus(actorInfo.actor_evaluate)
         }
         with(actor_introduction_tv) {
             visibility = if (actorInfo.actor_introduce.isEmpty()) View.GONE else View.VISIBLE
-            actor_introduction_tv.text = "上课内容:\n\n${actorInfo.actor_introduce}"
+            actor_introduction_tv.text = getString(R.string.class_content_).plus(actorInfo.actor_introduce)
         }
 
         with(actor_potato_tv) {
             visibility = if (actorInfo.actor_potato.isEmpty()) View.GONE else View.VISIBLE
             actor_potato_tv.text = actorInfo.actor_potato
+            setOnClickListener {
+                BaseTools.copyTextContent(this@ActorIntroduceActivity, actorInfo.actor_wx)
+                toast(getString(R.string.copy_success))
+            }
+            text = actorInfo.actor_wx.plus(getString(R.string.copy))
         }
 
     }
@@ -186,8 +201,8 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
     override fun startObserve() {
         super.startObserve()
         mViewModel.let {
-            it.mComments.observe(this@ActorIntroduceActivity, Observer {
-                initComments(it)
+            it.mComments.observe(this@ActorIntroduceActivity, Observer { Comments ->
+                initComments(Comments)
             })
 
 
@@ -221,11 +236,14 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>() {
             comment_user_name_tv.text = it.data[0].from_name
             comment_content_tv.text = it.data[0].content
             comment_time_tv.text = it.data[0].create_time
+            commentsAdapter.loadMoreComplete()
+            currentPage = it.currentPage
             if (isSetNewData) {
                 commentsAdapter.setNewData(it.data)
             } else {
                 commentsAdapter.addData(it.data)
             }
+            pageTotal = it.pageTotal
         } else {
             clickShowCommentDialog = true
             click_see_all.text = getString(R.string.click_comment)

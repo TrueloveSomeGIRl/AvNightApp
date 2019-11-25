@@ -16,6 +16,7 @@
     <string name="cancel">取消</string>
     <string name="login">登录</string>
     <string name="copy">复制</string>
+    <string name="copy_success">复制成功</string>
     <string name="actor_name">名字</string>
     <string name="actor_phone">手机号</string>
     <string name="actor_qq">QQ</string>
@@ -53,10 +54,12 @@
     <string name="email_code_error">验证码错误</string>
     <string name="email_format_error">邮箱格式错误</string>
 
-    <string name="rule_text">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;</string>
+    <string name="rule_text">
+        0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`¬!"£$%^*()~=#{}[];':,./?/*-_+&#060;&#062;&#064;&#038;
+    </string>
     <string name="girl_head_img">女头像</string>
     <string name="boy_head_img">男头像</string>
-    <string name="sure">确定</string>
+
     <string name="two_passwords_are_inconsistent">两次密码不一致</string>
     <string name="send_email_success">已发送邮箱</string>
     <string name="register_success">注册成功,正在登录</string>
@@ -80,5 +83,12 @@
     <string name="update">更新</string>
     <string name="download_failed">下载失败</string>
     <string name="updata_password_success_back_login">修改密码成功,正在登录。。。</string>
-
+    <string name="class_evaluation_">上课评价:\n</string>
+    <string name="class_content_">上课内容:\n</string>
+    <string name="sure">确定</string>
+    <string name="use_must_see">使用必看</string>
+    <string name="info_feedback">信息反馈</string>
+  <string name="use_must_see_content">经过一个多月的制作，醉凤楼（取了一个很傻逼的名字）终于发布了。记忆犹新，出入新手的我，混迹于各个楼凤群，看着骚棒们，发着各种车牌，用着想去又不敢去的心理，试问着，谁去过。排雷者们用以超强的心态到处排雷，到处踩坑。各个楼凤网站，用以昂贵的会员服务，卖着楼凤资源。终于有一天心中的欲望再也压制不住自己的思想，鼓足勇气，排了人生中的第一颗雷。当然结果是美好的，老师很好，服务也很周到，在那一刻，仿佛已经到达人生某个欲望的巅峰，欲望得以满足。久而久之，老司机练成之路也随之成功开启，一次，两次，三次……其中也有好的，不好得，踩过坑，趟过雷，混迹于各个楼凤之中。现在，老司机以练成，想着共享社会，脑子一热开发了这款软件，由于ios太严苛，目前只有安卓端。资源共享是由大家来完成，如果你是一个铁公鸡般的伸手党，那么这款软件对你来说也没有多大意义。最后希望大家一起来共享重庆楼凤资源，上传你手中的资源，维护着这款软件。为了安全起见，没经过我确认的资源都在排雷区。本软件永久免费，没有广告，方便骚棒们在也不用到处询问，不用踩坑，也不用趟雷。如果后期需求大，也可以开放各地，只要你们愿意。
+注:信息来自互联网，不用问是否都排过，不去最安全。既然你都不相信，还用这软件就没多大意思。当然老师也都不是符合大众口味，请不要逼逼赖赖。至少不是雷。如果你是老师以上岸，请联系我删掉你的信息。谢谢。
+</string>
 </resources>

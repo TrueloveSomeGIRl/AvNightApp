@@ -28,7 +28,6 @@ import kotlinx.android.synthetic.main.loufeng_in_fragment.*
 class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
     override fun fetchData() {
-
         // id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
         mViewModel.getActorInfo(id!!, startPage, pageSize)
     }
@@ -39,15 +38,17 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     private val louFengAdapter by lazy { LouFengAdapter() }
     private var startPage = 1
     private var pageSize = 10
-    private var prePage = 0
     private var currentPage: Int = 0
     private var pageTotal: Int = 0
     override fun getLayoutResId(): Int = R.layout.loufeng_in_fragment
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        StatService.enableListTrack(rv)
+    }
 
     override fun initView() {
+
         srl.setDistanceToTriggerSync(200)
-        StatService.enableListTrack(rv)
         rv.run {
             if (id == 0)
                 StatService.setListName(this, context.getString(R.string.thunder_teacher_rv))
@@ -67,8 +68,8 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
             louFengAdapter.setOnLoadMoreListener(this@LouFengInFragment, this)
             louFengAdapter.setLoadMoreView(CustomLoadMoreView())
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
                     (layoutManager as StaggeredGridLayoutManager).invalidateSpanAssignments()//防止第一行到顶部有空白
                 }
             })

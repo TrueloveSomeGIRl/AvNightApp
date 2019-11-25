@@ -1,6 +1,7 @@
 package com.cxw.avnight.util
 
 object AppConfigs {
+    const   val AUTHOR_QQ= "2310729213"
     const val COLUMN_COUNT =3
 
     const val SELECT_COUNT=6

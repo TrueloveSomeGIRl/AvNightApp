@@ -13,6 +13,8 @@ import com.cxw.avnight.util.SPUtil
 import com.cxw.avnight.viewmodel.LoginViewModel
 import com.google.gson.Gson
 import com.jaeger.library.StatusBarUtil
+import com.yanzhenjie.permission.AndPermission
+import com.yanzhenjie.permission.runtime.Permission
 import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -29,6 +31,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
     private var loginOrRegister = true
     private var forgetPassword = false
     override fun initView() {
+        initPermission()
         StatusBarUtil.setTranslucentForImageView(this, 0, line_view)
         StatusBarUtil.setLightMode(this)
     }
@@ -228,9 +231,7 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         loginTv: String,
         forgetPasswordTvVisibility: Int,
         emailCodeLayoutVisibility: Int,
-        rgLayoutVisibility: Int
-
-    ) {
+        rgLayoutVisibility: Int) {
         user_name_layout.visibility = userNameLayoutVisibility
         input_email_code_layout.visibility = emailCodeLayoutVisibility
         reply_user_password_layout.visibility = replyUserPasswordVisibility
@@ -277,8 +278,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
             })
             updatePasswordViewModel.observe(this@LoginActivity, Observer {
                 toast(getString(R.string.updata_password_success_back_login))
-                userInfo.clear()
                 Thread.sleep(1500)
+                userInfo.clear()
                 userInfo["email"] = it.email
                 userInfo["password"] = it.password
                 mViewModel.login(
@@ -295,8 +296,20 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         super.onError(e)
         BaseTools.initLottieAnim(lv, View.GONE, false)
         toast(e.message.toString())
-
     }
 
+    private fun initPermission() {
+        AndPermission.with(this@LoginActivity)
+            .runtime()
+            .permission(
+                Permission.Group.STORAGE
+            )
+            .onGranted {
+
+            }
+            .onDenied {
+                System.exit(0)
+            }.start()
+    }
 
 }

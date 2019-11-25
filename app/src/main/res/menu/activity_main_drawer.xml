@@ -13,7 +13,9 @@
                 android:id="@+id/nav_lw_vpn"
                 android:title="@string/lw_vpn"/>
 
-
+        <item
+            android:id="@+id/nav_info_feedback"
+            android:title="@string/info_feedback"/>
 
         <item
                 android:id="@+id/nav_reward"

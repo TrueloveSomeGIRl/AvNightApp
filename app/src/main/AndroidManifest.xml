@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        package="com.cxw.avnight">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.cxw.avnight">
 
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
 
     <application
             android:name=".App"
@@ -28,7 +29,7 @@
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning"
             tools:targetApi="n">
-        <activity android:name=".ui.RewardActivity"></activity>
+        <activity android:name=".ui.RewardActivity"/>
 
         <provider
                 android:name="androidx.core.content.FileProvider"
@@ -37,31 +38,52 @@
                 android:grantUriPermissions="true">
             <meta-data
                     android:name="android.support.FILE_PROVIDER_PATHS"
-                    android:resource="@xml/file_paths_public" />
+                    android:resource="@xml/file_paths_public"/>
         </provider>
 
-        <activity android:name=".ui.loufeng.ReplyCommentActivity" />
-        <activity android:name=".ui.LoginActivity" />
+        <activity android:name=".ui.loufeng.ReplyCommentActivity"/>
+        <activity android:name=".ui.LoginActivity"/>
         <activity
                 android:name=".ui.loufeng.ActorIntroduceActivity"
-                android:launchMode="singleTop" />
-        <activity android:name=".ui.MainActivity" />
+                android:launchMode="singleTop"/>
+        <activity android:name=".ui.MainActivity"/>
+
         <activity
                 android:name=".ui.SplashActivity"
                 android:theme="@style/ActivityFullscreenTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
         <meta-data
                 android:name="BaiduMobAd_STAT_ID"
-                android:value="28e7d7c7a4" />
+                android:value="44ae31ff38"/>
+
+
         <meta-data
                 android:name="BaiduMobAd_EXCEPTION_LOG"
-                android:value="true" />
+                android:value="true"/>
+
+
+
+
+        <!-- 是否获取基站位置信息 ,默认为true -->
+        <meta-data
+                android:name="BaiduMobAd_CELL_LOCATION"
+                android:value="true"/>
+
+        <!-- 是否获取GPS位置信息，默认为true -->
+        <meta-data
+                android:name="BaiduMobAd_GPS_LOCATION"
+                android:value="true"/>
+
+        <!-- 是否获取WIFI位置信息，默认为true -->
+        <meta-data
+                android:name="BaiduMobAd_WIFI_LOCATION"
+                android:value="true"/>
     </application>
 
 </manifest>

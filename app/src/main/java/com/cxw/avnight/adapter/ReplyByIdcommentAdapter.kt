@@ -18,7 +18,6 @@ class ReplyByIdCommentAdapter(layoutResId: Int = R.layout.item_reply_comments_la
         helper.setText(R.id.reply_comment_user_name_tv, item.from_name)
             .setText(R.id.comment_time_tv, item.create_time)
             .addOnClickListener(R.id.comment_iv)
-        Log.d("cxx", "${item.to_id} ${ReplyCommentActivity.fromId}")
         if (item.from_id == item.to_id || item.to_id == ReplyCommentActivity.fromId) {
             helper.setText(R.id.reply_comment_tv, item.content)
         } else {

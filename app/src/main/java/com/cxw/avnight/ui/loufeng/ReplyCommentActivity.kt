@@ -75,7 +75,6 @@ class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>(),
     private val replyByIdCommentAdapter by lazy { ReplyByIdCommentAdapter() }
     override fun initView() {
         fromId = intent.extras!!.getInt("from_id")
-
         StatusBarUtil.setTranslucentForImageView(this, 0, bar)
         StatusBarUtil.setLightMode(this)
 
@@ -209,7 +208,6 @@ class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>(),
                     Gson().toJson(mSaveReplyComments)
                 )
             )
-            Log.d("cxx", "${Gson().toJson(mSaveReplyComments)}")
         }
     }
 }
