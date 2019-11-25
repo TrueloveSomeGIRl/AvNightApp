@@ -14,6 +14,7 @@ import com.cxw.avnight.state.EmptyCallback
 import com.cxw.avnight.state.ErrorCallback
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
+import org.jetbrains.anko.toast
 
 
 abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragment() {
@@ -70,7 +71,7 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
     open fun startObserve() {
         mViewModel.mException.observe(this, Observer {
             mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
-            Toast.makeText(context, it.code, Toast.LENGTH_LONG).show()
+            context!!.toast(it.message!!)
         })
     }
 

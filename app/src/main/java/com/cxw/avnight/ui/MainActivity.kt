@@ -44,7 +44,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
     override fun getLayoutResId(): Int = R.layout.activity_main
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     override fun initView() {
-        StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
+      //  StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
         StatusBarUtil.setTranslucentForImageView(this, 0, man_top_layout)
         StatusBarUtil.setLightMode(this)
         initFragment()

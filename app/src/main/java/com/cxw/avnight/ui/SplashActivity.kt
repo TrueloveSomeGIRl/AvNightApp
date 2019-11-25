@@ -46,6 +46,7 @@ class SplashActivity : BaseActivity() {
                     } else {
                         startActivity<LoginActivity>()
                     }
+                    alertDialog.dismiss()
                     finish()
                 }
             }
