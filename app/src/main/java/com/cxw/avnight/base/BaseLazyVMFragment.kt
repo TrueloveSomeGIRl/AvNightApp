@@ -69,9 +69,9 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
 
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
-        mViewModel.mException.observe(this, Observer {
+        mViewModel.mException.observe(viewLifecycleOwner, Observer {
             mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
-            context!!.toast(it.message!!)
+            context!!.toast(it.message.toString())
         })
     }
 

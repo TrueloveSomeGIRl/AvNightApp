@@ -35,14 +35,14 @@ abstract class BaseVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragme
     protected abstract fun onNetReload(v: View)
     open fun startObserve() {
         mViewModel.let {
-            it.mException.observe(this, Observer {
+            it.mException.observe(viewLifecycleOwner, Observer {
                 //其实这里更具状态来判断那种错误
                 onError(it)
             })
-            it.mLoading.observe(this, Observer {
+            it.mLoading.observe(viewLifecycleOwner, Observer {
                 requestLoading(it)
             })
-            it.mRequestSuccess.observe(this, Observer {
+            it.mRequestSuccess.observe(viewLifecycleOwner, Observer {
                 requestSuccess(it)
             })
         }

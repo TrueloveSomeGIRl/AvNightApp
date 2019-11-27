@@ -44,7 +44,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
     override fun getLayoutResId(): Int = R.layout.activity_main
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     override fun initView() {
-      //  StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
+        StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
         StatusBarUtil.setTranslucentForImageView(this, 0, man_top_layout)
         StatusBarUtil.setLightMode(this)
         initFragment()
@@ -135,7 +135,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
     override fun startObserve() {
         super.startObserve()
         mViewModel.mUpdateApp.observe(this, Observer { UpdateAppData ->
-            if (BaseTools.getVersionCode(this) >= UpdateAppData.newVersion) {
+            if (BaseTools.getVersionCode(this) < UpdateAppData.newVersion) {
                 updateAppDialog = AlertDialog.Builder(this@MainActivity)
                         .setContentView(R.layout.updata_app_dialog_layout)
                         .setOnClickListener(R.id.canael_tv, View.OnClickListener {
@@ -149,7 +149,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
                                             runOnUiThread {
                                                 progressBar.visibility = View.GONE
                                             }
-                                            BaseTools.installApk(appPath.plus("zfl.apk"))
+                                            BaseTools.installApk(appPath.plus("zml.apk"))
                                             updateAppDialog.dismiss()
                                         }
 
@@ -171,9 +171,8 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
                         .show()
                 progressBar = updateAppDialog.getView(R.id.update_progress_pb)!!
                 val updateContent = updateAppDialog.getView<TextView>(R.id.update_content_tv)
-                updateContent?.text = UpdateAppData.updateDescription
+                updateContent?.text = UpdateAppData.updateDescription.replace("\\n", "\n")
             }
-
         })
         mViewModel.loginOut.observe(this, Observer {
             //进了这里面必定成功了 的 所以不用判断 什么  状态码  直接清楚一些信息就行
@@ -181,6 +180,4 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
             startActivity(intentFor<SplashActivity>().clearTask().newTask())
         })
     }
-
-
 }

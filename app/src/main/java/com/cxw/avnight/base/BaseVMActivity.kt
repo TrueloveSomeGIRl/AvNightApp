@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import org.jetbrains.anko.toast
 
 
 abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObserver {
@@ -33,7 +34,8 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
         mViewModel.let {
             it.mException.observe(this, Observer {
                 //其实这里更具状态来判断那种错误
-               onError(it)
+                toast(it.message.toString())
+//               onError(it)
             })
             it.mLoading.observe(this, Observer {
                 requestLoading(it)

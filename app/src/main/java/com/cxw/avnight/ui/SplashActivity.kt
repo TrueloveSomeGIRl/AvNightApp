@@ -34,21 +34,13 @@ class SplashActivity : BaseActivity() {
             }
 
             override fun onAnimationEnd(animation: Animation) {
-                val alertDialog = AlertDialog.Builder(this@SplashActivity)
-                        .setContentView(R.layout.zfl_tip_layout)
-                        .fullWidth()
-                        .setCancelable(false)
-                        .show()
-                val sureTv = alertDialog.getView<TextView>(R.id.sure_tv)
-                sureTv!!.setOnClickListener {
-                    if (SPUtil.getBoolean("isLogin", false)) {
-                        startActivity<MainActivity>()
-                    } else {
-                        startActivity<LoginActivity>()
-                    }
-                    alertDialog.dismiss()
-                    finish()
+                if (SPUtil.getBoolean("isLogin", false)) {
+                    startActivity<MainActivity>()
+                } else {
+                    startActivity<LoginActivity>()
                 }
+                finish()
+
             }
         })
     }

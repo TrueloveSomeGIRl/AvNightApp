@@ -24,3 +24,10 @@ suspend fun executeResponse(
 }
 
 
+fun main() {
+    for (i in 7 downTo  7) {
+        print(i) // 1234
+    }
+}
+
+

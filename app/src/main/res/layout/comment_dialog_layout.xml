@@ -36,6 +36,7 @@
             android:background="@drawable/corners_review_send"
             android:gravity="center"
             android:text="发表"
+            android:enabled="false"
             android:textColor="#ebebeb"
             android:textSize="14sp" />
 

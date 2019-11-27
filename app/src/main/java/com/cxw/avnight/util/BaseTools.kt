@@ -94,8 +94,8 @@ object BaseTools {
         val parts = ArrayList<MultipartBody.Part>(files.size)
         for (file in files) {
             val f = Compressor(context)
-                .setMaxWidth(1920)
-                .setMaxHeight(1080)
+                .setMaxWidth(1080)
+                .setMaxHeight(1200)
                 .setQuality(80)
                 .setCompressFormat(Bitmap.CompressFormat.JPEG)
                 .setDestinationDirectoryPath(
@@ -126,14 +126,6 @@ object BaseTools {
 
     }
 
-
-    fun checkEtIsNotEmpty(context: Context, content: String, showTip: String) {
-        if (!content.isNotBlank()) {
-            Toast.makeText(context, showTip, Toast.LENGTH_LONG)
-                .show()
-            return
-        }
-    }
 
     fun isEmail(email: String): Boolean {
         val str =
@@ -175,7 +167,7 @@ object BaseTools {
         return versionCode
     }
 
-     fun installApk(filePath: String) {
+    fun installApk(filePath: String) {
         try {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
@@ -184,32 +176,25 @@ object BaseTools {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 FileProvider.getUriForFile(
                     App.CONTEXT,
-                    "com.cxw.avnight.fileprovider",
+                    "com.cxw.avnight.fileProvider",
                     File(filePath)
                 )
             } else {
                 Uri.fromFile(File(filePath))
             }
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
-            // 查询所有符合 intent 跳转目标应用类型的应用，注意此方法必须放置在 setDataAndType 方法之后
-            val resolveLists = App.CONTEXT.packageManager.queryIntentActivities(
-                intent,
-                PackageManager.MATCH_DEFAULT_ONLY
-            )
-            // 然后全部授权
-            for (resolveInfo in resolveLists) {
-                val packageName = resolveInfo.activityInfo.packageName
-                App.CONTEXT.grantUriPermission(
-                    packageName,
-                    apkUri,
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                )
-            }
             App.CONTEXT.startActivity(intent)
         } catch (e: Exception) {
             e.printStackTrace()
         }
 
+    }
+
+    /**
+     * 验证手机号
+     */
+    fun checkPhoneNumber(phoneNumber: String): Boolean {
+        return Pattern.compile("^1[0-9]{10}$").matcher(phoneNumber).matches()
     }
 
 

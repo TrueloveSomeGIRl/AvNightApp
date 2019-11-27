@@ -1,13 +1,18 @@
 package com.cxw.avnight.ui
 
 
+import android.graphics.Color
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.CompoundButton
+import android.widget.TextView
 
 import androidx.lifecycle.Observer
 import com.cxw.avnight.R
+
 import com.cxw.avnight.base.BaseVMActivity
+import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.SPUtil
 import com.cxw.avnight.viewmodel.LoginViewModel
@@ -20,6 +25,7 @@ import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+
 
 class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnCheckedChangeListener {
 
@@ -45,8 +51,9 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
 
     override fun requestSuccess(requestSuccess: Boolean) {
         super.requestSuccess(requestSuccess)
-        BaseTools.initLottieAnim(lv, View.GONE, true)
+        BaseTools.initLottieAnim(lv, View.GONE, false)
     }
+
 
     override fun initData() {
         get_email_code.setOnClickListener {
@@ -231,7 +238,8 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
         loginTv: String,
         forgetPasswordTvVisibility: Int,
         emailCodeLayoutVisibility: Int,
-        rgLayoutVisibility: Int) {
+        rgLayoutVisibility: Int
+    ) {
         user_name_layout.visibility = userNameLayoutVisibility
         input_email_code_layout.visibility = emailCodeLayoutVisibility
         reply_user_password_layout.visibility = replyUserPasswordVisibility
@@ -305,6 +313,27 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 Permission.Group.STORAGE
             )
             .onGranted {
+                val alertDialog = AlertDialog.Builder(this@LoginActivity)
+                    .setContentView(R.layout.zfl_tip_layout)
+                    .fullWidth()
+                    .setCancelable(false)
+                    .show()
+                val sureTv = alertDialog.getView<TextView>(R.id.sure_tv)
+                object : CountDownTimer(15000, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        sureTv!!.text = (millisUntilFinished / 1000).toString().plus(getString(R.string.click))
+                    }
+
+                    override fun onFinish() {
+
+                        sureTv!!.setTextColor(Color.parseColor("#000000"))
+                        sureTv.text = getString(R.string.sure)
+                        sureTv.isEnabled = true
+                    }
+                }.start()
+                sureTv!!.setOnClickListener {
+                    alertDialog.dismiss()
+                }
 
             }
             .onDenied {

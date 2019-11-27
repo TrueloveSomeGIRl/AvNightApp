@@ -4,6 +4,7 @@ package com.cxw.avnight.ui.upload
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.LinearLayout.HORIZONTAL
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -19,6 +20,7 @@ import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.BaseTools.toRequestBody
 import com.cxw.avnight.viewmodel.UploadViewModel
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_actor_introduce.*
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.toast
 import kotlin.collections.HashMap
@@ -63,10 +65,19 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
             context!!.toast(getString(R.string.city_not_empty))
             return
         }
-
+        if (!class_content_et.text.toString().isNotBlank()) {
+            context!!.toast(getString(R.string.class_content_not_blank))
+        }
+        if (!BaseTools.checkPhoneNumber(phone_et.text.toString())) {
+            context!!.toast(getString(R.string.phone_number_wrong_format))
+        }
         if (imgPathList.size == 0) {
             context!!.toast(getString(R.string.upload_img))
             return
+        }
+
+        if (!qq_et.text.toString().isNotBlank() && !wx_et.text.toString().isNotBlank() && !phone_et.text.toString().isNotBlank() && !potato_et.text.toString().isNotBlank()) {
+            context!!.toast(getString(R.string.contact_information_not_blank))
         }
         mActorInfo["actor_name"] = name_et.text.toString().trim()
         mActorInfo["actor_age"] = age_et.text.toString().trim()
@@ -105,7 +116,7 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
     private fun initRv() {
         with(actor_info_img_rv) {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
             adapter = uploadActorImgAdapter
         }
         initAdapter()
@@ -117,13 +128,8 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
                 remove(position)
             }
         }
-
     }
 
-    override fun startObserve() {
-        super.startObserve()
-
-    }
 
     private fun initCamera() {
         camera.setOnClickListener {
@@ -131,7 +137,6 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
                 context!!.toast(getString(R.string.up_to_six_pieces))
                 return@setOnClickListener
             }
-
             cameraDialog = AlertDialog.Builder(context!!)
                     .setContentView(R.layout.dialog_change_layout)
                     .setOnClickListener(R.id.dialog_choose_one, View.OnClickListener {
@@ -150,14 +155,14 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
                                 .camera(false)
                                 .columnCount(AppConfigs.COLUMN_COUNT)
                                 .selectCount(AppConfigs.SELECT_COUNT)
-                                .onResult {
-                                    imgPathList.clear()
-                                    it.forEach {
+                                .onResult { mAlbumFilePath ->
+                                    mAlbumFilePath.forEach {
+                                        uploadActorImgAdapter.addData(it.path)
                                         imgPathList.add(it.path)
                                     }
-                                    uploadActorImgAdapter.addData(imgPathList)
+
                                     if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
-                                    for (pos in uploadActorImgAdapter.itemCount until 6) {  //TODO
+                                    for (pos in uploadActorImgAdapter.itemCount downTo 7) {  //TODO
                                         uploadActorImgAdapter.remove(pos)
                                     }
                                 }

@@ -18,8 +18,8 @@ android {
         applicationId "com.cxw.avnight"
         minSdkVersion ver.minSdkVersion
         targetSdkVersion ver.targetSdkVersion
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         androidExtensions {
             experimental = true
@@ -51,7 +51,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-           // signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
     }
     android.applicationVariants.all {
@@ -107,5 +107,11 @@ dependencies {
     implementation 'com.yanzhenjie:permission:2.0.3'
 
     implementation 'com.baidu.mobstat:mtj-sdk-circle:3.9.7.1'
+
+    implementation 'com.umeng.umsdk:common:2.1.0'
+
+    implementation 'com.umeng.umsdk:utdid:1.1.5.3'
+
+    implementation 'com.umeng.umsdk:push:6.0.1'
 
 }

@@ -320,7 +320,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
                 .show()
         val commentEt = commentsDialog.getView<EditText>(R.id.dialog_comment_content_et)
         val publishTv = commentsDialog.getView<TextView>(R.id.dialog_comment_publish_tv)
-        publishTv!!.isEnabled = false
+
         commentEt!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
@@ -331,16 +331,17 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
 
             override fun afterTextChanged(s: Editable) {
                 if (s.isNotEmpty()) {
-                    publishTv.isEnabled = true
+                    publishTv!!.isEnabled = true
                     publishTv.setBackgroundResource(R.drawable.corners_review_cansend)
                 } else {
-                    publishTv.isEnabled = false
+                    publishTv!!.isEnabled = false
                     publishTv.setBackgroundResource(R.drawable.corners_review_send)
                 }
             }
         })
         BaseTools.showSoftKeyboard(commentEt, this)
         publishTv!!.setOnClickListener {
+            Log.d("cxx","cxcx")
             mReplyComments.clear()
             if (isReply) {
                 mReplyComments["comment_id"] = list[pos].id
