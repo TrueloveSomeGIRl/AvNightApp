@@ -2,6 +2,8 @@ package com.cxw.avnight
 
 
 import android.app.Activity
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
 import com.cxw.avnight.mode.Exception.ApiException
@@ -17,17 +19,17 @@ suspend fun executeResponse(
     coroutineScope {
         if (response.errCode != 200)   // 这里强制一点  不是200 视为错误  所提这里后台一定要商量好 什么时候返回200  不然会GG
             throw ApiException(response.errCode, response.errMsg)
-   //     errorBlock()
+        //     errorBlock()
         else
-        successBlock()
+            successBlock()
     }
 }
 
 
 fun main() {
-    for (i in 7 downTo  7) {
-        print(i) // 1234
-    }
+
 }
+
+
 
 

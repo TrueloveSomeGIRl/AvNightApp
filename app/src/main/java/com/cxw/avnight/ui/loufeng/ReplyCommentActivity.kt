@@ -48,7 +48,7 @@ class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>(),
     private val userHeadUrl by lazy { intent.extras!!.getString("user_head_iv_url") }
 
     companion object {
-        var fromId: Int? = null
+        var fromId =0
     }
 
     override fun onLoadMoreRequested() {

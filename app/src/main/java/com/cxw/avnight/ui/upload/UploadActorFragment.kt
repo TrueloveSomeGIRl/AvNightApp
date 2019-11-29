@@ -36,8 +36,8 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
         submit_tv.setOnClickListener {
             initEt()
             mViewModel.getUpload(
-                    BaseTools.filesToMultipartBodyParts(context!!, imgPathList),
-                    toRequestBody(Gson().toJson(mActorInfo))
+                BaseTools.filesToMultipartBodyParts(context!!, imgPathList),
+                toRequestBody(Gson().toJson(mActorInfo))
             )
         }
     }
@@ -94,6 +94,7 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
         mActorInfo["actor_weight"] = weight_et.text.toString().trim()
         mActorInfo["actor_isinvalid"] = 0
         mActorInfo["actor_isverification"] = 0
+        mActorInfo["actor_sort"] = 800
     }
 
     override fun onNetReload(v: View) {
@@ -138,46 +139,46 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
                 return@setOnClickListener
             }
             cameraDialog = AlertDialog.Builder(context!!)
-                    .setContentView(R.layout.dialog_change_layout)
-                    .setOnClickListener(R.id.dialog_choose_one, View.OnClickListener {
-                        Album.camera(this)
-                                .image()
-                                .onResult {
-                                    uploadActorImgAdapter.addData(it)
-                                    imgPathList.add(it)
-                                }
-                                .start()
-                        cameraDialog.dismiss()
-                    })
-                    .setOnClickListener(R.id.dialog_choose_two, View.OnClickListener {
-                        Album.image(this)
-                                .multipleChoice()
-                                .camera(false)
-                                .columnCount(AppConfigs.COLUMN_COUNT)
-                                .selectCount(AppConfigs.SELECT_COUNT)
-                                .onResult { mAlbumFilePath ->
-                                    mAlbumFilePath.forEach {
-                                        uploadActorImgAdapter.addData(it.path)
-                                        imgPathList.add(it.path)
-                                    }
+                .setContentView(R.layout.dialog_change_layout)
+                .setOnClickListener(R.id.dialog_choose_one, View.OnClickListener {
+                    Album.camera(this)
+                        .image()
+                        .onResult {
+                            uploadActorImgAdapter.addData(it)
+                            imgPathList.add(it)
+                        }
+                        .start()
+                    cameraDialog.dismiss()
+                })
+                .setOnClickListener(R.id.dialog_choose_two, View.OnClickListener {
+                    Album.image(this)
+                        .multipleChoice()
+                        .camera(false)
+                        .columnCount(AppConfigs.COLUMN_COUNT)
+                        .selectCount(AppConfigs.SELECT_COUNT)
+                        .onResult { mAlbumFilePath ->
+                            mAlbumFilePath.forEach {
+                                uploadActorImgAdapter.addData(it.path)
+                                imgPathList.add(it.path)
+                            }
 
-                                    if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
-                                    for (pos in uploadActorImgAdapter.itemCount downTo 7) {  //TODO
-                                        uploadActorImgAdapter.remove(pos)
-                                    }
-                                }
-                                .onCancel {
-                                }
-                                .start()
-                        cameraDialog.dismiss()
+                            if (uploadActorImgAdapter.itemCount < AppConfigs.SELECT_COUNT) return@onResult
+                            for (pos in uploadActorImgAdapter.itemCount downTo 7) {  //TODO
+                                uploadActorImgAdapter.remove(pos)
+                            }
+                        }
+                        .onCancel {
+                        }
+                        .start()
+                    cameraDialog.dismiss()
 
-                    })
-                    .setOnClickListener(R.id.dialog_cancel, View.OnClickListener {
-                        cameraDialog.dismiss()
-                    })
-                    .fullWidth()
-                    .formBottom(true)
-                    .show()
+                })
+                .setOnClickListener(R.id.dialog_cancel, View.OnClickListener {
+                    cameraDialog.dismiss()
+                })
+                .fullWidth()
+                .formBottom(true)
+                .show()
         }
     }
 }

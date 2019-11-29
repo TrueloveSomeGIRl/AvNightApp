@@ -2,19 +2,18 @@ package com.cxw.avnight.ui.loufeng
 
 
 import android.annotation.SuppressLint
-import android.app.Dialog
+
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
+
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
+
 import android.view.View
-import android.view.WindowManager
+
 import android.widget.EditText
 import android.widget.TextView
+
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +27,7 @@ import com.cxw.avnight.adapter.CommentsAdapter
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.mode.bean.*
+
 import com.cxw.avnight.util.AppConfigs
 
 import com.cxw.avnight.util.BaseTools
@@ -38,8 +38,7 @@ import com.google.gson.Gson
 import com.jaeger.library.StatusBarUtil
 import com.youth.banner.BannerConfig
 import kotlinx.android.synthetic.main.activity_actor_introduce.*
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.dialog_comments_layout.*
+
 import okhttp3.MediaType
 import okhttp3.RequestBody
 import org.jetbrains.anko.startActivity
@@ -321,7 +320,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
         val commentEt = commentsDialog.getView<EditText>(R.id.dialog_comment_content_et)
         val publishTv = commentsDialog.getView<TextView>(R.id.dialog_comment_publish_tv)
 
-        commentEt!!.addTextChangedListener(object : TextWatcher {
+        commentEt?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
             }
 
@@ -331,17 +330,16 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
 
             override fun afterTextChanged(s: Editable) {
                 if (s.isNotEmpty()) {
-                    publishTv!!.isEnabled = true
-                    publishTv.setBackgroundResource(R.drawable.corners_review_cansend)
+                    publishTv?.isEnabled = true
+                    publishTv?.setBackgroundResource(R.drawable.corners_review_cansend)
                 } else {
-                    publishTv!!.isEnabled = false
-                    publishTv.setBackgroundResource(R.drawable.corners_review_send)
+                    publishTv?.isEnabled = false
+                    publishTv?.setBackgroundResource(R.drawable.corners_review_send)
                 }
             }
         })
-        BaseTools.showSoftKeyboard(commentEt, this)
-        publishTv!!.setOnClickListener {
-            Log.d("cxx","cxcx")
+        commentEt?.let { BaseTools.showSoftKeyboard(it, this) }
+        publishTv?.setOnClickListener {
             mReplyComments.clear()
             if (isReply) {
                 mReplyComments["comment_id"] = list[pos].id
@@ -351,7 +349,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
                 mReplyComments["to_id"] = list[pos].from_id
                 mReplyComments["to_name"] = list[pos].from_name
                 mReplyComments["to_avatar"] = list[pos].from_avatar
-                mReplyComments["content"] = commentEt.text.toString()
+                mReplyComments["content"] = commentEt?.text.toString()
                 mReplyComments["create_time"] =
                     SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                 mViewModel.saveReplyComment(
@@ -367,7 +365,7 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
                     mReplyComments["from_id"] = SPUtil.getInt("userId")
                     mReplyComments["from_name"] = SPUtil.getString("userName")
                     mReplyComments["from_avatar"] = SPUtil.getString("headImg")
-                    mReplyComments["content"] = commentEt.text.toString()
+                    mReplyComments["content"] = commentEt?.text.toString()
                     mReplyComments["create_time"] =
                         SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date())
                     mViewModel.addActorComment(

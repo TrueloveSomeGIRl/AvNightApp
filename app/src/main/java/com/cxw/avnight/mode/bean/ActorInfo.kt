@@ -24,6 +24,7 @@ data class ActorInfo(
     val actor_weight: Int,
     val actor_workaddress: String,
     val actor_wx: String,
-    val id: Int
+    val id: Int,
+    val actor_sort: Int
 ) : Parcelable
 

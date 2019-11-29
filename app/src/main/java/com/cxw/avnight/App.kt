@@ -40,7 +40,6 @@ class App : Application() {
         val mPushAgent = PushAgent.getInstance(this)
 
         mPushAgent.register(object : IUmengRegisterCallback {
-
             override fun onSuccess(deviceToken: String) {
 
 

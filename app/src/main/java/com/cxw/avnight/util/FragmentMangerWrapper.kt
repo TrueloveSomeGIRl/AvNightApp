@@ -32,8 +32,7 @@ class FragmentMangerWrapper {
 
     companion object {
         @Volatile
-        private var mInstance: FragmentMangerWrapper? = null  //volatile 可见性
-
+        var mInstance: FragmentMangerWrapper? = null
         val instance: FragmentMangerWrapper
             @Synchronized get() {
                 if (mInstance == null) {

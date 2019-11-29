@@ -321,17 +321,16 @@ class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnChecked
                 val sureTv = alertDialog.getView<TextView>(R.id.sure_tv)
                 object : CountDownTimer(15000, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
-                        sureTv!!.text = (millisUntilFinished / 1000).toString().plus(getString(R.string.click))
+                        sureTv?.text = (millisUntilFinished / 1000).toString().plus(getString(R.string.click))
                     }
 
                     override fun onFinish() {
-
-                        sureTv!!.setTextColor(Color.parseColor("#000000"))
-                        sureTv.text = getString(R.string.sure)
-                        sureTv.isEnabled = true
+                        sureTv?.setTextColor(Color.parseColor("#000000"))
+                        sureTv?.text = getString(R.string.sure)
+                        sureTv?.isEnabled = true
                     }
                 }.start()
-                sureTv!!.setOnClickListener {
+                sureTv?.setOnClickListener {
                     alertDialog.dismiss()
                 }
 

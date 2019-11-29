@@ -26,10 +26,10 @@ class InstructionPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 //    }
 
     override fun getItem(i: Int): Fragment {
-        return LouFengInFragment.newInstance(i)
+        return LouFengInFragment.newInstance(1)
     }
 
     override fun getCount(): Int {
-        return 2   //这里应该传近来  因为这里Fragment  就固定写死吧
+        return 1   //这里应该传近来  因为这里Fragment  就固定写死吧
     }
 }

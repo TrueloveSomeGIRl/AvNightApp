@@ -25,6 +25,7 @@ class SplashActivity : BaseActivity() {
     override fun initView() {
         val loadAnimation = AnimationUtils.loadAnimation(this, R.anim.launch_bg_scale)
         launch_iv.startAnimation(loadAnimation)
+
         loadAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationRepeat(animation: Animation?) {
 

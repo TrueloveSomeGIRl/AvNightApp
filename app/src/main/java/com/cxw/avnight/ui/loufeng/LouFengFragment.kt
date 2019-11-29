@@ -19,8 +19,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.
 class LouFengFragment : BaseFragment() {
     private val indicatorTitleList by lazy {
         arrayOf(
-            resources.getString(R.string.demining),
-            resources.getString(R.string.attend_class)
+            resources.getString(R.string.demining)
+           // resources.getString(R.string.attend_class)
         )
     }
 
