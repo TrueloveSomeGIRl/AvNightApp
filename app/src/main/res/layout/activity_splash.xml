@@ -8,7 +8,7 @@
 
     <ImageView
             android:scaleType="fitXY"
-            android:background="@mipmap/launch_bg"
+
             android:id="@+id/launch_iv"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

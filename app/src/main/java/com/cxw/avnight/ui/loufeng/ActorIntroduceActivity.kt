@@ -186,12 +186,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
 
         with(actor_potato_tv) {
             visibility = if (actorInfo.actor_potato.isEmpty()) View.GONE else View.VISIBLE
-            actor_potato_tv.text = actorInfo.actor_potato
             setOnClickListener {
                 BaseTools.copyTextContent(this@ActorIntroduceActivity, actorInfo.actor_wx)
                 toast(getString(R.string.copy_success))
             }
-            text = actorInfo.actor_wx.plus(getString(R.string.copy))
+            text = actorInfo.actor_potato.plus(getString(R.string.copy))
         }
 
     }
@@ -286,14 +285,11 @@ class ActorIntroduceActivity : BaseVMActivity<CommentsModel>(), BaseQuickAdapter
                             "id" to list[position].id,  //评论id
                             "from_id" to list[position].from_id  //  别人评论他用的id
                         )
-
-
                     }
                     R.id.comment_iv -> {
                         showCommentDialog(position, true)
                     }
                 }
-
             }
         }
     }

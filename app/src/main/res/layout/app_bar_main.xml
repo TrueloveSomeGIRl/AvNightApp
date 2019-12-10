@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.SplashActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.SplashActivity">
 
     <FrameLayout
-            android:id="@+id/man_top_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentTop="true"
-            android:background="@color/appThemeColor">
+        android:id="@+id/man_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/appThemeColor">
 
         <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/civ"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_gravity="start|center_vertical"
-                android:layout_marginStart="12dp" />
+            android:id="@+id/civ"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="12dp" />
 
         <TextView
-                android:id="@+id/main_top_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/lou_feng"
-                android:textSize="18sp" />
+            android:id="@+id/main_top_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/lou_feng"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/search_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="12dp"
+            android:background="@mipmap/search" />
     </FrameLayout>
 
     <FrameLayout
-            android:id="@+id/man_container_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_above="@id/bottom_bar_rb"
-            android:layout_below="@id/man_top_layout" />
+        android:id="@+id/man_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_bar_rb"
+        android:layout_below="@id/man_top_layout" />
 
     <!--<com.google.android.material.bottomnavigation.BottomNavigationView-->
     <!--android:layout_alignParentBottom="true"-->
@@ -41,43 +49,43 @@
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="50dp"/>-->
     <RadioGroup
-            android:id="@+id/bottom_bar_rb"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+        android:id="@+id/bottom_bar_rb"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+
+        <RadioButton
+            android:id="@+id/lf_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
             android:background="#fff"
-            android:orientation="horizontal">
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/lou_feng_bottom_bar_select"
+            android:gravity="center"
+            android:text="@string/lou_feng"
+            android:textColor="@drawable/gender_text_color_select"
+            android:textSize="12sp" />
 
 
         <RadioButton
-                android:id="@+id/lf_rb"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:button="@null"
-                android:checked="true"
-                android:drawableTop="@drawable/lou_feng_bottom_bar_select"
-                android:gravity="center"
-                android:text="@string/lou_feng"
-                android:textColor="@drawable/gender_text_color_select"
-                android:textSize="12sp" />
-
-
-        <RadioButton
-                android:id="@+id/upload_rb"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:background="#fff"
-                android:button="@null"
-                android:drawableTop="@drawable/upload_bottom_bar_select"
-                android:gravity="center"
-                android:text="@string/upload"
-                android:textColor="@drawable/gender_text_color_select"
-                android:textSize="12sp" />
+            android:id="@+id/upload_rb"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#fff"
+            android:button="@null"
+            android:drawableTop="@drawable/upload_bottom_bar_select"
+            android:gravity="center"
+            android:text="@string/upload"
+            android:textColor="@drawable/gender_text_color_select"
+            android:textSize="12sp" />
 
     </RadioGroup>
 

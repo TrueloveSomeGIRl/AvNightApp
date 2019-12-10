@@ -22,6 +22,7 @@ import java.io.File
 import android.graphics.Bitmap
 import android.os.Build
 import android.os.Environment
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -37,6 +38,10 @@ import com.cxw.avnight.App
 import com.cxw.avnight.R
 import com.google.gson.Gson
 import id.zelory.compressor.Compressor
+import io.reactivex.Flowable
+import io.reactivex.schedulers.Schedulers
+import top.zibin.luban.Luban
+import top.zibin.luban.OnCompressListener
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.Pattern
@@ -94,8 +99,8 @@ object BaseTools {
         val parts = ArrayList<MultipartBody.Part>(files.size)
         for (file in files) {
             val f = Compressor(context)
-                .setMaxWidth(1080)
-                .setMaxHeight(1200)
+                .setMaxWidth(720)
+                .setMaxHeight(1080)
                 .setQuality(80)
                 .setCompressFormat(Bitmap.CompressFormat.JPEG)
                 .setDestinationDirectoryPath(
@@ -104,11 +109,12 @@ object BaseTools {
                     ).absolutePath
                 )
                 .compressToFile(File(file))
-
             val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), f)
             val part = MultipartBody.Part.createFormData("f", f.name, requestBody)
             parts.add(part)
+            Log.d("cxx","f")
         }
+     Log.d("cxx","#f")
         return parts
     }
 
@@ -166,6 +172,7 @@ object BaseTools {
         }
         return versionCode
     }
+
 
     fun installApk(filePath: String) {
         try {

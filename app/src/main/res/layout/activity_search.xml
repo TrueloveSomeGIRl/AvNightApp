@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginStart="5dp"
+            android:background="@mipmap/back" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/search_bg_shape">
+
+            <EditText
+                android:id="@+id/search_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="35dp"
+                android:background="@null"
+                android:hint="@string/search_teacher"
+                android:textSize="12sp" />
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="12dp"
+                android:layout_toStartOf="@+id/search_iv"
+                android:background="#c4c4c4" />
+
+            <ImageView
+                android:id="@+id/search_iv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="12dp"
+                android:background="@mipmap/search" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>

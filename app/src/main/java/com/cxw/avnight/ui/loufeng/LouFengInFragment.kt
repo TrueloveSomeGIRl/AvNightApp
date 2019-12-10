@@ -73,7 +73,6 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
                     (layoutManager as StaggeredGridLayoutManager).invalidateSpanAssignments()//防止第一行到顶部有空白
                 }
             })
-
         }
 
         initAdapter()

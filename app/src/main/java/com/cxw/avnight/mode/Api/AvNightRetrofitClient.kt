@@ -1,6 +1,6 @@
 package com.cxw.avnight.mode.Api
 
-import android.util.Log
+
 import com.cxw.avnight.App
 import com.cxw.avnight.util.NetWorkUtils
 import com.cxw.avnight.util.SPUtil

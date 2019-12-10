@@ -88,8 +88,8 @@
     <string name="sure">确定</string>
     <string name="use_must_see">使用必看</string>
     <string name="info_feedback">信息反馈</string>
-  <string name="use_must_see_content">重要必读如果你没收到邮箱验证码去去垃圾邮箱看 \n重要必读如果你没收到邮箱验证码去去垃圾邮箱看 \n重要必读如果你没收到邮箱验证码去去垃圾邮箱看 \n经过一个多月的制作，醉凤楼（取了一个很傻逼的名字）终于发布了。记忆犹新，出入新手的我，混迹于各个楼凤群，看着骚棒们，发着各种车牌，用着想去又不敢去的心理，试问着，谁去过。排雷者们用以超强的心态到处排雷，到处踩坑。各个楼凤网站，用以昂贵的会员服务，卖着楼凤资源。资源共享是由大家来完成，如果你是一个铁公鸡般的伸手党，那么这款软件对你来说也没有多大意义。最后希望大家一起来共享重庆楼凤资源，上传你手中的资源，维护着这款软件。为了安全起见，没经过我确认的资源都在排雷区。本软件永久免费，没有广告，方便骚棒们在也不用到处询问，不用踩坑，也不用趟雷。如果后期需求大，也可以开放各地，只要你们愿意。
-注:信息来自互联网，不用问是否都排过，不去最安全。既然你都不相信，还用这软件就没多大意思。当然老师也都不是符合大众口味，请不要逼逼赖赖。至少不是雷。如果你是老师以上岸，请联系我删掉你的信息。谢谢。
+    <string name="use_must_see_content">重要必读:如果你没收到邮箱验证码去去垃圾邮箱看 \n重要必读:如果你没收到邮箱验证码去去垃圾邮箱看 \n重要必读:如果你没收到邮箱验证码去去垃圾邮箱看 \n
+注:信息来自互联网，不用问是否都排过，不去最安全。当然老师也都不是符合大众口味，请不要在评论下逼逼赖赖。如果你手中有老师资源请联系作者。大家一起来共享楼凤资源。如果你是老师以上岸，请联系我删掉你的信息。谢谢。
 </string>
     <string name="potato_tv">Potato</string>
     <string name="contact_information_not_blank">QQ,微信,电话,Potato至少填一个哦!</string>
@@ -97,4 +97,7 @@
     <string name="class_content_not_blank">上课内容不能为空</string>
     <string name="phone_number_wrong_format">请输入正确得手机号</string>
     <string name="click">后可点击</string>
+    <string name="press_again_to_exit_the_program">再按一次退出</string>
+    <string name="add_qq_group">加入QQ群</string>
+    <string name="search_teacher">输入你想要查找得老师</string>
 </resources>

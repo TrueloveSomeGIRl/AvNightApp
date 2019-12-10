@@ -18,8 +18,8 @@ android {
         applicationId "com.cxw.avnight"
         minSdkVersion ver.minSdkVersion
         targetSdkVersion ver.targetSdkVersion
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 6
+        versionName "1.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         androidExtensions {
             experimental = true
@@ -105,13 +105,10 @@ dependencies {
     implementation "org.jetbrains.anko:anko-commons:0.10.8"
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'com.yanzhenjie:permission:2.0.3'
-
     implementation 'com.baidu.mobstat:mtj-sdk-circle:3.9.7.1'
-
     implementation 'com.umeng.umsdk:common:2.1.0'
-
     implementation 'com.umeng.umsdk:utdid:1.1.5.3'
-
     implementation 'com.umeng.umsdk:push:6.0.1'
+    implementation 'top.zibin:Luban:1.1.8'
 
 }
