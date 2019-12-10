@@ -2,6 +2,7 @@ package com.cxw.avnight.ui.loufeng
 
 import android.content.Context
 import android.graphics.Color
+import android.view.View
 import com.cxw.avnight.R
 import com.cxw.avnight.adapter.InstructionPagerAdapter
 import com.cxw.avnight.base.BaseFragment
@@ -17,6 +18,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.badge.BadgePagerTitleView
 
 class LouFengFragment : BaseFragment() {
+    override fun onNetReload(v: View) {
+
+    }
+
+
     private val indicatorTitleList by lazy {
         arrayOf(
             //resources.getString(R.string.demining)
@@ -26,6 +32,7 @@ class LouFengFragment : BaseFragment() {
 
     override fun getLayoutResId(): Int = R.layout.loufeng_fragment
     override fun initView() {
+        mBaseLoadService.showSuccess()
         initMagicIndicator()
         vp.adapter = InstructionPagerAdapter(childFragmentManager)
     }

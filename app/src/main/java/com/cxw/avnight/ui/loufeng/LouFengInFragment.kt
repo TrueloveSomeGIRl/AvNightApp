@@ -21,15 +21,20 @@ import com.cxw.avnight.util.AppConfigs
 import com.cxw.avnight.weight.CustomLoadMoreView
 
 import kotlinx.android.synthetic.main.loufeng_in_fragment.*
+import org.jetbrains.anko.startActivity
 
 /**
  *   这里还没有完善 先写到这里  有些逻辑 没理清  以后在该
  */
 class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
+    override fun initData() {
+
+    }
+
     override fun fetchData() {
-        // id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
-        mViewModel.getActorInfo(id!!, startPage, pageSize)
+        id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
+        // mViewModel.getActorInfo(id!!, startPage, pageSize)
     }
 
     private var isRefresh: Boolean = false
@@ -41,20 +46,11 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     private var currentPage: Int = 0
     private var pageTotal: Int = 0
     override fun getLayoutResId(): Int = R.layout.loufeng_in_fragment
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        StatService.enableListTrack(rv)
-    }
 
     override fun initView() {
 
         srl.setDistanceToTriggerSync(200)
         rv.run {
-            if (id == 0)
-                StatService.setListName(this, context.getString(R.string.thunder_teacher_rv))
-            else
-                StatService.setListName(this, context.getString(R.string.teacher_rv))
-
             layoutManager = StaggeredGridLayoutManager(
                 AppConfigs.SPAN_COUNT,
                 StaggeredGridLayoutManager.VERTICAL
@@ -98,6 +94,8 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
 
     }
 
+
+
     override fun onNetReload(v: View) {
         id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
     }
@@ -105,11 +103,8 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
     private fun initAdapter() {
         with(louFengAdapter) {
             setOnItemClickListener { _, _, position ->
-                val intent = Intent(context, ActorIntroduceActivity::class.java)
-                intent.putExtra(ActorIntroduceActivity.KEY, data[position])
-                context?.startActivity(intent)
+                context?.startActivity<ActorIntroduceActivity>(ActorIntroduceActivity.KEY to data[position])
             }
-
         }
     }
 

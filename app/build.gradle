@@ -51,7 +51,7 @@ android {
             signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
+           // signingConfig signingConfigs.config
         }
     }
     android.applicationVariants.all {

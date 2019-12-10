@@ -16,7 +16,7 @@ interface AvNightService {
 
     companion object {
         //   const val BASE_URL = "http://47.100.91.50:1996/avNight/v1/api/"
-         const val BASE_URL = "http://192.168.0.159:6199/avNight/v1/api/"
+         const val BASE_URL = "http://192.168.1.3:6199/avNight/v1/api/"
     }
 
     @GET("findVerificationActor/{type}/{page}/{pageSize}")

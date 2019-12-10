@@ -29,6 +29,7 @@ import org.jetbrains.anko.toast
 
 class LoginActivity : BaseVMActivity<LoginViewModel>(), CompoundButton.OnCheckedChangeListener {
 
+
     override fun providerVMClass(): Class<LoginViewModel> = LoginViewModel::class.java
     override fun getLayoutResId(): Int = R.layout.activity_login
     private val userInfo = HashMap<String, Any>()

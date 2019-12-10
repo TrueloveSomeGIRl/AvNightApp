@@ -4,7 +4,7 @@ package com.cxw.avnight.ui.loufeng
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,7 +20,7 @@ import com.cxw.avnight.adapter.ReplyByIdCommentAdapter
 import com.cxw.avnight.base.BaseVMActivity
 import com.cxw.avnight.dialog.AlertDialog
 import com.cxw.avnight.mode.bean.ChildComment
-import com.cxw.avnight.mode.bean.Comments
+
 import com.cxw.avnight.mode.bean.Result
 import com.cxw.avnight.util.BaseTools
 import com.cxw.avnight.util.SPUtil
@@ -40,6 +40,32 @@ import java.util.*
  */
 class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>(),
     BaseQuickAdapter.RequestLoadMoreListener {
+    override fun initView() {
+        fromId = intent.extras!!.getInt("from_id")
+        StatusBarUtil.setTranslucentForImageView(this, 0, bar)
+        StatusBarUtil.setLightMode(this)
+
+        srl.setOnRefreshListener {
+            isRefresh = true
+            replyByIdCommentAdapter.setEnableLoadMore(false)
+            startPage = 1
+            pageSize = 10
+            mViewModel.getSelectByIdReply(replyCommentPos, startPage, pageSize)
+        }
+
+        initRv()
+        replyByIdCommentAdapter.setOnItemClickListener { _, _, position ->
+            showCommentDialog(false, position)
+        }
+        replyByIdCommentAdapter.setOnItemChildClickListener { _, _, position ->
+            showCommentDialog(false, position)
+        }
+
+        back_iv.setOnClickListener {
+            finish()
+        }
+    }
+
     private var isRefresh: Boolean = false
     private val replyCommentPos by lazy { intent.extras!!.getInt("replyCommentPosition") }
     private val userName by lazy { intent.extras!!.getString("user_name_tv") }
@@ -73,31 +99,7 @@ class ReplyCommentActivity : BaseVMActivity<ReplyCommentsModel>(),
     override fun getLayoutResId(): Int = R.layout.activity_reply_comment
 
     private val replyByIdCommentAdapter by lazy { ReplyByIdCommentAdapter() }
-    override fun initView() {
-        fromId = intent.extras!!.getInt("from_id")
-        StatusBarUtil.setTranslucentForImageView(this, 0, bar)
-        StatusBarUtil.setLightMode(this)
 
-        srl.setOnRefreshListener {
-            isRefresh = true
-            replyByIdCommentAdapter.setEnableLoadMore(false)
-            startPage = 1
-            pageSize = 10
-            mViewModel.getSelectByIdReply(replyCommentPos, startPage, pageSize)
-        }
-
-        initRv()
-        replyByIdCommentAdapter.setOnItemClickListener { _, _, position ->
-            showCommentDialog(false, position)
-        }
-        replyByIdCommentAdapter.setOnItemChildClickListener { _, _, position ->
-            showCommentDialog(false, position)
-        }
-
-        back_iv.setOnClickListener {
-            finish()
-        }
-    }
 
     private fun initRv() {
         reply_comment_rv.layoutManager = LinearLayoutManager(this)

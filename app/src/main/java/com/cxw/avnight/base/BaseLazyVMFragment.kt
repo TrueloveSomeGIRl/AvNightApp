@@ -17,27 +17,17 @@ import com.kingja.loadsir.core.LoadSir
 import org.jetbrains.anko.toast
 
 
-abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fragment() {
+abstract class BaseLazyVMFragment<VM : BaseViewModel> : BaseFragment() {
     private var isViewInitiated: Boolean = false
     private var isVisibleToUser: Boolean = false
     private var isDataInitiated: Boolean = false
     protected lateinit var mViewModel: VM
-    protected lateinit var mBaseLoadService: LoadService<*>
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val inflate = View.inflate(activity, getLayoutResId(), null)
-        mBaseLoadService = LoadSir.getDefault().register(inflate) { v -> onNetReload(v) }
-        return mBaseLoadService.loadLayout
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initVM()
-        initView()
         startObserve()
         isViewInitiated = true
         prepareFetchData()
@@ -67,19 +57,30 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : androidx.fragment.app.Fr
         return false
     }
 
-    protected abstract fun onNetReload(v: View)
+
+
     open fun startObserve() {
-        mViewModel.mException.observe(viewLifecycleOwner, Observer {
-            mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
-            context!!.toast(it.message.toString())
-        })
+        mViewModel.let {
+            it.mException.observe(viewLifecycleOwner, Observer {
+                //其实这里更具状态来判断那种错误
+             //   onError(it)
+                mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
+                context!!.toast(it.message.toString())
+            })
+            it.mLoading.observe(viewLifecycleOwner, Observer {
+                requestLoading(it)
+            })
+            it.mRequestSuccess.observe(viewLifecycleOwner, Observer {
+                requestSuccess(it)
+            })
+        }
+
     }
 
- //   open fun onError(e: Throwable) {}
+    open fun onError(e: Throwable) {}
+    open fun requestSuccess(requestSuccess: Boolean) {}
 
-    abstract fun getLayoutResId(): Int
-
-    abstract fun initView()
+    open fun requestLoading(isLoading: Boolean) {}
 
     private fun initVM() {
         providerVMClass()?.let {

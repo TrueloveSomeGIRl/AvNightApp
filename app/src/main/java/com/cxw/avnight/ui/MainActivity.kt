@@ -39,6 +39,7 @@ import java.io.File
 
 
 class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChangeListener {
+
     private val appPath = Environment.getExternalStorageDirectory().toString() + File.separator
     private var firstTime: Long = 0
     override fun providerVMClass(): Class<MainViewModel> = MainViewModel::class.java
@@ -47,6 +48,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
     private lateinit var progressBar: ProgressBar
     override fun getLayoutResId(): Int = R.layout.activity_main
     private var currentFragment = 0
+    private var forceUpdate = 0   //是否强制更新
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     override fun initView() {
         StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
@@ -72,12 +74,12 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
         currentFragment = savedInstanceState.getInt("position")
         when (currentFragment) {
             0 -> setTitleAndFragment(
-                    resources.getString(R.string.lou_feng),
-                    LouFengFragment::class.java
+                resources.getString(R.string.lou_feng),
+                LouFengFragment::class.java
             )
             1 -> setTitleAndFragment(
-                    resources.getString(R.string.upload),
-                    UploadActorFragment::class.java
+                resources.getString(R.string.upload),
+                UploadActorFragment::class.java
             )
         }
     }
@@ -96,7 +98,7 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
             }
         }
         nav_view.getHeaderView(0).nav_header_name_tv.text =
-                SPUtil.getString("userName", getString(R.string.app_name))
+            SPUtil.getString("userName", getString(R.string.app_name))
         nav_view.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_lw_vpn -> browse("https://www.lanzous.com/i7hibud")
@@ -105,23 +107,23 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
                 R.id.nav_reward -> startActivity<RewardActivity>()
                 R.id.nav_info_feedback -> {
                     if (BaseTools.isApplicationAvilible(
-                                    this@MainActivity,
-                                    "com.tencent.mobileqq"
-                            )
+                            this@MainActivity,
+                            "com.tencent.mobileqq"
+                        )
                     )
                         startActivity(
-                                Intent(
-                                        Intent.ACTION_VIEW,
-                                        Uri.parse(QQURL + AppConfigs.AUTHOR_QQ)
-                                )
+                            Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse(QQURL + AppConfigs.AUTHOR_QQ)
+                            )
                         ) else
 
                         toast(getString(R.string.install_qq))
                 }
                 R.id.nav_add_qq_group -> browse(
-                        "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D".plus(
-                                "WJcGnG4D1HSsOdux9bOTQHeq-5Sf7HZ9"
-                        )
+                    "mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D".plus(
+                        "WJcGnG4D1HSsOdux9bOTQHeq-5Sf7HZ9"
+                    )
                 )
             }
 
@@ -134,15 +136,15 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
             R.id.lf_rb -> {
                 currentFragment = 0
                 setTitleAndFragment(
-                        resources.getString(R.string.lou_feng),
-                        LouFengFragment::class.java
+                    resources.getString(R.string.lou_feng),
+                    LouFengFragment::class.java
                 )
             }
             R.id.upload_rb -> {
                 currentFragment = 1
                 setTitleAndFragment(
-                        resources.getString(R.string.upload),
-                        UploadActorFragment::class.java
+                    resources.getString(R.string.upload),
+                    UploadActorFragment::class.java
                 )
             }
         }
@@ -155,9 +157,9 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
 
     private fun initFragment() {
         mCurrentFragment =
-                FragmentMangerWrapper.instance.createFragment(LouFengFragment::class.java)
+            FragmentMangerWrapper.instance.createFragment(LouFengFragment::class.java)
         supportFragmentManager.beginTransaction().add(R.id.man_container_layout, mCurrentFragment)
-                .commit()
+            .commit()
     }
 
 
@@ -165,11 +167,11 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
         val fragment = FragmentMangerWrapper.instance.createFragment(clazz)
         if (fragment.isAdded) {
             supportFragmentManager.beginTransaction().hide(mCurrentFragment).show(fragment)
-                    .commitAllowingStateLoss()
+                .commitAllowingStateLoss()
         } else {
             supportFragmentManager.beginTransaction().hide(mCurrentFragment)
-                    .add(R.id.man_container_layout, fragment)
-                    .commitAllowingStateLoss()
+                .add(R.id.man_container_layout, fragment)
+                .commitAllowingStateLoss()
         }
         mCurrentFragment = fragment
     }
@@ -178,40 +180,41 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
         super.startObserve()
         mViewModel.mUpdateApp.observe(this, Observer { UpdateAppData ->
             if (BaseTools.getVersionCode(this) < UpdateAppData.newVersion) {
+                forceUpdate = UpdateAppData.forceUpdate
                 updateAppDialog = AlertDialog.Builder(this@MainActivity)
-                        .setContentView(R.layout.updata_app_dialog_layout)
-                        .setOnClickListener(R.id.canael_tv, View.OnClickListener {
-                            updateAppDialog.cancel()
-                        })
-                        .setOnClickListener(R.id.update_tv, View.OnClickListener {
-                            it.isEnabled = false
-                            OkDownload.instance.download(
-                                    UpdateAppData.apkUrl,
-                                    object : OkDownload.OnDownloadListener {
-                                        override fun onDownloadSuccess() {
-                                            runOnUiThread {
-                                                progressBar.visibility = View.GONE
-                                            }
-                                            BaseTools.installApk(appPath.plus("zml.apk"))
-                                            updateAppDialog.dismiss()
-                                        }
+                    .setContentView(R.layout.updata_app_dialog_layout)
+                    .setOnClickListener(R.id.canael_tv, View.OnClickListener {
+                        updateAppDialog.cancel()
+                    })
+                    .setOnClickListener(R.id.update_tv, View.OnClickListener {
+                        it.isEnabled = false
+                        OkDownload.instance.download(
+                            UpdateAppData.apkUrl,
+                            object : OkDownload.OnDownloadListener {
+                                override fun onDownloadSuccess() {
+                                    runOnUiThread {
+                                        progressBar.visibility = View.GONE
+                                    }
+                                    BaseTools.installApk(appPath.plus("zml.apk"))
+                                    updateAppDialog.dismiss()
+                                }
 
-                                        override fun onDownloading(progress: Int) {
-                                            runOnUiThread {
-                                                progressBar.visibility = View.VISIBLE
-                                                progressBar.progress = progress
-                                            }
-                                        }
+                                override fun onDownloading(progress: Int) {
+                                    runOnUiThread {
+                                        progressBar.visibility = View.VISIBLE
+                                        progressBar.progress = progress
+                                    }
+                                }
 
-                                        override fun onDownloadFailed() {
-                                            toast(getString(R.string.download_failed))
-                                            it.isEnabled = true
-                                        }
-                                    })
-                        })
-                        .fullWidth()
-                        .setCancelable(false)
-                        .show()
+                                override fun onDownloadFailed() {
+                                    toast(getString(R.string.download_failed))
+                                    it.isEnabled = true
+                                }
+                            })
+                    })
+                    .fullWidth()
+                    .setCancelable(forceUpdate == 1)   //强制更新
+                    .show()
                 progressBar = updateAppDialog.getView(R.id.update_progress_pb)!!
                 val updateContent = updateAppDialog.getView<TextView>(R.id.update_content_tv)
                 updateContent?.text = UpdateAppData.updateDescription.replace("\\n", "\n")
