@@ -4,6 +4,7 @@ package com.cxw.avnight.ui
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -52,15 +53,14 @@ class MainActivity : BaseVMActivity<MainViewModel>(), RadioGroup.OnCheckedChange
     private val QQURL: String = "mqqwpa://im/chat?chat_type=wpa&uin="
     override fun initView() {
         StatService.setUserId(this, SPUtil.getInt("userId", 1).toString())
-        StatusBarUtil.setTranslucentForImageView(this, 0, man_top_layout)
         StatusBarUtil.setLightMode(this)
+        StatusBarUtil.setColorForDrawerLayout(this@MainActivity, drawer_layout, resources.getColor(R.color.colorPrimaryDark), 0)
         initFragment()
         checkUpdateApp()
         bottom_bar_rb.setOnCheckedChangeListener(this)
         search_iv.setOnClickListener {
             startActivity<SearchActivity>()
         }
-
     }
 
 

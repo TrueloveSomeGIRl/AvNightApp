@@ -44,15 +44,17 @@
         <activity
             android:name=".ui.loufeng.ActorIntroduceActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".ui.MainActivity" />
-        <activity
-            android:name=".ui.SplashActivity"
-            android:theme="@style/ActivityFullscreenTheme">
+        <activity android:name=".ui.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.SplashActivity"
+            android:theme="@style/ActivityFullscreenTheme">
+
         </activity>
 
         <meta-data
@@ -60,13 +62,13 @@
             android:value="44ae31ff38" />
         <meta-data
             android:name="BaiduMobAd_EXCEPTION_LOG"
-            android:value="true" /> <!-- 是否获取基站位置信息 ,默认为true -->
+            android:value="true" />
         <meta-data
             android:name="BaiduMobAd_CELL_LOCATION"
-            android:value="true" /> <!-- 是否获取GPS位置信息，默认为true -->
+            android:value="true" />
         <meta-data
             android:name="BaiduMobAd_GPS_LOCATION"
-            android:value="true" /> <!-- 是否获取WIFI位置信息，默认为true -->
+            android:value="true" />
         <meta-data
             android:name="BaiduMobAd_WIFI_LOCATION"
             android:value="true" />

@@ -108,9 +108,7 @@ class UploadActorFragment : BaseVMFragment<UploadViewModel>() {
     }
 
     override fun onNetReload(v: View) {
-        mViewModel.uploadActorInfo.observe(this, Observer {
 
-        })
     }
 
 

@@ -33,9 +33,7 @@ abstract class BaseVMActivity<VM : BaseViewModel> : BaseActivity(), LifecycleObs
     open fun startObserve() {
         mViewModel.let {
             it.mException.observe(this, Observer {
-                //其实这里更具状态来判断那种错误
-                toast(it.message.toString())
-//               onError(it)
+                onError(it)
             })
             it.mLoading.observe(this, Observer {
                 requestLoading(it)

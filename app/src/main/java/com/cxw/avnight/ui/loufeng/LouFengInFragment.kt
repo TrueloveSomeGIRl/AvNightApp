@@ -17,6 +17,7 @@ import com.cxw.avnight.R
 import com.cxw.avnight.adapter.LouFengAdapter
 import com.cxw.avnight.base.BaseLazyVMFragment
 import com.cxw.avnight.state.EmptyCallback
+import com.cxw.avnight.state.LoadingCallback
 import com.cxw.avnight.util.AppConfigs
 import com.cxw.avnight.weight.CustomLoadMoreView
 
@@ -97,6 +98,7 @@ class LouFengInFragment : BaseLazyVMFragment<LouFengInViewModel>(),
 
 
     override fun onNetReload(v: View) {
+        mBaseLoadService.showCallback(LoadingCallback::class.java)
         id?.let { mViewModel.getActorInfo(it, startPage, pageSize) }
     }
 

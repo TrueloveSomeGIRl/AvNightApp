@@ -64,7 +64,7 @@ abstract class BaseLazyVMFragment<VM : BaseViewModel> : BaseFragment() {
             it.mException.observe(viewLifecycleOwner, Observer {
                 //其实这里更具状态来判断那种错误
              //   onError(it)
-                mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回404错误
+                mBaseLoadService.showCallback(ErrorCallback::class.java)   //这里先这么解决 因为没有UI 没有好的错误处理方式 全返回错误
                 context!!.toast(it.message.toString())
             })
             it.mLoading.observe(viewLifecycleOwner, Observer {
